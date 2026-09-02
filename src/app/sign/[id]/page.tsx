@@ -66,93 +66,147 @@ export default function SignContractPage({ params }: { params: { id: string } })
     pdf.save(`Contrato_${contract.clientName.replace(" ", "_")}.pdf`);
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-black">Cargando documento...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-red-500">{error}</div>;
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-gray-400 font-medium">Preparando documento legal...</p>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white">
+      <div className="glass-panel p-8 rounded-2xl text-center max-w-md">
+        <div className="text-red-400 text-4xl mb-4">⚠️</div>
+        <h2 className="text-xl font-bold mb-2">Error de Acceso</h2>
+        <p className="text-gray-400">{error}</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gray-100 text-slate-800 font-sans py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-[#050505] text-white font-sans py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Glow Effects */}
+      <div className="absolute top-0 left-[20%] w-[600px] h-[600px] bg-indigo-600/20 rounded-full mix-blend-screen filter blur-[100px] opacity-50 pointer-events-none"></div>
+      
+      <div className="relative z-10 max-w-4xl mx-auto">
         
-        {/* Header de la marca */}
-        <div className="flex flex-col items-center justify-center mb-8">
-          <img src="/img/LOGO1.png" alt="Miam Logo" className="h-12 object-contain mb-4 bg-slate-900 p-2 rounded" />
-          <h1 className="text-2xl font-bold text-gray-900">MiamSign - Portal de Firmas</h1>
-          <p className="text-gray-500 text-sm">Contrato de Prestación de Servicios</p>
+        {/* Header Corporativo */}
+        <div className="flex flex-col items-center justify-center mb-10 text-center">
+          <img src="/img/LOGO1.png" alt="Miam Logo" className="h-14 object-contain mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Portal de Firmas Digitales</h1>
+          <p className="text-indigo-300 font-medium tracking-wide">DOCUMENTO LEGAL VINCULANTE</p>
         </div>
 
-        {/* Visor del Contrato */}
-        <div className="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200" ref={contractRef}>
-          <div className="p-8 prose prose-slate max-w-none">
-            <ReactMarkdown>{contract.content}</ReactMarkdown>
+        {/* Visor del Contrato (El "Papel") */}
+        <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border border-gray-300 relative" ref={contractRef}>
+          {/* Marca de agua sutil */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+            <img src="/img/LOGO1.png" alt="Watermark" className="w-96 grayscale" />
+          </div>
+          
+          <div className="p-10 md:p-16 relative z-10">
+            {/* Texto del contrato en formato legal */}
+            <div className="legal-doc">
+              <ReactMarkdown>{contract.content}</ReactMarkdown>
+            </div>
             
-            {/* Detalles del firmante */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Firmado por:</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div><strong>Cliente:</strong> {contract.clientName}</div>
-                <div><strong>Email:</strong> {contract.clientEmail}</div>
-                <div><strong>Fecha:</strong> {contract.signedAt ? new Date(contract.signedAt).toLocaleDateString() : new Date().toLocaleDateString()}</div>
-                <div><strong>IP de Firma:</strong> {contract.clientIp || "Pendiente"}</div>
+            {/* Detalles del firmante y sellos */}
+            <div className="mt-16 pt-8 border-t-2 border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">Firmantes</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-800">
+                <div className="bg-gray-50 p-6 rounded border border-gray-200">
+                  <p className="text-xs text-gray-500 uppercase font-bold mb-1">El Cliente</p>
+                  <p className="font-bold text-lg">{contract.clientName}</p>
+                  <p className="text-gray-600">{contract.clientEmail}</p>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p><strong>Fecha:</strong> {contract.signedAt ? new Date(contract.signedAt).toLocaleDateString() : new Date().toLocaleDateString()}</p>
+                    <p><strong>IP:</strong> {contract.clientIp || "Por registrar..."}</p>
+                  </div>
+                </div>
+                
+                <div className="bg-gray-50 p-6 rounded border border-gray-200">
+                  <p className="text-xs text-gray-500 uppercase font-bold mb-1">La Agencia</p>
+                  <p className="font-bold text-lg">Miam Digital Studio S.A.C.</p>
+                  <p className="text-gray-600">Representante Legal</p>
+                  <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-center">
+                    {/* Placeholder para firma de Miam */}
+                    <div className="text-gray-400 font-serif italic border-b border-gray-300 pb-1">Miam Digital Studio</div>
+                  </div>
+                </div>
               </div>
 
               {/* Mostrar firma si ya está firmado */}
               {contract.status === "SIGNED" && contract.signatureData && (
-                <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200 inline-block">
-                  <p className="text-xs text-gray-500 mb-2 font-semibold">FIRMA ELECTRÓNICA REGISTRADA</p>
-                  <img src={contract.signatureData} alt="Firma del cliente" className="h-24" />
+                <div className="mt-8 p-6 bg-white rounded border-2 border-green-100 flex flex-col items-center">
+                  <p className="text-xs text-green-600 mb-2 font-bold tracking-widest">FIRMA ELECTRÓNICA CERTIFICADA</p>
+                  <img src={contract.signatureData} alt="Firma del cliente" className="h-32 object-contain" />
+                  <p className="text-xs text-gray-400 mt-2">Documento validado criptográficamente por MiamSign.</p>
                 </div>
               )}
             </div>
           </div>
         </div>
 
-        {/* Caja de Firma (Solo si no está firmado) */}
+        {/* Caja de Firma Interactiva (Solo si no está firmado) */}
         {contract.status !== "SIGNED" && (
-          <div className="mt-8 bg-white p-6 shadow-lg rounded-lg border-2 border-indigo-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Firme aquí</h2>
-            <p className="text-sm text-gray-500 mb-4">Utilice su ratón o dedo para dibujar su firma en el recuadro blanco.</p>
+          <div className="mt-8 glass-panel p-8 shadow-2xl rounded-2xl border border-white/10">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-1">Firme su documento</h2>
+                <p className="text-sm text-gray-400">Utilice el ratón o su dedo para dibujar su firma en el recuadro blanco.</p>
+              </div>
+              <button 
+                onClick={clearSignature}
+                className="mt-4 md:mt-0 text-sm text-gray-400 hover:text-white font-medium bg-white/5 hover:bg-white/10 px-4 py-2 rounded-lg transition-colors"
+              >
+                ↻ Limpiar lienzo
+              </button>
+            </div>
             
-            <div className="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+            <div className="bg-white rounded-xl overflow-hidden shadow-inner cursor-crosshair">
               <SignatureCanvas
                 ref={sigCanvas}
-                penColor="black"
-                canvasProps={{ className: "w-full h-48 rounded-lg", style: { cursor: 'crosshair' } }}
+                penColor="#0f172a" /* slate-900 */
+                canvasProps={{ className: "w-full h-56" }}
               />
             </div>
             
-            <div className="mt-4 flex justify-between items-center">
-              <button 
-                onClick={clearSignature}
-                className="text-sm text-gray-500 hover:text-red-500 font-medium"
-              >
-                Limpiar firma
-              </button>
-              
+            <div className="mt-8">
               <button 
                 onClick={handleSign}
                 disabled={saving}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-indigo-500/25 transition-all disabled:opacity-50 text-lg flex justify-center items-center gap-2"
               >
-                {saving ? "Procesando..." : "Aceptar y Firmar Contrato"}
+                {saving ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Procesando firma segura...
+                  </>
+                ) : "Aceptar Términos y Firmar Contrato"}
               </button>
+              <p className="text-xs text-gray-500 mt-4 text-center">
+                Al hacer clic en "Aceptar Términos y Firmar Contrato", usted consiente legalmente de acuerdo a la Ley de Firmas y Certificados Digitales y vincula su identidad a este documento.
+              </p>
             </div>
-            <p className="text-xs text-gray-400 mt-4 text-center">Al hacer clic en "Aceptar y Firmar Contrato", usted consiente legalmente y vincula su firma electrónica a este documento.</p>
           </div>
         )}
 
-        {/* Botón de Descarga (Si ya está firmado) */}
+        {/* Panel de Éxito y Descarga */}
         {contract.status === "SIGNED" && (
-          <div className="mt-8 text-center">
-            <div className="inline-block bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-6">
-              <p className="font-bold">¡El contrato ha sido firmado exitosamente!</p>
-              <p className="text-sm">Una copia certificada ha sido enviada a LA AGENCIA.</p>
+          <div className="mt-8 glass-panel p-8 text-center rounded-2xl border border-green-500/20">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/20 text-green-400 rounded-full mb-4 border border-green-500/30 shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+              <span className="text-3xl">✓</span>
             </div>
-            <br />
+            <h3 className="text-2xl font-bold text-white mb-2">¡Contrato firmado con éxito!</h3>
+            <p className="text-gray-400 mb-8">El documento ha sido sellado. Una copia certificada ha sido enviada a Miam Digital Studio.</p>
+            
             <button 
               onClick={downloadPDF}
-              className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 rounded-lg shadow transition-all"
+              className="bg-white text-gray-900 hover:bg-gray-100 font-bold py-3 px-8 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mx-auto"
             >
-              Descargar PDF
+              <span>📥</span> Descargar PDF Certificado
             </button>
           </div>
         )}
