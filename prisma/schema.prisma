@@ -1,0 +1,601 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String
+  plan      String   @default("basico") // "basico", "pro", "premium"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  users      User[]
+  customers  Customer[]
+  aiSettings AiSettings?
+  appointments Appointment[]
+  businessProfile BusinessProfile?
+
+  // Configuración de IAs e integraciones
+  systemPrompt String? // Prompt base para la empresa
+
+  // Configuración de Notificaciones
+  notifyOnTransfer Boolean @default(true)
+  notifyOnPayment  Boolean @default(true)
+  notifyChannel    String  @default("IN_APP") // IN_APP, EMAIL, WHATSAPP, ALL
+  notifyEmail      String?
+  notifyPhone      String?
+  notifications    AppNotification[]
+  contracts        Contract[]
+
+  // Suscripciones y Pagos (MercadoPago)
+  mercadopagoPreapprovalId String?
+  subscriptionStatus       String   @default("ACTIVE") // ACTIVE, PENDING, CANCELLED
+  planExpiresAt            DateTime?
+  isTrialing               Boolean  @default(true)
+  trialExpiresAt           DateTime?
+
+  // Constructor de Flujos Visuales (React Flow)
+  automationNodes String? // Guardado como JSON String o Json en Postgres
+  automationEdges String? // Guardado como JSON String o Json en Postgres
+
+  // Credenciales WhatsApp Oficial (Meta Cloud API)
+  whatsappToken         String?
+  whatsappPhoneNumberId String?
+  whatsappVerifyToken   String?
+
+  // Credenciales Facebook Messenger
+  messengerPageId    String?
+  messengerPageToken String?
+
+  // Credenciales Instagram Direct
+  instagramAccountId String?
+
+  // Credenciales TikTok
+  tiktokAccessToken String?
+  tiktokAppId       String?
+
+  // Credenciales de Correo (SMTP/IMAP)
+  emailSmtp String?
+  emailUser String?
+  emailPass String?
+
+  // Credenciales Integraciones E-Commerce
+  shopifyDomain             String?
+  shopifyAccessToken        String?
+  wooCommerceUrl            String?
+  wooCommerceConsumerKey    String?
+  wooCommerceConsumerSecret String?
+
+  // Credenciales Pasarela de Pagos (Stripe)
+  stripePublishableKey String?
+  stripeSecretKey      String?
+
+  // Otras Pasarelas de Pago
+  mercadoPagoAccessToken String?
+  paypalClientId         String?
+  paypalSecret           String?
+  culqiPublicKey         String?
+  culqiSecretKey         String?
+  niubizMerchantId       String?
+  niubizCredentials      String?
+  izipayPublicKey        String?
+  izipayPrivateKey       String?
+  
+  defaultPaymentGateway  String  @default("stripe") // stripe, mercadopago, paypal, culqi, niubiz, izipay
+
+  // NEW RELATIONS - CRM
+  pipelines        Pipeline[]
+  tags             Tag[]
+  products         Product[]
+  messageTemplates MessageTemplate[]
+  campaigns        Campaign[]
+  knowledgeDocs    KnowledgeDocument[]
+  dripSequences    DripSequence[]
+  orders           Order[]
+  customerTickets  CustomerTicket[]
+}
+
+model User {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  password         String
+  name             String
+  role             String    @default("admin") // "admin", "agent"
+  twoFactorToken   String?
+  twoFactorExpires DateTime?
+  resetToken       String?
+  resetTokenExpires DateTime?
+  phone            String?
+  phoneVerified    Boolean   @default(false)
+  avatarUrl        String?
+  fcmTokens        String[]  @default([])
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  // NEW RELATIONS - CRM
+  assignedCustomers Customer[] @relation("CustomerAssignedTo")
+  messagesSent      Message[]  @relation("MessageSentBy")
+  notes             Note[]
+  tasks             Task[]
+  supportTickets    SupportTicket[]
+  supportMessages   SupportMessage[]
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String   @unique
+  platform  String // "whatsapp", "messenger", "instagram", "tiktok"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  // NEW FIELDS - CRM Lead Enrichment
+  email       String?
+  companyName String?
+  jobTitle    String?
+  status      String  @default("LEAD") // LEAD, PROSPECT, CLIENT
+  source      String?
+  sentiment   String?
+  temperature String?
+  optedOut    Boolean @default(false)
+  isBlocked   Boolean @default(false) // Permite bloquear spammers o bots
+  avatarUrl   String?
+  
+  // Seguimiento y Cierre (Cron Jobs)
+  followUpState  String   @default("NONE") // NONE, REMINDED, CLOSED
+  lastActivityAt DateTime @default(now())
+  
+  // NEW RELATIONS - CRM
+  assignedToId String?
+  assignedTo   User?   @relation("CustomerAssignedTo", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  tags  Tag[]  @relation("CustomerTags")
+  notes Note[]
+  tasks Task[]
+  deals Deal[]
+  dripEnrollments CustomerDrip[]
+  orders Order[]
+  customerTickets CustomerTicket[]
+
+  // NEW RELATION - Flow Engine State
+  flowState CustomerFlowState?
+}
+
+// 0. Flow Engine State Machine
+model CustomerFlowState {
+  id            String   @id @default(uuid())
+  currentNodeId String
+  variables     String   @default("{}") // JSON string for captured data
+  status        String   @default("ACTIVE") // ACTIVE, WAITING_INPUT, WAITING_DELAY, COMPLETED
+  wakeUpAt      DateTime?
+  
+  customerId    String   @unique
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  updatedAt     DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  text      String
+  type      String   @default("text") // "text", "audio", "sticker", "image", "document"
+  mediaUrl  String?  // Link to the media file if applicable
+  sender    String // "user", "bot", "agent"
+  createdAt DateTime @default(now())
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  // NEW FIELDS - CRM Analytics
+  userId String?
+  user   User?   @relation("MessageSentBy", fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model AiSettings {
+  id              String   @id @default(uuid())
+  botName         String?  @default("Sora")
+  systemPrompt    String
+  tone            String?  @default("Amigable y Profesional (Recomendado)")
+  industryProfile String?  @default("General")
+  updatedAt       DateTime @default(now()) @updatedAt
+
+  companyId String  @unique
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model AiModel {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  provider  String   @default("openrouter")
+  isActive  Boolean  @default(true)
+  isOnline  Boolean  @default(true)
+  lastCheck DateTime @default(now())
+  priority  Int      @default(0) // menor = se prueba primero
+}
+
+// ================= NEW CRM MODELS =================
+
+// 1. Pipelines / Deals
+model Pipeline {
+  id        String  @id @default(uuid())
+  name      String
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  stages    Stage[]
+}
+
+model Stage {
+  id         String   @id @default(uuid())
+  name       String
+  order      Int
+  pipelineId String
+  pipeline   Pipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals      Deal[]
+}
+
+model Deal {
+  id       String @id @default(uuid())
+  title    String
+  value    Float?
+  currency String @default("USD")
+  status   String @default("OPEN") // OPEN, WON, LOST
+
+  stageId String
+  stage   Stage  @relation(fields: [stageId], references: [id], onDelete: Cascade)
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quotes Quote[]
+}
+
+// 2. Lead Enrichment & Tags (Tag model)
+model Tag {
+  id        String     @id @default(uuid())
+  name      String
+  color     String?
+  companyId String
+  company   Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  customers Customer[] @relation("CustomerTags")
+}
+
+// 3. Activities, Tasks, and Notes
+model Note {
+  id      String @id @default(uuid())
+  content String
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  userId String? // Author
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id        String    @id @default(uuid())
+  title     String
+  dueDate   DateTime?
+  completed Boolean   @default(false)
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  userId String? // Assigned agent
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 4. Products, Services, and Quotes
+model Product {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  currency    String  @default("USD")
+  isPromotion Boolean @default(false)
+  isPlan      Boolean @default(false)
+  isPackage   Boolean @default(false)
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quoteItems QuoteItem[]
+  orders     Order[]
+}
+
+model Quote {
+  id     String @id @default(uuid())
+  total  Float
+  status String @default("DRAFT") // DRAFT, SENT, ACCEPTED, REJECTED
+
+  dealId String
+  deal   Deal   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items QuoteItem[]
+}
+
+model QuoteItem {
+  id       String @id @default(uuid())
+  quantity Int    @default(1)
+  price    Float // Snapshotted price at time of quote
+
+  quoteId String
+  quote   Quote  @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+
+// 5. Message Templates
+model MessageTemplate {
+  id       String @id @default(uuid())
+  name     String
+  content  String
+  language String @default("es")
+  category String // MARKETING, UTILITY, AUTHENTICATION
+  status   String @default("PENDING") // PENDING, APPROVED, REJECTED (Meta status)
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+// 6. Mass Campaigns (Reengage)
+model Campaign {
+  id          String   @id @default(uuid())
+  name        String
+  audience    String
+  message     String
+  status      String   @default("DRAFT") // DRAFT, SCHEDULED, COMPLETED
+  sent        Int      @default(0)
+  read        Int      @default(0)
+  clicked     Int      @default(0)
+  scheduledAt DateTime?
+  createdAt   DateTime @default(now())
+  
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+// 7. Support & Ticketing System
+model SupportTicket {
+  id          String   @id @default(uuid())
+  subject     String
+  status      String   @default("OPEN") // OPEN, IN_PROGRESS, CLOSED
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  messages    SupportMessage[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SupportMessage {
+  id          String   @id @default(uuid())
+  content     String
+  sender      String   // "user", "bot", "admin"
+  
+  ticketId    String
+  ticket      SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  createdAt   DateTime @default(now())
+}
+
+model CustomerTicket {
+  id          String   @id @default(uuid())
+  title       String
+  description String?  @db.Text
+  type        String   @default("SUPPORT") // SUPPORT, ORDER
+  status      String   @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED
+  priority    String   @default("MEDIUM") // LOW, MEDIUM, HIGH
+
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 8. RAG Knowledge Base
+model KnowledgeDocument {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   @default("text") // "pdf", "txt", "url"
+  status    String   @default("PROCESSING") // PROCESSING, READY, ERROR
+  fileUrl   String?
+  createdAt DateTime @default(now())
+
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  chunks    DocumentChunk[]
+}
+
+model DocumentChunk {
+  id             String   @id @default(uuid())
+  content        String
+  embeddingJson  String   // Vector stored as stringified JSON array
+  
+  documentId     String
+  document       KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+}
+
+// 9. Drip Campaigns (Secuencias Automáticas)
+model DripSequence {
+  id        String   @id @default(uuid())
+  name      String
+  
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  steps     DripStep[]
+  enrollments CustomerDrip[]
+}
+
+model DripStep {
+  id           String   @id @default(uuid())
+  order        Int
+  delayHours   Int      // Horas a esperar desde el paso anterior (o desde la inscripción si es 1)
+  templateId   String   // ID de MessageTemplate a enviar
+  
+  sequenceId   String
+  sequence     DripSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+}
+
+model CustomerDrip {
+  id              String   @id @default(uuid())
+  currentStepOrder Int      @default(1)
+  nextExecutionAt DateTime
+  status          String   @default("ACTIVE") // ACTIVE, CANCELLED, COMPLETED
+  
+  customerId      String
+  customer        Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  sequenceId      String
+  sequence        DripSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// 10. E-Commerce Orders
+model Order {
+  id              String   @id @default(uuid())
+  amount          Float
+  currency        String   @default("USD")
+  status          String   @default("PENDING") // PENDING, PAID, FAILED, REFUNDED
+  gateway         String   @default("stripe")
+  externalTransactionId String?
+
+  companyId       String
+  company         Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  customerId      String
+  customer        Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  productId       String?
+  product         Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// 11. Calendario Nativo
+model Appointment {
+  id          String   @id @default(uuid())
+  clientName  String
+  date        DateTime
+  serviceType String   // "venta" o "atencion"
+  status      String   @default("SCHEDULED")
+  notes       String?  @db.Text
+  
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 12. Situacion / Perfil de Negocio
+model BusinessProfile {
+  id             String   @id @default(uuid())
+  targetAudience String?
+  mainOffer      String?
+  toneOfVoice    String?  @default("Profesional")
+  extraInfo      String?  @db.Text
+  companyName    String?
+  ruc            String?
+  address        String?
+  contactPhone   String?
+  operatingHours String?
+  socialMedia    String?
+  website        String?
+  branches       String?  @db.Text
+  
+  // Nuevos campos para Onboarding Avanzado
+  planContratado String?
+  chatbotGoal    String?
+  knowledgeLinks String?
+  
+  // Branding de Correos (Marca Blanca)
+  brandLogoUrl   String?
+  brandColor     String?  @default("#1E293B")
+  brandSignature String?  @db.Text
+  
+  companyId      String   @unique
+  company        Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// 13. Sistema de Notificaciones (In-App)
+model AppNotification {
+  id          String   @id @default(uuid())
+  title       String
+  message     String
+  isRead      Boolean  @default(false)
+  type        String   @default("INFO") // TRANSFER, PAYMENT, SYSTEM
+  linkUrl     String?  // Link opcional al ticket o chat
+  createdAt   DateTime @default(now())
+
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+// 14. Sistema de Contratos y Firmas Digitales (MiamSign)
+model Contract {
+  id             String    @id @default(uuid())
+  title          String
+  content        String    @db.Text
+  type           String    @default("BRANDING") // BRANDING, WEB, MIAMBOT
+  status         String    @default("DRAFT") // DRAFT, SENT, SIGNED
+  
+  clientName     String
+  clientEmail    String?
+  clientPhone    String?
+  
+  clientIp       String?
+  signedAt       DateTime?
+  signatureData  String?   @db.Text // Base64 de la firma
+  
+  pdfUrl         String?   // URL del documento firmado final si se sube a S3
+  
+  companyId      String
+  company        Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
