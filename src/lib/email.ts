@@ -122,7 +122,7 @@ export const sendContractEmail = async (
 <body>
     <div class="container">
         <div class="header">
-            <h1>MIAM DIGITAL STUDIO</h1>
+            <img src="https://miam.com.pe/img/LOGO%20MIAM_blanco.png" alt="Miam Digital Studio" style="max-height: 40px; width: auto; margin: 0 auto; display: block;" />
         </div>
         <div class="content">
             <div class="greeting">Hola ${clientName},</div>
