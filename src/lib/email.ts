@@ -58,7 +58,7 @@ export const sendContractEmail = async (
     }
     .header {
       background-color: #0b0f19;
-      padding: 36px 30px;
+      padding: 32px 24px 22px 24px;
       text-align: center;
     }
     .badge {
@@ -199,8 +199,8 @@ export const sendContractEmail = async (
       <!-- Header with Logo -->
       <tr>
         <td class="header">
-          <img src="https://miam.com.pe/img/LOGO%20MIAM_blanco.png" alt="Miam Digital Studio" style="max-height: 52px; width: auto; margin: 0 auto; display: block;" />
-          <p style="margin: 10px 0 0 0; color: #94a3b8; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">
+          <img src="https://miam.com.pe/img/LOGO%20MIAM_blanco.png" alt="Miam Digital Studio" style="max-height: 95px; width: auto; max-width: 260px; margin: 0 auto; display: block;" />
+          <p style="margin: 12px 0 0 0; color: #94a3b8; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">
             Plataforma Segura de Firma Electrónica &bull; MiamSign
           </p>
         </td>
@@ -268,7 +268,9 @@ export const sendContractEmail = async (
         <td class="footer">
           <p class="footer-company">Miam Digital Studio S.A.C.</p>
           <p class="footer-text">
-            Calle Los Pinos 123, Miraflores, Lima &bull; RUC: 20615782344<br>
+            <a href="https://maps.app.goo.gl/WfQMUvctixF6aXWz7" target="_blank" style="color: #cbd5e1; text-decoration: underline;">
+              📍 Urb. José Gálvez, JIRON JOSE DE SAN MARTIN, Villa María del Triunfo 15822
+            </a> &bull; RUC: 20615782344<br>
             <a href="https://miam.com.pe" style="color: #6366f1; text-decoration: none;">www.miam.com.pe</a> &bull; 
             <a href="mailto:contacto@miam.com.pe" style="color: #6366f1; text-decoration: none;">contacto@miam.com.pe</a>
           </p>

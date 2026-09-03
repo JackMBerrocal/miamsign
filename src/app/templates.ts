@@ -2,7 +2,7 @@ export const BRANDING_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS P
 
 Este Contrato Marco de Prestación de Servicios Profesionales (en lo sucesivo, el **"Contrato"** o **"MSA"**), se celebra y perfecciona electrónicamente con fecha efectiva a partir del día de su suscripción mediante firma electrónica certificada y el abono del anticipo estipulado (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente de conformidad con las leyes de la República del Perú, inscrita en la Partida Registral de Lima, con Registro Único de Contribuyentes (R.U.C.) N° 20615782344, y con domicilio legal en Calle Los Pinos 123, Miraflores, Lima, Perú (en adelante, indistintamente, **"LA AGENCIA"**); y,
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente de conformidad con las leyes de la República del Perú, inscrita en la Partida Registral de Lima, con Registro Único de Contribuyentes (R.U.C.) N° 20615782344, y con domicilio legal en Urb. José Gálvez, JIRON JOSE DE SAN MARTIN, Villa María del Triunfo 15822, Lima, Perú (en adelante, indistintamente, **"LA AGENCIA"**); y,
 
 **[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
@@ -64,7 +64,7 @@ LA AGENCIA conserva el derecho de exhibir el trabajo final en su portafolio inst
 ## TÍTULO V: TRATAMIENTO DE DATOS PERSONALES (LEY N° 29733)
 
 **Cláusula 5.1. Privacidad Comercial:**
-De conformidad con la Ley N° 29733 y su Reglamento, MIAM DIGITAL STUDIO S.A.C. (con domicilio en Calle Los Pinos 123, Lima) es la entidad Responsable del Banco de Datos Personales de Clientes. Los datos recopilados tienen la **finalidad exclusiva** de ejecutar este contrato, procesar facturación y mantener el histórico de diseño. No se transferirán datos a terceros no vinculados con la operación sin consentimiento expreso. 
+De conformidad con la Ley N° 29733 y su Reglamento, MIAM DIGITAL STUDIO S.A.C. (con domicilio en Urb. José Gálvez, JIRON JOSE DE SAN MARTIN, Villa María del Triunfo 15822, Lima) es la entidad Responsable del Banco de Datos Personales de Clientes. Los datos recopilados tienen la **finalidad exclusiva** de ejecutar este contrato, procesar facturación y mantener el histórico de diseño. No se transferirán datos a terceros no vinculados con la operación sin consentimiento expreso. 
 La entrega de los datos es obligatoria para la facturación. EL CLIENTE podrá ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) comunicándose al correo contacto@miam.com.pe. Nuestra política de privacidad completa está disponible en miam.com.pe/politicas-de-privacidad.php.
 
 ## TÍTULO VI: CLÁUSULAS MISCELÁNEAS
