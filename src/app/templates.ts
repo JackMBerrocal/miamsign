@@ -4,7 +4,7 @@ Este Contrato Marco de Prestación de Servicios Profesionales (en lo sucesivo, e
 
 **MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente de conformidad con las leyes de la República del Perú, inscrita en la Partida Registral de Lima, con Registro Único de Contribuyentes (R.U.C.) N° 20615782344, y con domicilio legal en Calle Los Pinos 123, Miraflores, Lima, Perú (en adelante, indistintamente, **"LA AGENCIA"**); y,
 
-**EL CLIENTE**, cuya identidad, razón social, número de identificación y domicilio fiscal se detallan de forma inequívoca en los registros de la plataforma MiamSign y/o en la cotización comercial adjunta al presente momento de la firma (en adelante, **"EL CLIENTE"**).
+**[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
 ---
 
@@ -76,7 +76,7 @@ Este Contrato Marco de Prestación de Servicios Tecnológicos (en adelante, el *
 
 **MIAM DIGITAL STUDIO S.A.C.**, entidad comercial peruana, con R.U.C. N° 20615782344 (en adelante, indistintamente, **"LA AGENCIA"**); y,
 
-**EL CLIENTE**, cuyos datos corporativos quedan registrados en el sistema MiamSign al momento de la firma (en adelante, **"EL CLIENTE"**).
+**[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
 ---
 
@@ -140,7 +140,7 @@ export const MIAMBOT_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS CO
 
 El presente Contrato Marco de Prestación de Servicios Continuados (en adelante, el **"Contrato"** o **"MSA"**), se perfecciona electrónicamente a partir de la fecha de su suscripción o pago de activación (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana, con R.U.C. N° 20615782344 (en adelante, indistintamente, **"LA AGENCIA"**); y, **EL CLIENTE**, cuyos datos se hallan verificados en MiamSign.
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana, con R.U.C. N° 20615782344 (en adelante, indistintamente, **"LA AGENCIA"**); y, **[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
 ---
 
@@ -201,3 +201,14 @@ El presente MSA será interpretado conforme a la legislación peruana. En caso d
 **FIRMA ELECTRÓNICA VINCULANTE (LEY N° 27269):**
 El estampado criptográfico en la plataforma MiamSign constituye firma electrónica válida. Al ejecutar la acción "Adoptar y Firmar", EL CLIENTE declara conocer, entender y aceptar plenamente los derechos y obligaciones de este Acuerdo de Servicios, perfeccionando jurídicamente el contrato.
 `;
+export function generateTemplate(type: string, name: string, document: string, address: string) {
+  let template = "";
+  if (type === "BRANDING") template = BRANDING_CONTRACT;
+  if (type === "WEB") template = WEB_CONTRACT;
+  if (type === "MIAMBOT") template = MIAMBOT_CONTRACT;
+
+  return template
+    .replace(/\[CLIENT_NAME\]/g, name || "[NOMBRE DEL CLIENTE]")
+    .replace(/\[CLIENT_DOCUMENT\]/g, document || "[DNI/RUC]")
+    .replace(/\[CLIENT_ADDRESS\]/g, address || "[DIRECCIÓN LEGAL]");
+}

@@ -586,6 +586,8 @@ model Contract {
   clientName     String
   clientEmail    String?
   clientPhone    String?
+  clientDocument String?
+  clientAddress  String?
   
   clientIp       String?
   signedAt       DateTime?

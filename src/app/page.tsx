@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createContract, getContracts, deleteContract, updateContractClient, resendContractEmail } from "./actions";
-import { BRANDING_CONTRACT, WEB_CONTRACT, MIAMBOT_CONTRACT } from "./templates";
+import { BRANDING_CONTRACT, WEB_CONTRACT, MIAMBOT_CONTRACT, generateTemplate } from "./templates";
 import { FileSignature, Folder, LayoutTemplate, Settings, Home, Search, Bell, Menu, Plus, FileText, CheckCircle2, Clock, Trash2, Send, Edit } from "lucide-react";
 
 const COMPANY_ID = "63d76e71-460d-4560-af33-b1d5bf59cc28";
@@ -24,25 +24,19 @@ export default function MiamSignDashboard() {
   const [title, setTitle] = useState("Contrato de Branding - Miam");
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
+  const [clientDocument, setClientDocument] = useState("");
+  const [clientAddress, setClientAddress] = useState("");
+  const [clientPhone, setClientPhone] = useState("");
   const [type, setType] = useState("BRANDING");
-  const [content, setContent] = useState(TEMPLATES.BRANDING);
+  const [content, setContent] = useState(generateTemplate("BRANDING", "", "", ""));
 
   // Edit State
   const [editingContract, setEditingContract] = useState<any | null>(null);
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
-
-  useEffect(() => {
-    loadContracts();
-  }, []);
-
-  const handleTypeChange = (newType: string) => {
-    setType(newType);
-    setContent(TEMPLATES[newType] || "");
-    if (newType === "BRANDING") setTitle("Contrato de Branding y Diseño - Miam");
-    if (newType === "WEB") setTitle("Contrato de Desarrollo Web - Miam");
-    if (newType === "MIAMBOT") setTitle("Suscripción MiamBot (SaaS) - Miam");
-  };
+  const [editDocument, setEditDocument] = useState("");
+  const [editAddress, setEditAddress] = useState("");
+  const [editPhone, setEditPhone] = useState("");
 
   const loadContracts = async () => {
     setLoading(true);
@@ -50,6 +44,23 @@ export default function MiamSignDashboard() {
     if (res.success) setContracts(res.contracts || []);
     setLoading(false);
   };
+
+  useEffect(() => {
+    loadContracts();
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setContent(generateTemplate(type, clientName, clientDocument, clientAddress));
+  }, [clientName, clientDocument, clientAddress, type]);
+
+  const handleTypeChange = (newType: string) => {
+    setType(newType);
+    if (newType === "BRANDING") setTitle("Contrato de Branding y Diseño - Miam");
+    if (newType === "WEB") setTitle("Contrato de Desarrollo Web - Miam");
+    if (newType === "MIAMBOT") setTitle("Suscripción MiamBot (SaaS) - Miam");
+  };
+
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +70,9 @@ export default function MiamSignDashboard() {
       title,
       clientName,
       clientEmail,
+      clientDocument,
+      clientAddress,
+      clientPhone,
       type,
       content,
       companyId: COMPANY_ID
@@ -68,6 +82,9 @@ export default function MiamSignDashboard() {
       alert("¡Contrato creado exitosamente!");
       setClientName("");
       setClientEmail("");
+      setClientDocument("");
+      setClientAddress("");
+      setClientPhone("");
       setIsModalOpen(false);
       loadContracts();
     } else {
@@ -107,13 +124,16 @@ export default function MiamSignDashboard() {
   const openEditModal = (contract: any) => {
     setEditingContract(contract);
     setEditName(contract.clientName);
-    setEditEmail(contract.clientEmail);
+    setEditEmail(contract.clientEmail || "");
+    setEditDocument(contract.clientDocument || "");
+    setEditAddress(contract.clientAddress || "");
+    setEditPhone(contract.clientPhone || "");
   };
 
   const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingContract) return;
-    const res = await updateContractClient(editingContract.id, editName, editEmail);
+    const res = await updateContractClient(editingContract.id, editName, editEmail, editPhone, editDocument, editAddress);
     if (res.success) {
       alert("Datos del cliente actualizados.");
       setEditingContract(null);
@@ -377,6 +397,42 @@ export default function MiamSignDashboard() {
                     />
                   </div>
                   
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">DNI / RUC</label>
+                      <input 
+                        type="text" 
+                        value={clientDocument}
+                        onChange={e => setClientDocument(e.target.value)}
+                        required 
+                        placeholder="Ej. 72345678"
+                        className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Teléfono</label>
+                      <input 
+                        type="text" 
+                        value={clientPhone}
+                        onChange={e => setClientPhone(e.target.value)}
+                        placeholder="Ej. 999888777"
+                        className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Domicilio Legal</label>
+                    <input 
+                      type="text" 
+                      value={clientAddress}
+                      onChange={e => setClientAddress(e.target.value)}
+                      required 
+                      placeholder="Ej. Av. Javier Prado Este 1234, Lima"
+                      className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1.5">Correo Electrónico</label>
                     <input 
@@ -467,6 +523,37 @@ export default function MiamSignDashboard() {
                   type="text" 
                   value={editName}
                   onChange={e => setEditName(e.target.value)}
+                  required 
+                  className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">DNI / RUC</label>
+                  <input 
+                    type="text" 
+                    value={editDocument}
+                    onChange={e => setEditDocument(e.target.value)}
+                    required 
+                    className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">Teléfono</label>
+                  <input 
+                    type="text" 
+                    value={editPhone}
+                    onChange={e => setEditPhone(e.target.value)}
+                    className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Domicilio Legal</label>
+                <input 
+                  type="text" 
+                  value={editAddress}
+                  onChange={e => setEditAddress(e.target.value)}
                   required 
                   className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
                 />

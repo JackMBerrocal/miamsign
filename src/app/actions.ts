@@ -10,6 +10,9 @@ export async function createContract(data: {
   type: string;
   clientName: string;
   clientEmail: string;
+  clientPhone?: string;
+  clientDocument?: string;
+  clientAddress?: string;
   companyId: string;
 }) {
   try {
@@ -32,6 +35,9 @@ export async function createContract(data: {
         type: data.type,
         clientName: data.clientName,
         clientEmail: data.clientEmail,
+        clientPhone: data.clientPhone,
+        clientDocument: data.clientDocument,
+        clientAddress: data.clientAddress,
         companyId: data.companyId,
         status: "SENT",
       },
@@ -74,11 +80,11 @@ export async function deleteContract(id: string) {
   }
 }
 
-export async function updateContractClient(id: string, clientName: string, clientEmail: string) {
+export async function updateContractClient(id: string, clientName: string, clientEmail: string, clientPhone?: string, clientDocument?: string, clientAddress?: string) {
   try {
     await prisma.contract.update({
       where: { id },
-      data: { clientName, clientEmail }
+      data: { clientName, clientEmail, clientPhone, clientDocument, clientAddress }
     });
     revalidatePath("/dashboard/miamsign");
     return { success: true };

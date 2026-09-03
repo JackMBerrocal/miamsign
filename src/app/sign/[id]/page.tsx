@@ -6,7 +6,7 @@ import SignatureCanvas from "react-signature-canvas";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import ReactMarkdown from "react-markdown";
-import { DownloadCloud, PenTool, CheckCircle, X, Check, ShieldCheck, Download, ExternalLink, HelpCircle, AlertCircle, Maximize2 } from "lucide-react";
+import { PenTool, CheckCircle, X, ShieldCheck, Download, HelpCircle, AlertCircle } from "lucide-react";
 
 export default function SignContractPage({ params }: { params: { id: string } }) {
   const [contract, setContract] = useState<any>(null);
@@ -205,7 +205,8 @@ export default function SignContractPage({ params }: { params: { id: string } })
                   {/* Firma Cliente (Interactivo) */}
                   <div>
                      <p className="text-[13px] font-bold text-black mb-1">{contract.clientName}</p>
-                     <p className="text-[11px] text-gray-600 mb-6">{contract.clientEmail}</p>
+                     <p className="text-[11px] text-gray-600 mb-1">{contract.clientEmail}</p>
+                     <p className="text-[11px] text-gray-600 mb-4">{contract.clientDocument ? `DNI/RUC: ${contract.clientDocument}` : ""}</p>
                      
                      {contract.status === "SIGNED" && contract.signatureData ? (
                         <div className="border-b border-black pb-1 relative h-[70px] flex items-end justify-center">
