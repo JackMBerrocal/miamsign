@@ -6,18 +6,46 @@ import SignatureCanvas from "react-signature-canvas";
 import ReactMarkdown from "react-markdown";
 import { PenTool, CheckCircle, X, ShieldCheck, Download, HelpCircle, AlertCircle } from "lucide-react";
 
+function formatContractText(text: string): string {
+  if (!text) return "";
+  
+  let formatted = text;
+
+  // Si ya tiene una cláusula formal de Plazo de Ejecución y Entrega
+  if (formatted.includes("Plazo de Ejecución y Entrega")) {
+    // Si en los entregables quedó un texto residual suelto "Tiempo de entrega estimado: ...", lo limpiamos del entregable
+    formatted = formatted.replace(
+      /\s*\*?Tiempo de entrega estimado:?\s*\*?\*?([0-9a-zA-ZáéíóúÁÉÍÓÚ\s]+)\*?\*?\*?(?!\s*sujeto)/gi,
+      ''
+    );
+  } else {
+    // Si NO tiene la cláusula formal, la creamos a partir del texto de tiempo de entrega
+    formatted = formatted.replace(
+      /(?:\s*\*?Tiempo de entrega estimado:?\s*\*?\*?([0-9a-zA-ZáéíóúÁÉÍÓÚ\s]+)\*?\*?\*?)/gi,
+      '\n\n**Cláusula 1.1.5. Plazo de Ejecución y Entrega:**\nEl tiempo de entrega estimado para la presentación de los entregables es de **$1**, sujeto a la oportuna entrega de insumos por parte de EL CLIENTE.\n\n'
+    );
+  }
+
+  // Viñetas limpias para markdown
+  formatted = formatted.replace(/✔️ /g, '\n- ✔️ ');
+
+  return formatted;
+}
+
 function splitContractIntoPages(content: string): string[] {
   if (!content) return [""];
   
-  if (content.includes("<!-- PAGE BREAK -->")) {
-    const rawPages = content.split("<!-- PAGE BREAK -->");
+  const formattedContent = formatContractText(content);
+
+  if (formattedContent.includes("<!-- PAGE BREAK -->")) {
+    const rawPages = formattedContent.split("<!-- PAGE BREAK -->");
     return rawPages.map((p) => p.trim()).filter(Boolean);
   }
 
   // Fallback inteligente si el contrato no tiene tags de PAGE BREAK: separar por TÍTULO
-  const sections = content.split(/(?=## TÍTULO)/g);
+  const sections = formattedContent.split(/(?=## TÍTULO)/g);
   if (sections.length <= 1) {
-    return [content];
+    return [formattedContent];
   }
 
   const pages: string[] = [];
@@ -41,7 +69,7 @@ function splitContractIntoPages(content: string): string[] {
   if (currentPage.trim()) {
     pages.push(currentPage.trim());
   }
-  return pages.length > 0 ? pages : [content];
+  return pages.length > 0 ? pages : [formattedContent];
 }
 
 export default function SignContractPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
@@ -114,11 +142,11 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
       const html2pdf = (await import("html2pdf.js")).default;
       const opt = {
         margin:       0,
-        pagebreak:    { mode: ['css', 'legacy'] as any },
         filename:     `Contrato_${(contract.clientName || "Cliente").replace(/\s+/g, "_")}_Firmado.pdf`,
-        image:        { type: 'jpeg' as const, quality: 0.95 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
-        jsPDF:        { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
+        image:        { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0, windowWidth: 800 },
+        jsPDF:        { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
+        pagebreak:    { mode: 'css' as any }
       };
       
       await html2pdf().set(opt).from(contractRef.current).toPdf().get('pdf').then((pdf: any) => {
@@ -219,36 +247,42 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
          </div>
       )}
 
-      {/* 3. MAIN DOCUMENT AREA (Hojas por hojas estilo A4 profesional) */}
-      <div className="flex-1 flex flex-col items-center pt-[140px] pb-28 px-4 sm:px-8 print:pt-0 print:pb-0 print:px-0 print:block">
+      {/* 3. MAIN DOCUMENT AREA (Hojas por hojas formato A4) */}
+      <div className="flex-1 flex flex-col items-center pt-[135px] pb-28 px-4 sm:px-8 print:p-0">
         
         {/* Contenedor Ref para Generación de PDF */}
         <div ref={contractRef} className="w-full flex flex-col items-center">
           {pages.map((pageHtml, idx) => (
             <div 
               key={idx}
-              className="html2pdf__page-break print-contract bg-white w-full max-w-[800px] min-h-[1123px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] p-[50px] sm:p-[65px] relative mx-auto overflow-hidden flex flex-col justify-between mb-10 print:mb-0 print:shadow-none"
-              style={{ breakAfter: idx < pages.length - 1 ? 'page' : 'auto' }}
+              className="print-contract bg-white w-full max-w-[800px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] p-[45px] sm:p-[55px] relative mx-auto overflow-hidden flex flex-col justify-between print:shadow-none"
+              style={{ 
+                minHeight: '1120px',
+                height: isDownloading ? '1120px' : 'auto',
+                marginBottom: isDownloading ? '0px' : '36px',
+                pageBreakAfter: idx < pages.length - 1 ? 'always' : 'avoid',
+                breakAfter: idx < pages.length - 1 ? 'page' : 'avoid'
+              }}
             >
-              {/* Marca de Agua (Watermark) de fondo en cada hoja */}
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 opacity-[0.08]">
-                <img src="/img/marcadeagua.png" alt="Watermark" className="w-[75%] max-w-[420px] object-contain" />
+              {/* Marca de Agua (Watermark) con alta presencia profesional en TODAS las hojas */}
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 opacity-[0.16]">
+                <img src="/img/marcadeagua.png" alt="Watermark" className="w-[85%] max-w-[520px] object-contain" />
               </div>
 
-              {/* Encabezado Superior de cada Hoja */}
-              <div className="relative z-10 flex justify-between items-start border-b border-gray-200 pb-4 mb-6">
-                <div className="flex items-center gap-3">
-                  <img src="/img/LOGO1.png" alt="Miam Studio" className="h-[26px] object-contain" />
-                  <div className="border-l border-gray-300 pl-3">
-                    <p className="font-bold text-gray-900 text-[12px] font-sans leading-tight">Miam Digital Studio S.A.C.</p>
-                    <p className="text-[10px] text-gray-500 font-mono">RUC: 20615782344</p>
+              {/* Encabezado Superior de cada Hoja con Logo Agrandado */}
+              <div className="relative z-10 flex justify-between items-center border-b border-gray-200 pb-4 mb-6">
+                <div className="flex items-center gap-4">
+                  <img src="/img/LOGO1.png" alt="Miam Studio" className="h-[48px] sm:h-[54px] w-auto object-contain" />
+                  <div className="border-l-2 border-gray-300 pl-3.5 py-0.5">
+                    <p className="font-bold text-gray-900 text-[14px] font-sans leading-tight">Miam Digital Studio S.A.C.</p>
+                    <p className="text-[11px] text-gray-500 font-mono mt-0.5">RUC: 20615782344</p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                     {idx === 0 ? "Fecha de Emisión" : "Documento Legal Seguro"}
                   </p>
-                  <p className="text-[11px] text-gray-700 font-mono font-medium">
+                  <p className="text-[12px] text-gray-800 font-mono font-semibold">
                     {idx === 0 
                       ? new Date(contract.createdAt).toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' })
                       : `ID: ${contract.id}`
@@ -276,7 +310,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
                       strong: ({node, ...props}) => <strong className="font-bold text-black" {...props} />
                     }}
                   >
-                    {pageHtml.replace(/✔️ /g, '\n- ✔️ ')}
+                    {pageHtml}
                   </ReactMarkdown>
                 </div>
 
@@ -346,7 +380,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
               </div>
               
               {/* Pie de Página de cada Hoja (Página X de Y) */}
-              <div className="relative z-10 flex justify-between items-center border-t border-gray-200 pt-3 mt-8 text-[10px] text-gray-500 font-sans">
+              <div className="relative z-10 flex justify-between items-center border-t border-gray-200 pt-3 mt-6 text-[10px] text-gray-500 font-sans">
                 <span>Miam Digital Studio S.A.C. &bull; RUC 20615782344</span>
                 <span className="font-semibold text-gray-700 uppercase tracking-wider">
                   Página {idx + 1} de {pages.length}
