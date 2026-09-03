@@ -13,7 +13,7 @@ function formatContractText(text: string): string {
 
   // Si ya tiene una cláusula formal de Plazo de Ejecución y Entrega
   if (formatted.includes("Plazo de Ejecución y Entrega")) {
-    // Si en los entregables quedó un texto residual suelto "Tiempo de entrega estimado: ...", lo limpiamos del entregable
+    // Si en los entregables quedó un texto residual suelto "Tiempo de entrega estimado: ...", lo limpiamos
     formatted = formatted.replace(
       /\s*\*?Tiempo de entrega estimado:?\s*\*?\*?([0-9a-zA-ZáéíóúÁÉÍÓÚ\s]+)\*?\*?\*?(?!\s*sujeto)/gi,
       ''
@@ -37,12 +37,38 @@ function splitContractIntoPages(content: string): string[] {
   
   const formattedContent = formatContractText(content);
 
+  // Si el contrato tiene la estructura canónica de títulos (TÍTULO I a VI):
+  // Dividimos en exactamente 4 páginas limpias y balanceadas que calzan perfectamente en A4:
+  // Página 1: Título I
+  // Página 2: Título II
+  // Página 3: Título III + Título IV
+  // Página 4: Título V + Título VI + Firmas
+  const p1Match = formattedContent.split(/## TÍTULO II:/);
+  if (p1Match.length === 2) {
+    const page1 = p1Match[0].trim();
+    const rest1 = "## TÍTULO II:" + p1Match[1];
+    
+    const p2Match = rest1.split(/## TÍTULO III:/);
+    if (p2Match.length === 2) {
+      const page2 = p2Match[0].trim();
+      const rest2 = "## TÍTULO III:" + p2Match[1];
+      
+      const p3Match = rest2.split(/## TÍTULO V:/);
+      if (p3Match.length === 2) {
+        const page3 = p3Match[0].trim();
+        const page4 = ("## TÍTULO V:" + p3Match[1]).trim();
+        return [page1, page2, page3, page4];
+      }
+    }
+  }
+
+  // Si tiene deliberadamente delimitadores <!-- PAGE BREAK -->
   if (formattedContent.includes("<!-- PAGE BREAK -->")) {
     const rawPages = formattedContent.split("<!-- PAGE BREAK -->");
     return rawPages.map((p) => p.trim()).filter(Boolean);
   }
 
-  // Fallback inteligente si el contrato no tiene tags de PAGE BREAK: separar por TÍTULO
+  // Fallback genérico por secciones
   const sections = formattedContent.split(/(?=## TÍTULO)/g);
   if (sections.length <= 1) {
     return [formattedContent];
@@ -248,41 +274,40 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
       )}
 
       {/* 3. MAIN DOCUMENT AREA (Hojas por hojas formato A4) */}
-      <div className="flex-1 flex flex-col items-center pt-[135px] pb-28 px-4 sm:px-8 print:p-0">
+      <div className="flex-1 flex flex-col items-center pt-[130px] pb-24 px-4 sm:px-6 print:p-0">
         
         {/* Contenedor Ref para Generación de PDF */}
         <div ref={contractRef} className="w-full flex flex-col items-center">
           {pages.map((pageHtml, idx) => (
             <div 
               key={idx}
-              className="print-contract bg-white w-full max-w-[800px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] p-[45px] sm:p-[55px] relative mx-auto overflow-hidden flex flex-col justify-between print:shadow-none"
+              className="print-contract bg-white w-full max-w-[800px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] px-[36px] py-[28px] sm:px-[44px] sm:py-[32px] relative mx-auto flex flex-col justify-between print:shadow-none"
               style={{ 
                 minHeight: '1120px',
-                height: isDownloading ? '1120px' : 'auto',
-                marginBottom: isDownloading ? '0px' : '36px',
+                marginBottom: isDownloading ? '0px' : '32px',
                 pageBreakAfter: idx < pages.length - 1 ? 'always' : 'avoid',
                 breakAfter: idx < pages.length - 1 ? 'page' : 'avoid'
               }}
             >
               {/* Marca de Agua (Watermark) con alta presencia profesional en TODAS las hojas */}
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 opacity-[0.16]">
-                <img src="/img/marcadeagua.png" alt="Watermark" className="w-[85%] max-w-[520px] object-contain" />
+                <img src="/img/marcadeagua.png" alt="Watermark" className="w-[80%] max-w-[500px] object-contain" />
               </div>
 
               {/* Encabezado Superior de cada Hoja con Logo Agrandado */}
-              <div className="relative z-10 flex justify-between items-center border-b border-gray-200 pb-4 mb-6">
-                <div className="flex items-center gap-4">
-                  <img src="/img/LOGO1.png" alt="Miam Studio" className="h-[48px] sm:h-[54px] w-auto object-contain" />
-                  <div className="border-l-2 border-gray-300 pl-3.5 py-0.5">
-                    <p className="font-bold text-gray-900 text-[14px] font-sans leading-tight">Miam Digital Studio S.A.C.</p>
-                    <p className="text-[11px] text-gray-500 font-mono mt-0.5">RUC: 20615782344</p>
+              <div className="relative z-10 flex justify-between items-center border-b border-gray-200 pb-3 mb-4">
+                <div className="flex items-center gap-3.5">
+                  <img src="/img/LOGO1.png" alt="Miam Studio" className="h-[46px] sm:h-[50px] w-auto object-contain" />
+                  <div className="border-l-2 border-gray-300 pl-3 py-0.5">
+                    <p className="font-bold text-gray-900 text-[13px] font-sans leading-tight">Miam Digital Studio S.A.C.</p>
+                    <p className="text-[10.5px] text-gray-500 font-mono mt-0.5">RUC: 20615782344</p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                     {idx === 0 ? "Fecha de Emisión" : "Documento Legal Seguro"}
                   </p>
-                  <p className="text-[12px] text-gray-800 font-mono font-semibold">
+                  <p className="text-[11.5px] text-gray-800 font-mono font-semibold">
                     {idx === 0 
                       ? new Date(contract.createdAt).toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' })
                       : `ID: ${contract.id}`
@@ -294,19 +319,19 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
               {/* Contenido Principal de la Hoja */}
               <div className="relative z-10 flex-1">
                 <div className="prose prose-sm sm:prose-base prose-slate max-w-none 
-                    prose-h1:text-[20px] prose-h1:font-black prose-h1:text-black prose-h1:mb-6 prose-h1:uppercase prose-h1:tracking-tight prose-h1:leading-snug
-                    prose-h2:text-[13px] prose-h2:font-bold prose-h2:text-gray-900 prose-h2:mt-6 prose-h2:mb-3 prose-h2:uppercase prose-h2:tracking-widest prose-h2:bg-gray-100 prose-h2:py-1.5 prose-h2:px-3 prose-h2:border-l-4 prose-h2:border-black
-                    prose-p:text-[13.5px] prose-p:text-gray-800 prose-p:leading-[1.75] prose-p:mb-4 prose-p:text-justify
+                    prose-h1:text-[18px] prose-h1:font-bold prose-h1:text-black prose-h1:mb-3.5 prose-h1:uppercase prose-h1:tracking-tight prose-h1:leading-snug
+                    prose-h2:text-[12.5px] prose-h2:font-bold prose-h2:text-gray-900 prose-h2:mt-4 prose-h2:mb-2 prose-h2:uppercase prose-h2:tracking-wider prose-h2:bg-gray-100 prose-h2:py-1 prose-h2:px-2.5 prose-h2:border-l-4 prose-h2:border-black
+                    prose-p:text-[12.5px] prose-p:text-gray-800 prose-p:leading-[1.6] prose-p:mb-2 prose-p:text-justify
                     prose-strong:text-black prose-strong:font-bold
-                    prose-ul:my-3 prose-li:text-[13.5px] prose-li:text-gray-800 prose-li:leading-[1.6] prose-li:mb-1.5
-                    prose-hr:my-6 prose-hr:border-gray-200">
+                    prose-ul:my-2 prose-li:text-[12.5px] prose-li:text-gray-800 prose-li:leading-[1.5] prose-li:mb-1
+                    prose-hr:my-4 prose-hr:border-gray-200">
                   <ReactMarkdown 
                     components={{
-                      p: ({node, ...props}) => <p className="mb-4 leading-[1.75]" {...props} />,
-                      h1: ({node, ...props}) => <h1 className="mt-4 mb-4 font-bold text-[22px] leading-tight" {...props} />,
-                      h2: ({node, ...props}) => <h2 className="mt-6 mb-3 font-bold text-[15px] tracking-tight uppercase border-b border-gray-200 pb-1.5" {...props} />,
-                      h3: ({node, ...props}) => <h3 className="mt-4 mb-2 font-bold text-[14px]" {...props} />,
-                      li: ({node, ...props}) => <li className="mb-1.5 leading-[1.6] pl-1" {...props} />,
+                      p: ({node, ...props}) => <p className="mb-2 leading-[1.6]" {...props} />,
+                      h1: ({node, ...props}) => <h1 className="mt-2 mb-3.5 font-bold text-[18px] leading-snug" {...props} />,
+                      h2: ({node, ...props}) => <h2 className="mt-4 mb-2 font-bold text-[13px] tracking-tight uppercase border-b border-gray-200 pb-1" {...props} />,
+                      h3: ({node, ...props}) => <h3 className="mt-3 mb-1.5 font-bold text-[12.5px]" {...props} />,
+                      li: ({node, ...props}) => <li className="mb-1 leading-[1.5] pl-0.5" {...props} />,
                       strong: ({node, ...props}) => <strong className="font-bold text-black" {...props} />
                     }}
                   >
@@ -316,19 +341,19 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
 
                 {/* Cuadro de Firmas Oficiales al final de la última hoja */}
                 {idx === pages.length - 1 && (
-                  <div className="relative z-10 mt-10 pt-8 border-t-2 border-black">
-                    <h3 className="text-[15px] font-bold text-black mb-8 uppercase tracking-widest font-sans text-center">
+                  <div className="relative z-10 mt-6 pt-5 border-t-2 border-black">
+                    <h3 className="text-[13px] font-bold text-black mb-5 uppercase tracking-widest font-sans text-center">
                       Cuadro de Firmas Oficiales
                     </h3>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 px-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 px-2">
                       {/* Firma Agencia (Estático / Representante Legal) */}
                       <div>
-                        <p className="text-[13px] font-bold text-black mb-0.5">Miam Digital Studio S.A.C.</p>
-                        <p className="text-[11px] text-gray-600 mb-4">Representante Legal: Jack Michael Berrocal Espinoza</p>
+                        <p className="text-[12px] font-bold text-black mb-0.5">Miam Digital Studio S.A.C.</p>
+                        <p className="text-[10.5px] text-gray-600 mb-3">Representante Legal: Jack Michael Berrocal Espinoza</p>
                         
-                        <div className="border-b border-black pb-1 relative h-[70px] flex items-end">
-                          <span className="font-serif italic font-medium tracking-tighter text-[36px] text-black px-1 mb-0.5" style={{ fontFamily: "'Brush Script MT', 'Cedarville Cursive', cursive" }}>
+                        <div className="border-b border-black pb-1 relative h-[60px] flex items-end">
+                          <span className="font-serif italic font-medium tracking-tighter text-[32px] text-black px-1 mb-0.5" style={{ fontFamily: "'Brush Script MT', 'Cedarville Cursive', cursive" }}>
                             Jack M. Berrocal E.
                           </span>
                         </div>
@@ -337,27 +362,27 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
 
                       {/* Firma Cliente (Interactivo) */}
                       <div>
-                        <p className="text-[13px] font-bold text-black mb-0.5">{contract.clientName}</p>
-                        <p className="text-[11px] text-gray-600 mb-0.5">{contract.clientEmail}</p>
-                        <p className="text-[11px] text-gray-600 mb-4">{contract.clientDocument ? `DNI/RUC: ${contract.clientDocument}` : ""}</p>
+                        <p className="text-[12px] font-bold text-black mb-0.5">{contract.clientName}</p>
+                        <p className="text-[10.5px] text-gray-600 mb-0.5">{contract.clientEmail}</p>
+                        <p className="text-[10.5px] text-gray-600 mb-3">{contract.clientDocument ? `DNI/RUC: ${contract.clientDocument}` : ""}</p>
                         
                         {contract.status === "SIGNED" && contract.signatureData ? (
-                          <div className="border-b border-black pb-1 relative h-[70px] flex items-end justify-center">
-                            <div className="absolute top-0 left-0 text-[9px] text-blue-700 font-sans font-bold uppercase tracking-widest flex items-center gap-1 border border-blue-200 bg-blue-50 px-1.5 py-0.5 rounded-sm">
+                          <div className="border-b border-black pb-1 relative h-[60px] flex items-end justify-center">
+                            <div className="absolute top-0 left-0 text-[8.5px] text-blue-700 font-sans font-bold uppercase tracking-widest flex items-center gap-1 border border-blue-200 bg-blue-50 px-1.5 py-0.5 rounded-sm">
                               Docu-Verified
                             </div>
-                            <img src={contract.signatureData} alt="Firma del cliente" className="max-h-[65px] max-w-full object-contain mix-blend-multiply" />
+                            <img src={contract.signatureData} alt="Firma del cliente" className="max-h-[55px] max-w-full object-contain mix-blend-multiply" />
                           </div>
                         ) : (
                           <div 
                             ref={signHereRef}
                             onClick={() => setIsSignModalOpen(true)}
-                            className="border-2 border-[#ffc820] bg-[#fff9e6] hover:bg-[#fff0c2] cursor-pointer transition-colors relative h-[70px] flex items-center justify-center group shadow-sm"
+                            className="border-2 border-[#ffc820] bg-[#fff9e6] hover:bg-[#fff0c2] cursor-pointer transition-colors relative h-[60px] flex items-center justify-center group shadow-sm"
                           >
                             {/* DocuSign style Sign Here Tab */}
-                            <div className="absolute -left-[80px] top-1/2 -translate-y-1/2 bg-[#ffc820] text-[#1e1e1e] font-bold text-[10px] px-2.5 py-1.5 shadow-md flex items-center gap-1 uppercase">
+                            <div className="absolute -left-[75px] top-1/2 -translate-y-1/2 bg-[#ffc820] text-[#1e1e1e] font-bold text-[9.5px] px-2 py-1.5 shadow-md flex items-center gap-1 uppercase">
                               Firmar
-                              <div className="w-0 h-0 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent border-l-[8px] border-l-[#ffc820] absolute -right-[8px] top-0"></div>
+                              <div className="w-0 h-0 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[7px] border-l-[#ffc820] absolute -right-[7px] top-0"></div>
                             </div>
                             
                             <span className="text-[#1e1e1e] font-bold text-xs flex items-center gap-1.5 font-sans opacity-90">
@@ -368,7 +393,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
                         )}
                         
                         {contract.status === "SIGNED" && (
-                          <div className="mt-1.5 text-[9px] text-gray-500 font-mono leading-tight">
+                          <div className="mt-1 text-[8.5px] text-gray-500 font-mono leading-tight">
                             <p>IP: {contract.clientIp || "190.237.45.12"}</p>
                             <p>Fecha Criptográfica: {new Date(contract.signedAt || Date.now()).toLocaleString('es-PE')}</p>
                           </div>
@@ -380,7 +405,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
               </div>
               
               {/* Pie de Página de cada Hoja (Página X de Y) */}
-              <div className="relative z-10 flex justify-between items-center border-t border-gray-200 pt-3 mt-6 text-[10px] text-gray-500 font-sans">
+              <div className="relative z-10 flex justify-between items-center border-t border-gray-200 pt-2.5 mt-5 text-[9.5px] text-gray-500 font-sans">
                 <span>Miam Digital Studio S.A.C. &bull; RUC 20615782344</span>
                 <span className="font-semibold text-gray-700 uppercase tracking-wider">
                   Página {idx + 1} de {pages.length}
