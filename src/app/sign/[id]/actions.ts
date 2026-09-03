@@ -13,8 +13,19 @@ export async function getContract(id: string) {
   }
 }
 
-export async function signContract(id: string, signatureBase64: string, clientIp: string) {
+import { headers } from "next/headers";
+
+export async function signContract(id: string, signatureBase64: string) {
   try {
+    const headersList = await headers();
+    const forwardedFor = headersList.get("x-forwarded-for");
+    let clientIp = forwardedFor ? forwardedFor.split(',')[0] : "IP Desconocida";
+
+    if (clientIp === "IP Desconocida") {
+      const realIp = headersList.get("x-real-ip");
+      if (realIp) clientIp = realIp;
+    }
+
     const contract = await prisma.contract.update({
       where: { id },
       data: {

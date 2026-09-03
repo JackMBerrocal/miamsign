@@ -1,25 +1,31 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createContract, getContracts } from "./actions";
+import { BRANDING_CONTRACT, WEB_CONTRACT, MIAMBOT_CONTRACT } from "./templates";
+import { FileSignature, Folder, LayoutTemplate, Settings, Home, Search, Bell, Menu, Plus, FileText, CheckCircle2, Clock } from "lucide-react";
 
 const COMPANY_ID = "63d76e71-460d-4560-af33-b1d5bf59cc28";
 
-const CONTRACT_TEMPLATES: Record<string, string> = {
-  BRANDING: `# CONTRATO DE PRESTACIÓN DE SERVICIOS DE BRANDING Y DISEÑO ESTRATÉGICO\n\nConste por el presente documento, el Contrato de Prestación de Servicios (en adelante, el "Contrato"), que celebran por una parte MIAM DIGITAL STUDIO S.A.C. (en adelante, "LA AGENCIA"), y por la otra parte, EL CLIENTE abajo firmante.\n\n## CLÁUSULA PRIMERA: DEL OBJETO DEL CONTRATO\nEL CLIENTE contrata a LA AGENCIA para el diseño y desarrollo de la Identidad Visual Corporativa, la cual incluye pero no se limita a: diseño de logotipo, manual de marca, paleta de colores corporativa y aplicaciones visuales predefinidas en la propuesta comercial.\n\n## CLÁUSULA SEGUNDA: DE LOS HONORARIOS Y FORMA DE PAGO\nEl valor total de los servicios será fraccionado de la siguiente manera:\n- Cincuenta por ciento (50%) como anticipo no reembolsable para dar inicio al proyecto.\n- Cincuenta por ciento (50%) restante al momento de la entrega de los artes finales y previo a la cesión de derechos de autor.\nEn caso de retraso en el pago final mayor a siete (7) días calendario, se aplicará una penalidad del 1% diario sobre el saldo adeudado.\n\n## CLÁUSULA TERCERA: PLAZOS Y ENTREGABLES\nLA AGENCIA se compromete a entregar las propuestas iniciales en el plazo acordado. EL CLIENTE contará con un plazo de tres (3) días hábiles para emitir comentarios. La falta de respuesta en dicho plazo será considerada como aprobación tácita.\n\n## CLÁUSULA CUARTA: PROPIEDAD INTELECTUAL\nLA AGENCIA retiene todos los derechos de autor sobre las propuestas rechazadas. La propiedad intelectual de la propuesta final aprobada será cedida a EL CLIENTE única y exclusivamente cuando se haya cancelado el 100% de los honorarios.\n\n## CLÁUSULA QUINTA: CONFIDENCIALIDAD Y JURISDICCIÓN\nAmbas partes mantendrán estricta confidencialidad sobre las estrategias comerciales. Cualquier disputa derivada del presente contrato se someterá a la jurisdicción de los jueces del Cercado de Lima, Perú.\n\nEn señal de conformidad, EL CLIENTE firma electrónicamente el presente documento.`,
-  WEB: `# CONTRATO DE DESARROLLO DE SOFTWARE Y DISEÑO WEB\n\nConste por el presente documento, el Contrato de Desarrollo (en adelante, el "Contrato"), que celebran por una parte MIAM DIGITAL STUDIO S.A.C. (en adelante, "LA AGENCIA"), y por la otra parte, EL CLIENTE abajo firmante.\n\n## CLÁUSULA PRIMERA: DEL OBJETO DEL CONTRATO\nEL CLIENTE contrata a LA AGENCIA para el desarrollo, diseño y despliegue de un sitio web/e-commerce, cuyas características técnicas y funcionalidades se detallan en la propuesta técnica adjunta y aprobada por las partes.\n\n## CLÁUSULA SEGUNDA: HONORARIOS Y CONDICIONES ECONÓMICAS\nEl pago por el desarrollo se realizará en dos armadas:\n- Cincuenta por ciento (50%) como anticipo de inicio de obra.\n- Cincuenta por ciento (50%) contra-entrega y antes de la migración al servidor de producción definitivo.\n\n## CLÁUSULA TERCERA: OBLIGACIONES DEL CLIENTE Y ABANDONO\nEL CLIENTE se obliga a proporcionar textos, imágenes, credenciales y cualquier material necesario para el desarrollo en un plazo máximo de quince (15) días. Si EL CLIENTE detiene la comunicación o no entrega los materiales por más de treinta (30) días, el proyecto se considerará en estado de "Abandono", liberando a LA AGENCIA de toda obligación y reteniendo el anticipo por daños y perjuicios.\n\n## CLÁUSULA CUARTA: PROPIEDAD INTELECTUAL Y CÓDIGO FUENTE\nLA AGENCIA cederá los derechos de explotación del software una vez el pago total haya sido efectuado. LA AGENCIA se reserva el derecho de utilizar componentes genéricos de código abierto en el desarrollo.\n\n## CLÁUSULA QUINTA: GARANTÍA Y SOPORTE\nLA AGENCIA brindará una garantía técnica de treinta (30) días posteriores a la salida en vivo para corregir errores de programación (bugs). Cualquier nueva funcionalidad o rediseño estará sujeto a un nuevo presupuesto.\n\nEn señal de conformidad, EL CLIENTE firma electrónicamente el presente documento.`,
-  MIAMBOT: `# CONTRATO DE LICENCIA DE USO Y SERVICIOS TECNOLÓGICOS (SaaS) - MIAMBOT\n\nConste por el presente documento, el Contrato de Suscripción (en adelante, el "Contrato"), que celebran por una parte MIAM DIGITAL STUDIO S.A.C. (en adelante, "LA AGENCIA"), y por la otra parte, EL CLIENTE abajo firmante.\n\n## CLÁUSULA PRIMERA: DEL OBJETO DEL CONTRATO\nLA AGENCIA otorga a EL CLIENTE una licencia de uso no exclusiva, intransferible y revocable para utilizar la plataforma tecnológica e inteligencia artificial denominada "MiamBot" (Software as a Service), para la automatización de su atención al cliente.\n\n## CLÁUSULA SEGUNDA: CONDICIONES DE SUSCRIPCIÓN\nEl presente servicio opera bajo una modalidad de pago recurrente mensual o anual. El impago de la suscripción dentro de los primeros tres (3) días del ciclo de facturación resultará en la suspensión automática e inmediata del servicio, sin responsabilidad para LA AGENCIA por pérdida de ventas o interrupción operativa de EL CLIENTE.\n\n## CLÁUSULA TERCERA: RESPONSABILIDAD SOBRE LAS RESPUESTAS (IA)\nAl utilizar algoritmos de Inteligencia Artificial Generativa, EL CLIENTE entiende y acepta que el "MiamBot" puede en ocasiones generar respuestas impredecibles. LA AGENCIA no se hace responsable por perjuicios económicos o de reputación derivados de interacciones del bot con los usuarios finales. Es responsabilidad de EL CLIENTE monitorear las conversaciones.\n\n## CLÁUSULA CUARTA: CONFIDENCIALIDAD DE DATOS\nLA AGENCIA tratará los datos personales capturados por el bot conforme a la Ley de Protección de Datos Personales del Perú (Ley 29733). Los datos recolectados pertenecen a EL CLIENTE.\n\nEn señal de conformidad, EL CLIENTE firma electrónicamente el presente documento.`
+const TEMPLATES: Record<string, string> = {
+  BRANDING: BRANDING_CONTRACT,
+  WEB: WEB_CONTRACT,
+  MIAMBOT: MIAMBOT_CONTRACT
 };
 
 export default function MiamSignDashboard() {
   const [contracts, setContracts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeTab, setActiveTab] = useState("home"); // home, manage, templates, settings
+  const [previewType, setPreviewType] = useState<string | null>(null);
+
   // Form State
   const [title, setTitle] = useState("Contrato de Branding - Miam");
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [type, setType] = useState("BRANDING");
-  const [content, setContent] = useState(CONTRACT_TEMPLATES.BRANDING);
+  const [content, setContent] = useState(TEMPLATES.BRANDING);
 
   useEffect(() => {
     loadContracts();
@@ -27,9 +33,7 @@ export default function MiamSignDashboard() {
 
   const handleTypeChange = (newType: string) => {
     setType(newType);
-    setContent(CONTRACT_TEMPLATES[newType] || "");
-    
-    // Auto-update title
+    setContent(TEMPLATES[newType] || "");
     if (newType === "BRANDING") setTitle("Contrato de Branding y Diseño - Miam");
     if (newType === "WEB") setTitle("Contrato de Desarrollo Web - Miam");
     if (newType === "MIAMBOT") setTitle("Suscripción MiamBot (SaaS) - Miam");
@@ -59,6 +63,7 @@ export default function MiamSignDashboard() {
       alert("¡Contrato creado exitosamente!");
       setClientName("");
       setClientEmail("");
+      setIsModalOpen(false);
       loadContracts();
     } else {
       alert("Error al crear contrato: " + res.error);
@@ -72,168 +77,356 @@ export default function MiamSignDashboard() {
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-12 relative overflow-hidden">
-      {/* Glow Effects */}
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-2000"></div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-12">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <img src="/img/LOGO1.png" alt="Miam" className="h-8" />
-              <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">MiamSign</h1>
+    <div className="min-h-screen bg-gray-50 flex font-sans text-gray-900">
+      {/* Sidebar */}
+      <div className={`bg-white border-r border-gray-200 transition-all duration-300 flex flex-col ${sidebarOpen ? 'w-64' : 'w-20'}`}>
+        <div className="h-16 flex items-center px-4 border-b border-gray-200">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors">
+            <Menu className="w-5 h-5" />
+          </button>
+          {sidebarOpen && (
+            <div className="ml-3 flex items-center font-bold text-lg tracking-tight text-blue-900">
+              <FileSignature className="w-5 h-5 mr-2 text-blue-600" />
+              MiamSign
             </div>
-            <p className="text-gray-400">Gestión Inteligente de Contratos Legales</p>
-          </div>
+          )}
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Columna Izquierda: Formulario */}
-          <div className="lg:col-span-5">
-            <div className="glass-panel p-8 rounded-2xl">
-              <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-                <span className="text-indigo-400">✦</span> Emitir Documento
-              </h2>
-              <form onSubmit={handleCreate} className="space-y-5">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Tipo de Servicio</label>
-                  <select 
-                    value={type} 
-                    onChange={(e) => handleTypeChange(e.target.value)}
-                    className="glass-input block w-full rounded-xl p-3"
-                  >
-                    <option value="BRANDING" className="text-black">Branding & Logotipos</option>
-                    <option value="WEB" className="text-black">Desarrollo Web & E-Commerce</option>
-                    <option value="MIAMBOT" className="text-black">MiamBot / Retainer Mensual</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Nombre del Cliente / Empresa</label>
-                  <input 
-                    type="text" 
-                    value={clientName} 
-                    onChange={(e) => setClientName(e.target.value)}
-                    className="glass-input block w-full rounded-xl p-3"
-                    placeholder="Ej. Acme Corp S.A.C."
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Email del Representante</label>
-                  <input 
-                    type="email" 
-                    value={clientEmail} 
-                    onChange={(e) => setClientEmail(e.target.value)}
-                    className="glass-input block w-full rounded-xl p-3" 
-                    placeholder="ceo@empresa.com"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Título del Documento</label>
-                  <input 
-                    type="text" 
-                    value={title} 
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="glass-input block w-full rounded-xl p-3" 
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Plantilla Legal (Editable)</label>
-                  <textarea 
-                    value={content} 
-                    onChange={(e) => setContent(e.target.value)}
-                    rows={8}
-                    className="glass-input block w-full rounded-xl p-3 text-sm font-mono text-gray-300" 
-                  />
-                </div>
-
-                <button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 px-6 rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-indigo-500/30">
-                  Generar y Sellar Documento
-                </button>
-              </form>
-            </div>
-          </div>
-
-          {/* Columna Derecha: Lista de Contratos */}
-          <div className="lg:col-span-7">
-            <div className="glass-panel rounded-2xl overflow-hidden h-full flex flex-col">
-              <div className="px-8 py-6 border-b border-white/10 flex justify-between items-center bg-white/5">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <span className="text-purple-400">❖</span> Registro de Contratos
-                </h3>
-                <button onClick={loadContracts} className="text-sm text-indigo-300 hover:text-indigo-200 transition-colors">
-                  Actualizar Lista
-                </button>
-              </div>
-              
-              <div className="flex-1 overflow-y-auto p-4">
-                {loading ? (
-                  <div className="h-full flex items-center justify-center text-gray-400">Sincronizando contratos...</div>
-                ) : contracts.length === 0 ? (
-                  <div className="h-full flex items-center justify-center text-gray-500">Ningún contrato emitido aún.</div>
-                ) : (
-                  <ul className="space-y-4">
-                    {contracts.map(contract => (
-                      <li key={contract.id} className="glass-input p-6 rounded-xl border border-white/5 hover:border-white/20 transition-all group">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                          <div>
-                            <h4 className="font-bold text-lg text-white mb-1">{contract.title}</h4>
-                            <p className="text-sm text-gray-400">
-                              <span className="text-gray-300">{contract.clientName}</span> &bull; {contract.clientEmail}
-                            </p>
-                            <div className="flex items-center gap-3 mt-3">
-                              <span className="bg-white/10 text-gray-300 text-xs px-2 py-1 rounded">
-                                {contract.type}
-                              </span>
-                              <span className="text-xs text-gray-500">
-                                {new Date(contract.createdAt).toLocaleDateString()}
-                              </span>
-                            </div>
-                          </div>
-                          
-                          <div className="flex flex-col items-start md:items-end gap-3">
-                            {contract.status === "SIGNED" ? (
-                              <span className="bg-green-500/20 text-green-300 text-xs font-bold px-3 py-1.5 rounded-full border border-green-500/30 flex items-center gap-1.5">
-                                <span className="w-2 h-2 rounded-full bg-green-400"></span> FIRMADO
-                              </span>
-                            ) : (
-                              <span className="bg-yellow-500/20 text-yellow-300 text-xs font-bold px-3 py-1.5 rounded-full border border-yellow-500/30 flex items-center gap-1.5">
-                                <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> PENDIENTE
-                              </span>
-                            )}
-                            
-                            <div className="flex gap-2">
-                              <button 
-                                onClick={() => copyLink(contract.id)}
-                                className="text-xs bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-lg transition-colors"
-                              >
-                                Copiar Link
-                              </button>
-                              <a 
-                                href={`/sign/${contract.id}`}
-                                target="_blank"
-                                className="text-xs bg-indigo-600 hover:bg-indigo-500 text-white py-2 px-4 rounded-lg transition-colors shadow-lg shadow-indigo-500/20"
-                              >
-                                Visualizar
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          </div>
+        <div className="flex-1 py-4 flex flex-col gap-1 px-3">
+          <NavItem icon={<Home className="w-5 h-5" />} label="Inicio" active={activeTab === "home"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("home")} />
+          <NavItem icon={<Folder className="w-5 h-5" />} label="Gestionar" active={activeTab === "manage"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("manage")} />
+          <NavItem icon={<LayoutTemplate className="w-5 h-5" />} label="Plantillas" active={activeTab === "templates"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("templates")} />
+        </div>
+        <div className="p-4 border-t border-gray-200">
+          <NavItem icon={<Settings className="w-5 h-5" />} label="Configuración" active={activeTab === "settings"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("settings")} />
         </div>
       </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        {/* Top Navbar */}
+        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
+          <div className="flex items-center bg-gray-100 px-3 py-2 rounded-md w-96 border border-gray-200 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+            <Search className="w-4 h-4 text-gray-400" />
+            <input type="text" placeholder="Buscar documentos, destinatarios..." className="bg-transparent border-none outline-none ml-2 text-sm w-full text-gray-700 placeholder:text-gray-400" />
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="text-gray-400 hover:text-gray-600 relative">
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+            </button>
+            <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-sm">
+              JA
+            </div>
+          </div>
+        </header>
+
+        {/* Dashboard Content */}
+        <main className="flex-1 overflow-auto p-8">
+          <div className="max-w-6xl mx-auto">
+            {activeTab === "home" && (
+              <>
+                <div className="flex justify-between items-end mb-8">
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-1">Bienvenido a MiamSign</h1>
+                    <p className="text-gray-500">Gestiona y envía tus documentos para firma electrónica.</p>
+                  </div>
+                  <button 
+                    onClick={() => setIsModalOpen(true)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-md transition-colors shadow-sm flex items-center gap-2"
+                  >
+                    <Plus className="w-5 h-5" />
+                    Nuevo Documento
+                  </button>
+                </div>
+
+                {/* Quick Stats or Overview */}
+                <div className="grid grid-cols-3 gap-6 mb-8">
+                  <StatCard title="Requiere tu acción" count="0" />
+                  <StatCard title="Esperando a otros" count={contracts.filter(c => c.status !== "SIGNED").length.toString()} />
+                  <StatCard title="Completados" count={contracts.filter(c => c.status === "SIGNED").length.toString()} />
+                </div>
+              </>
+            )}
+
+            {(activeTab === "home" || activeTab === "manage") && (
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50/50 rounded-t-lg">
+                  <h2 className="text-lg font-semibold text-gray-900">{activeTab === "home" ? "Documentos Recientes" : "Todos los Documentos"}</h2>
+                  <div className="flex gap-4">
+                    {activeTab === "manage" && (
+                      <button 
+                        onClick={() => setIsModalOpen(true)}
+                        className="text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 py-1.5 px-4 rounded-md transition-colors"
+                      >
+                        Crear Nuevo
+                      </button>
+                    )}
+                    <button onClick={loadContracts} className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors mt-1.5">
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-white border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-4 w-1/3">Asunto</th>
+                      <th className="px-6 py-4">Estado</th>
+                      <th className="px-6 py-4">Destinatario</th>
+                      <th className="px-6 py-4">Último Cambio</th>
+                      <th className="px-6 py-4 text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {loading ? (
+                      <tr>
+                        <td colSpan={5} className="px-6 py-12 text-center text-gray-500">Cargando documentos...</td>
+                      </tr>
+                    ) : contracts.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
+                          <FileText className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                          <p>No hay documentos recientes.</p>
+                        </td>
+                      </tr>
+                    ) : (
+                      contracts.map(contract => (
+                        <tr key={contract.id} className="hover:bg-gray-50 transition-colors group">
+                          <td className="px-6 py-4">
+                            <div className="font-semibold text-gray-900">{contract.title}</div>
+                            <div className="text-xs text-gray-500 mt-0.5">{contract.type}</div>
+                          </td>
+                          <td className="px-6 py-4">
+                            {contract.status === "SIGNED" ? (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                Completado
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                                <Clock className="w-3.5 h-3.5" />
+                                Esperando a otros
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="text-sm text-gray-900">{contract.clientName}</div>
+                            <div className="text-xs text-gray-500">{contract.clientEmail}</div>
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-500">
+                            {new Date(contract.createdAt).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <a href={`/sign/${contract.id}`} target="_blank" className="text-xs font-medium text-gray-600 hover:text-blue-600 bg-white border border-gray-200 hover:border-blue-200 rounded px-2.5 py-1.5 shadow-sm transition-colors">
+                                Ver
+                              </a>
+                              <button onClick={() => copyLink(contract.id)} className="text-xs font-medium text-gray-600 hover:text-blue-600 bg-white border border-gray-200 hover:border-blue-200 rounded px-2.5 py-1.5 shadow-sm transition-colors">
+                                Enlace
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+            {activeTab === "templates" && (
+              <div>
+                <div className="flex justify-between items-end mb-8">
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-1">Tus Plantillas Legales</h1>
+                    <p className="text-gray-500">Contratos oficiales de Miam Digital Studio listos para enviar.</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <TemplateCard title="Contrato de Branding y Diseño" desc="Acuerdo (MSA) de diseño de identidad corporativa y brandbooks." type="BRANDING" onPreview={() => setPreviewType("BRANDING")} />
+                  <TemplateCard title="Contrato de Desarrollo Web" desc="Acuerdo (MSA) para páginas informativas y tiendas virtuales E-commerce." type="WEB" onPreview={() => setPreviewType("WEB")} />
+                  <TemplateCard title="Suscripción MiamBot (SaaS)" desc="Contrato para marketing digital, pauta y automatización en WhatsApp." type="MIAMBOT" onPreview={() => setPreviewType("MIAMBOT")} />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "settings" && (
+              <div>
+                <div className="mb-8">
+                  <h1 className="text-2xl font-bold text-gray-900 mb-1">Configuración</h1>
+                  <p className="text-gray-500">Ajustes de la empresa y plataforma.</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 max-w-2xl">
+                  <h3 className="text-lg font-semibold mb-4">Datos de la Empresa</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Razón Social</label>
+                      <input type="text" disabled value="Miam Digital Studio S.A.C." className="w-full bg-gray-50 border border-gray-300 rounded-md p-2.5 text-sm text-gray-600" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">RUC</label>
+                      <input type="text" disabled value="20615782344" className="w-full bg-gray-50 border border-gray-300 rounded-md p-2.5 text-sm text-gray-600" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </main>
+      </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+              <h2 className="text-xl font-bold text-gray-900">Enviar Nuevo Documento</h2>
+              <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-gray-200 rounded-full transition-colors">
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-6 flex gap-6">
+              <div className="w-1/3 border-r border-gray-100 pr-6">
+                <form id="create-form" onSubmit={handleCreate} className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Plantilla de Contrato</label>
+                    <select 
+                      value={type} 
+                      onChange={(e) => handleTypeChange(e.target.value)}
+                      className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                    >
+                      <option value="BRANDING">Acuerdo de Servicios - Branding (MSA)</option>
+                      <option value="WEB">Acuerdo de Servicios - Desarrollo Web (MSA)</option>
+                      <option value="MIAMBOT">Suscripción SaaS y Marketing - MiamBot</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Nombre del Cliente</label>
+                    <input 
+                      type="text" 
+                      value={clientName}
+                      onChange={e => setClientName(e.target.value)}
+                      required 
+                      placeholder="Ej. Juan Pérez"
+                      className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Correo Electrónico</label>
+                    <input 
+                      type="email" 
+                      value={clientEmail}
+                      onChange={e => setClientEmail(e.target.value)}
+                      required
+                      placeholder="juan@empresa.com"
+                      className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                    />
+                  </div>
+                </form>
+              </div>
+
+              <div className="w-2/3 flex flex-col bg-gray-50 rounded-lg border border-gray-200">
+                <div className="p-4 border-b border-gray-200 bg-gray-100 rounded-t-lg flex justify-between items-center">
+                  <span className="text-sm font-bold text-gray-700">Vista Previa del Documento</span>
+                </div>
+                <div className="p-4 flex-1">
+                  <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="w-full h-full min-h-[300px] bg-white border-0 outline-none resize-none font-mono text-sm text-gray-700 p-2 shadow-inner rounded-md focus:ring-1 focus:ring-blue-200"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="p-5 border-t border-gray-100 bg-gray-50 rounded-b-xl flex justify-end gap-3">
+              <button 
+                type="button" 
+                onClick={() => setIsModalOpen(false)}
+                className="px-5 py-2.5 text-sm font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-md transition-colors shadow-sm"
+              >
+                Cancelar
+              </button>
+              <button 
+                type="submit"
+                form="create-form"
+                className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors shadow-sm flex items-center gap-2"
+              >
+                Enviar Documento
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Preview Modal */}
+      {previewType && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+              <h2 className="text-xl font-bold text-gray-900">Lectura Completa del Contrato</h2>
+              <button onClick={() => setPreviewType(null)} className="p-2 hover:bg-gray-200 rounded-full transition-colors">
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <div className="p-8 overflow-y-auto flex-1 font-mono text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+              {TEMPLATES[previewType]}
+            </div>
+            <div className="p-6 border-t border-gray-100 bg-gray-50 rounded-b-xl flex justify-end">
+              <button 
+                onClick={() => setPreviewType(null)} 
+                className="px-6 py-2.5 text-sm font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-md transition-colors shadow-sm"
+              >
+                Cerrar Lectura
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function NavItem({ icon, label, active = false, sidebarOpen, onClick }: { icon: React.ReactNode, label: string, active?: boolean, sidebarOpen: boolean, onClick?: () => void }) {
+  return (
+    <button onClick={onClick} className={`w-full flex items-center px-3 py-2.5 rounded-md transition-colors ${active ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}>
+      <span className={`${active ? 'text-blue-600' : 'text-gray-500'}`}>{icon}</span>
+      {sidebarOpen && <span className={`ml-3 text-sm font-semibold ${active ? 'text-blue-800' : ''}`}>{label}</span>}
+    </button>
+  );
+}
+
+function TemplateCard({ title, desc, type, onPreview }: { title: string, desc: string, type: string, onPreview?: () => void }) {
+  return (
+    <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+      <div>
+        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-4">
+          <FileText className="w-5 h-5" />
+        </div>
+        <h3 className="text-md font-bold text-gray-900 mb-1">{title}</h3>
+        <p className="text-sm text-gray-500">{desc}</p>
+      </div>
+      <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{type}</span>
+        {onPreview && (
+          <button onClick={onPreview} className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+            Ver Documento
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ title, count }: { title: string, count: string }) {
+  return (
+    <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between">
+      <h3 className="text-sm font-semibold text-gray-500 mb-2">{title}</h3>
+      <span className="text-3xl font-bold text-gray-900">{count}</span>
     </div>
   );
 }

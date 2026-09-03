@@ -2,6 +2,8 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
+import { sendContractEmail } from "@/lib/email";
+
 export async function createContract(data: {
   title: string;
   content: string;
@@ -11,12 +13,38 @@ export async function createContract(data: {
   companyId: string;
 }) {
   try {
+    // Asegurarse de que la compañía exista
+    let company = await prisma.company.findUnique({ where: { id: data.companyId } });
+    if (!company) {
+      company = await prisma.company.create({
+        data: {
+          id: data.companyId,
+          name: "Miam Digital Studio",
+          plan: "premium"
+        }
+      });
+    }
+
     const contract = await prisma.contract.create({
       data: {
-        ...data,
+        title: data.title,
+        content: data.content,
+        type: data.type,
+        clientName: data.clientName,
+        clientEmail: data.clientEmail,
+        companyId: data.companyId,
         status: "SENT",
       },
     });
+    
+    // Enviar correo electrónico
+    // NEXT_PUBLIC_BASE_URL no está en .env, así que usaremos el localhost para dev o el origin para prod
+    // Para simplificar, asumimos el dominio de producción
+    const baseUrl = process.env.VERCEL_URL ? `https://firmas.miam.com.pe` : `http://localhost:3000`;
+    const contractUrl = `${baseUrl}/sign/${contract.id}`;
+    
+    await sendContractEmail(data.clientName, data.clientEmail, data.title, contractUrl);
+
     revalidatePath("/dashboard/miamsign");
     return { success: true, contract };
   } catch (error: any) {
