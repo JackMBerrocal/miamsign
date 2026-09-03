@@ -63,3 +63,42 @@ export async function getContracts(companyId: string) {
     return { success: false, error: error.message };
   }
 }
+
+export async function deleteContract(id: string) {
+  try {
+    await prisma.contract.delete({ where: { id } });
+    revalidatePath("/dashboard/miamsign");
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateContractClient(id: string, clientName: string, clientEmail: string) {
+  try {
+    await prisma.contract.update({
+      where: { id },
+      data: { clientName, clientEmail }
+    });
+    revalidatePath("/dashboard/miamsign");
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function resendContractEmail(id: string) {
+  try {
+    const contract = await prisma.contract.findUnique({ where: { id } });
+    if (!contract) throw new Error("Contrato no encontrado");
+
+    const baseUrl = process.env.VERCEL_URL ? `https://firmas.miam.com.pe` : `http://localhost:3000`;
+    const contractUrl = `${baseUrl}/sign/${contract.id}`;
+    
+    await sendContractEmail(contract.clientName || "", contract.clientEmail || "", contract.title || "", contractUrl);
+    
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
