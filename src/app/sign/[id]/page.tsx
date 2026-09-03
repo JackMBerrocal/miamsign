@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { getContract, signContract } from "./actions";
 import SignatureCanvas from "react-signature-canvas";
 import html2canvas from "html2canvas";
@@ -8,7 +8,10 @@ import jsPDF from "jspdf";
 import ReactMarkdown from "react-markdown";
 import { PenTool, CheckCircle, X, ShieldCheck, Download, HelpCircle, AlertCircle } from "lucide-react";
 
-export default function SignContractPage({ params }: { params: { id: string } }) {
+export default function SignContractPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
+  // Manejo de compatibilidad para Next.js 15 (params es Promise)
+  const resolvedParams = params instanceof Promise ? use(params) : params;
+  const id = resolvedParams.id;
   const [contract, setContract] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,7 +25,7 @@ export default function SignContractPage({ params }: { params: { id: string } })
 
   useEffect(() => {
     async function load() {
-      const res = await getContract(params.id);
+      const res = await getContract(id);
       if (res.success && res.contract) {
         setContract(res.contract);
       } else {
@@ -31,7 +34,7 @@ export default function SignContractPage({ params }: { params: { id: string } })
       setLoading(false);
     }
     load();
-  }, [params.id]);
+  }, [id]);
 
   const clearSignature = () => {
     sigCanvas.current?.clear();

@@ -41,9 +41,10 @@ export const sendContractEmail = async (
             border: 1px solid #334155;
         }
         .header {
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            padding: 30px;
+            background-color: #0b0f19;
+            padding: 40px 30px;
             text-align: center;
+            border-bottom: 2px solid #334155;
         }
         .header h1 {
             margin: 0;
@@ -68,11 +69,12 @@ export const sendContractEmail = async (
             margin-bottom: 30px;
         }
         .contract-box {
-            background-color: #0f172a;
-            border-left: 4px solid #7c3aed;
+            background-color: #0b0f19;
+            border-left: 4px solid #ffc820;
             padding: 20px;
             border-radius: 6px;
             margin-bottom: 35px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         .contract-title {
             font-size: 16px;
@@ -91,26 +93,26 @@ export const sendContractEmail = async (
         }
         .cta-button {
             display: inline-block;
-            background-color: #3b82f6;
-            color: #ffffff !important;
+            background-color: #ffc820;
+            color: #1e1e1e !important;
             text-decoration: none;
             padding: 14px 32px;
             font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+            font-weight: 800;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px 0 rgba(255, 200, 32, 0.3);
         }
         .cta-button:hover {
-            background-color: #2563eb;
+            background-color: #e6b41c;
+            transform: translateY(-2px);
         }
         .footer {
-            background-color: #0f172a;
+            background-color: #0b0f19;
             padding: 20px 30px;
             text-align: center;
             font-size: 12px;
             color: #64748b;
-            border-top: 1px solid #334155;
         }
         .footer-legal {
             margin-top: 10px;
@@ -122,12 +124,12 @@ export const sendContractEmail = async (
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://miam.com.pe/img/LOGO%20MIAM_blanco.png" alt="Miam Digital Studio" style="max-height: 90px; width: auto; margin: 0 auto; display: block;" />
+            <img src="https://miam.com.pe/img/LOGO%20MIAM_blanco.png" alt="Miam Digital Studio" style="max-height: 120px; width: auto; margin: 0 auto; display: block;" />
         </div>
         <div class="content">
             <div class="greeting">Hola ${clientName},</div>
             <div class="message">
-                Te informamos que Miam Digital Studio S.A.C. ha emitido un nuevo documento legal que requiere tu revisión y firma electrónica (MiamSign).
+                Te informamos que <strong>Miam Digital Studio S.A.C.</strong> ha emitido un nuevo documento legal oficial que requiere tu revisión y firma electrónica (MiamSign).
             </div>
             
             <div class="contract-box">
