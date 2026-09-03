@@ -20,6 +20,7 @@ export default function MiamSignDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("home"); // home, manage, templates, settings
   const [previewType, setPreviewType] = useState<string | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
 
   // Form State
   const [title, setTitle] = useState("Contrato de Branding - Miam");
@@ -79,35 +80,43 @@ export default function MiamSignDashboard() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isCreating) return;
     if (!clientName || !clientEmail) return alert("Faltan datos del cliente");
 
-    const res = await createContract({
-      title,
-      clientName,
-      clientEmail,
-      clientDocument,
-      clientAddress,
-      clientPhone,
-      paymentAmount,
-      paymentType,
-      type,
-      content,
-      companyId: COMPANY_ID
-    });
+    setIsCreating(true);
+    try {
+      const res = await createContract({
+        title,
+        clientName,
+        clientEmail,
+        clientDocument,
+        clientAddress,
+        clientPhone,
+        paymentAmount,
+        paymentType,
+        type,
+        content,
+        companyId: COMPANY_ID
+      });
 
-    if (res.success) {
-      alert("¡Contrato creado exitosamente!");
-      setClientName("");
-      setClientEmail("");
-      setClientDocument("");
-      setClientAddress("");
-      setClientPhone("");
-      setPaymentAmount("");
-      setPaymentType("50_50");
-      setIsModalOpen(false);
-      loadContracts();
-    } else {
-      alert("Error al crear contrato: " + res.error);
+      if (res.success) {
+        alert("¡Contrato creado exitosamente!");
+        setClientName("");
+        setClientEmail("");
+        setClientDocument("");
+        setClientAddress("");
+        setClientPhone("");
+        setPaymentAmount("");
+        setPaymentType("50_50");
+        setIsModalOpen(false);
+        loadContracts();
+      } else {
+        alert("Error al crear contrato: " + res.error);
+      }
+    } catch (err: any) {
+      alert("Error inesperado: " + err.message);
+    } finally {
+      setIsCreating(false);
     }
   };
 
@@ -521,9 +530,17 @@ export default function MiamSignDashboard() {
               <button 
                 type="submit"
                 form="create-form"
-                className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors shadow-sm flex items-center gap-2"
+                disabled={isCreating}
+                className="px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-md transition-colors shadow-sm flex items-center gap-2"
               >
-                Enviar Documento
+                {isCreating ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Generando y Enviando...</span>
+                  </>
+                ) : (
+                  "Enviar Documento"
+                )}
               </button>
             </div>
           </div>
