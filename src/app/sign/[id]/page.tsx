@@ -170,38 +170,43 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
           
           <div 
              ref={contractRef}
-             className="bg-white w-full max-w-[816px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] min-h-[1056px] p-[60px] sm:p-[80px] relative mx-auto"
+             className="bg-white w-full max-w-[816px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] min-h-[1056px] p-[60px] sm:p-[80px] relative mx-auto overflow-hidden"
           >
+            {/* Marca de Agua (Watermark) */}
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 opacity-[0.06]">
+               <img src="https://miam.com.pe/img/marcadeagua.png" alt="Watermark" className="w-[70%] object-contain" />
+            </div>
+
             {/* Header Formato Legal */}
-            <div className="flex justify-between items-start border-b-2 border-black pb-4 mb-10">
+            <div className="relative z-10 flex justify-between items-start border-b-2 border-black pb-6 mb-12">
               <div>
-                 <h2 className="text-[28px] font-serif font-bold tracking-tight text-black leading-none">MASTER SERVICES AGREEMENT</h2>
-                 <p className="text-[11px] font-mono text-gray-600 uppercase tracking-widest mt-2">ID: {contract.id}</p>
+                 <h2 className="text-[32px] font-serif font-bold tracking-tight text-black leading-none">MASTER SERVICES AGREEMENT</h2>
+                 <p className="text-[12px] font-mono text-gray-600 uppercase tracking-widest mt-3">ID: {contract.id}</p>
               </div>
               <div className="text-right flex flex-col items-end">
-                 <img src="https://miam.com.pe/img/LOGO1.png" alt="Miam Logo" className="h-8 mb-2 grayscale opacity-90" />
+                 <img src="https://miam.com.pe/img/LOGO1.png" alt="Miam Logo" className="h-16 mb-3 object-contain" />
                  <p className="font-bold text-black text-sm font-serif">Miam Digital Studio S.A.C.</p>
                  <p className="text-xs text-gray-700 font-serif">RUC: 20615782344</p>
               </div>
             </div>
 
             {/* Texto del Contrato (Serif Font for Legal feel) */}
-            <div className="prose prose-sm max-w-none text-black font-serif leading-[1.8] text-[14px]">
+            <div className="relative z-10 prose prose-sm max-w-none text-black font-serif leading-[2] text-[15px] prose-p:mb-5 prose-headings:mt-8">
                <ReactMarkdown>{contract.content}</ReactMarkdown>
             </div>
 
             {/* SECCIÓN DE FIRMAS */}
-            <div className="mt-16 pt-8 border-t border-gray-300">
-               <h3 className="text-[15px] font-bold text-black mb-10 uppercase tracking-wider font-sans">Cuadro de Firmas Oficiales</h3>
+            <div className="relative z-10 mt-20 pt-10 border-t border-gray-300">
+               <h3 className="text-[16px] font-bold text-black mb-12 uppercase tracking-wider font-sans">Cuadro de Firmas Oficiales</h3>
                
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-20">
                   {/* Firma Agencia (Estático) */}
                   <div>
-                     <p className="text-[13px] font-bold text-black mb-1">Miam Digital Studio</p>
-                     <p className="text-[11px] text-gray-600 mb-6">Representante Legal Autorizado</p>
+                     <p className="text-[14px] font-bold text-black mb-1">Jack Michael Berrocal Espinoza</p>
+                     <p className="text-[12px] text-gray-600 mb-6">Representante Legal (Miam Digital Studio)</p>
                      
                      <div className="border-b border-black pb-1 relative h-[70px] flex items-end">
-                        <span className="font-serif italic text-4xl text-black px-2 mb-1">Miam Digital</span>
+                        <span className="font-serif italic font-medium tracking-tighter text-4xl text-black px-2 mb-1" style={{ fontFamily: "'Brush Script MT', 'Cedarville Cursive', cursive" }}>Jack M. Berrocal E.</span>
                      </div>
                   </div>
 
@@ -248,7 +253,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
             </div>
             
             {/* Footer de Papel */}
-            <div className="absolute bottom-[30px] left-[80px] right-[80px] flex justify-between items-center border-t border-gray-200 pt-3">
+            <div className="absolute bottom-[30px] left-[80px] right-[80px] flex justify-between items-center border-t border-gray-200 pt-3 z-10">
                <span className="text-[9px] text-gray-400 font-mono">{contract.id}</span>
                <span className="text-[9px] text-gray-400 font-sans uppercase">Página 1 de 1</span>
             </div>
