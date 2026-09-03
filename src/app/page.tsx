@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { createContract, getContracts, deleteContract, updateContractClient, resendContractEmail } from "./actions";
 import { BRANDING_CONTRACT, WEB_CONTRACT, MIAMBOT_CONTRACT, generateTemplate } from "./templates";
+import { CATALOG } from "./services";
 import { FileSignature, Folder, LayoutTemplate, Settings, Home, Search, Bell, Menu, Plus, FileText, CheckCircle2, Clock, Trash2, Send, Edit } from "lucide-react";
 
 const COMPANY_ID = "63d76e71-460d-4560-af33-b1d5bf59cc28";
@@ -27,8 +28,15 @@ export default function MiamSignDashboard() {
   const [clientDocument, setClientDocument] = useState("");
   const [clientAddress, setClientAddress] = useState("");
   const [clientPhone, setClientPhone] = useState("");
-  const [type, setType] = useState("BRANDING");
-  const [content, setContent] = useState(generateTemplate("BRANDING", "", "", ""));
+  const [selectedServiceId, setSelectedServiceId] = useState(CATALOG[0].id);
+  const [serviceName, setServiceName] = useState(CATALOG[0].name);
+  const [serviceDeliverables, setServiceDeliverables] = useState(CATALOG[0].deliverables.map(d => `✔️ ${d}`).join("\n\n"));
+  const [deliveryTime, setDeliveryTime] = useState(CATALOG[0].deliveryTime);
+
+  const [paymentAmount, setPaymentAmount] = useState(CATALOG[0].price);
+  const [paymentType, setPaymentType] = useState(CATALOG[0].defaultPaymentType);
+  const [type, setType] = useState(CATALOG[0].baseTemplate);
+  const [content, setContent] = useState(generateTemplate(CATALOG[0].baseTemplate, "", "", "", CATALOG[0].price, CATALOG[0].defaultPaymentType, CATALOG[0].name, CATALOG[0].deliverables.map(d => `✔️ ${d}`).join("\n\n"), CATALOG[0].deliveryTime));
 
   // Edit State
   const [editingContract, setEditingContract] = useState<any | null>(null);
@@ -51,14 +59,21 @@ export default function MiamSignDashboard() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setContent(generateTemplate(type, clientName, clientDocument, clientAddress));
-  }, [clientName, clientDocument, clientAddress, type]);
+    setContent(generateTemplate(type, clientName, clientDocument, clientAddress, paymentAmount, paymentType, serviceName, serviceDeliverables, deliveryTime));
+  }, [clientName, clientDocument, clientAddress, type, paymentAmount, paymentType, serviceName, serviceDeliverables, deliveryTime]);
 
-  const handleTypeChange = (newType: string) => {
-    setType(newType);
-    if (newType === "BRANDING") setTitle("Contrato de Branding y Diseño - Miam");
-    if (newType === "WEB") setTitle("Contrato de Desarrollo Web - Miam");
-    if (newType === "MIAMBOT") setTitle("Suscripción MiamBot (SaaS) - Miam");
+  const handleServiceChange = (newId: string) => {
+    const service = CATALOG.find(s => s.id === newId);
+    if (!service) return;
+    
+    setSelectedServiceId(newId);
+    setServiceName(service.name);
+    setServiceDeliverables(service.deliverables.map(d => `✔️ ${d}`).join("\n\n"));
+    setDeliveryTime(service.deliveryTime);
+    setPaymentAmount(service.price);
+    setPaymentType(service.defaultPaymentType);
+    setType(service.baseTemplate);
+    setTitle(`Contrato de ${service.name} - Miam`);
   };
 
 
@@ -73,6 +88,8 @@ export default function MiamSignDashboard() {
       clientDocument,
       clientAddress,
       clientPhone,
+      paymentAmount,
+      paymentType,
       type,
       content,
       companyId: COMPANY_ID
@@ -85,6 +102,8 @@ export default function MiamSignDashboard() {
       setClientDocument("");
       setClientAddress("");
       setClientPhone("");
+      setPaymentAmount("");
+      setPaymentType("50_50");
       setIsModalOpen(false);
       loadContracts();
     } else {
@@ -373,15 +392,19 @@ export default function MiamSignDashboard() {
               <div className="w-1/3 border-r border-gray-100 pr-6">
                 <form id="create-form" onSubmit={handleCreate} className="space-y-5">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Plantilla de Contrato</label>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Servicio a Contratar</label>
                     <select 
-                      value={type} 
-                      onChange={(e) => handleTypeChange(e.target.value)}
+                      value={selectedServiceId} 
+                      onChange={(e) => handleServiceChange(e.target.value)}
                       className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
                     >
-                      <option value="BRANDING">Acuerdo de Servicios - Branding (MSA)</option>
-                      <option value="WEB">Acuerdo de Servicios - Desarrollo Web (MSA)</option>
-                      <option value="MIAMBOT">Suscripción SaaS y Marketing - MiamBot</option>
+                      {Array.from(new Set(CATALOG.map(s => s.category))).map(category => (
+                        <optgroup key={category} label={category}>
+                          {CATALOG.filter(s => s.category === category).map(s => (
+                            <option key={s.id} value={s.id}>{s.name} - {s.price}</option>
+                          ))}
+                        </optgroup>
+                      ))}
                     </select>
                   </div>
                   
@@ -431,6 +454,32 @@ export default function MiamSignDashboard() {
                       placeholder="Ej. Av. Javier Prado Este 1234, Lima"
                       className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
                     />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Monto Total</label>
+                      <input 
+                        type="text" 
+                        value={paymentAmount}
+                        onChange={e => setPaymentAmount(e.target.value)}
+                        required 
+                        placeholder="Ej. 1500 USD o 4500 PEN"
+                        className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Modalidad de Pago</label>
+                      <select 
+                        value={paymentType}
+                        onChange={e => setPaymentType(e.target.value as any)}
+                        className="w-full bg-white border border-gray-300 rounded-md p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
+                      >
+                        <option value="50_50">50% Adelanto / 50% Final</option>
+                        <option value="100_UPFRONT">100% Pago Único por Adelantado</option>
+                        <option value="MONTHLY">Suscripción Mensual (Retainer)</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div>

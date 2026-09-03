@@ -13,6 +13,8 @@ export async function createContract(data: {
   clientPhone?: string;
   clientDocument?: string;
   clientAddress?: string;
+  paymentAmount?: string;
+  paymentType?: string;
   companyId: string;
 }) {
   try {
@@ -38,6 +40,8 @@ export async function createContract(data: {
         clientPhone: data.clientPhone,
         clientDocument: data.clientDocument,
         clientAddress: data.clientAddress,
+        paymentAmount: data.paymentAmount,
+        paymentType: data.paymentType,
         companyId: data.companyId,
         status: "SENT",
       },

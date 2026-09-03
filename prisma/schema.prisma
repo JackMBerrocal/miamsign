@@ -589,6 +589,9 @@ model Contract {
   clientDocument String?
   clientAddress  String?
   
+  paymentAmount  String?   // Ej. "1500 USD" o "5000 PEN"
+  paymentType    String?   // "50_50", "100_UPFRONT", "MONTHLY"
+  
   clientIp       String?
   signedAt       DateTime?
   signatureData  String?   @db.Text // Base64 de la firma

@@ -11,9 +11,13 @@ Este Contrato Marco de Prestación de Servicios Profesionales (en lo sucesivo, e
 ## TÍTULO I: DECLARACIONES Y OBJETO DEL CONTRATO
 
 **Cláusula 1.1. Objeto del Contrato:**
-Bajo los términos y condiciones de este MSA, EL CLIENTE contrata a LA AGENCIA, para proveer servicios profesionales de diseño gráfico, conceptualización de logotipos, elaboración de manuales de marca (Brandbooks) y desarrollo de identidad visual corporativa, según los hitos descritos taxativamente en la Propuesta Comercial (en adelante, los **"Servicios"**).
+Bajo los términos y condiciones de este MSA, EL CLIENTE contrata a LA AGENCIA para proveer el servicio de **[SERVICE_NAME]**, el cual incluye taxativamente los siguientes entregables y características:
+[SERVICE_DELIVERABLES]
 
-**Cláusula 1.2. Gestión de Cambios (Out of Scope):**
+**Cláusula 1.2. Plazo de Ejecución y Entrega:**
+El tiempo de entrega estimado para la presentación de los entregables iniciales es de **[DELIVERY_TIME]**, sujeto a la entrega oportuna de insumos y aprobaciones por parte de EL CLIENTE.
+
+**Cláusula 1.3. Gestión de Cambios (Out of Scope):**
 Cualquier solicitud de servicio adicional o modificación sustancial posterior a las etapas de aprobación estructural, que no conste expresamente en la propuesta original, se considerará fuera del alcance (*Out of Scope*). Dichas solicitudes requerirán una **"Orden de Cambio"** documentada y cotizada de manera independiente.
 
 ## TÍTULO II: OBLIGACIONES, NIVELES DE SERVICIO (SLA) Y ABANDONO
@@ -31,10 +35,12 @@ Si la inactividad persiste por **sesenta (60) días calendario**, cualquiera de 
 **Cláusula 2.4. Penalidad por Incumplimiento de LA AGENCIA:**
 Si LA AGENCIA incurre en retrasos injustificados superiores a quince (15) días hábiles sobre los plazos pactados en el cronograma oficial, EL CLIENTE tendrá derecho a una penalidad equivalente al 0.5% del valor total del contrato por cada día hábil de retraso, con un tope máximo del 15% del valor contractual.
 
+<!-- PAGE BREAK -->
+
 ## TÍTULO III: CONDICIONES ECONÓMICAS Y REEMBOLSOS
 
 **Cláusula 3.1. Estructura de Pagos:**
-Se estipula un esquema de pago fraccionado: 50% de anticipo para iniciar labores de investigación y reservas de agenda, y 50% de Saldo Final pagadero contra la aprobación de los diseños y previo a la entrega de los Archivos Maestros/Editables.
+Se estipula un monto total de honorarios profesionales ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT]
 
 **Cláusula 3.2. Derecho de Rectificación y Desistimiento:**
 Al tratarse de un servicio de carácter creativo e intelectual, EL CLIENTE cuenta con las rondas de revisión pactadas para ajustar el diseño a sus requerimientos. Si tras agotar dichas rondas, EL CLIENTE decide, por mera apreciación subjetiva, no continuar con el proyecto, LA AGENCIA facturará únicamente el trabajo efectivamente realizado hasta esa fase, emitiendo el reembolso o nota de crédito correspondiente según la Liquidación Proporcional de la Cláusula 2.3. 
@@ -52,6 +58,8 @@ Sujeto a la cancelación del 100% de la contraprestación, LA AGENCIA transfiere
 
 **Cláusula 4.3. Confidencialidad y Derecho de Portafolio:**
 LA AGENCIA conserva el derecho de exhibir el trabajo final en su portafolio institucional y postularlo a premios de diseño. No obstante, si EL CLIENTE requiere estricta confidencialidad por estrategias comerciales (ej. lanzamiento futuro o registro previo de marca), podrá notificarlo a LA AGENCIA, quien aplicará un embargo de publicación (NDA) hasta que EL CLIENTE autorice el levantamiento del mismo.
+
+<!-- PAGE BREAK -->
 
 ## TÍTULO V: TRATAMIENTO DE DATOS PERSONALES (LEY N° 29733)
 
@@ -83,9 +91,15 @@ Este Contrato Marco de Prestación de Servicios Tecnológicos (en adelante, el *
 ## TÍTULO I: ALCANCE DE LOS SERVICIOS DE INGENIERÍA Y EXCLUSIONES
 
 **Cláusula 1.1. Objeto Principal y SLA:**
-LA AGENCIA se obliga a proveer servicios de Desarrollo de Software, Diseño de Interfaz (UI/UX) y programación de un portal web institucional o e-commerce, bajo los módulos y el cronograma especificados en la Propuesta Técnica. LA AGENCIA garantiza el cumplimiento de buenas prácticas de codificación web (estándares W3C, diseño responsivo).
+LA AGENCIA se obliga a proveer el servicio tecnológico de **[SERVICE_NAME]**, el cual incluye taxativamente los siguientes módulos y entregables:
+[SERVICE_DELIVERABLES]
 
-**Cláusula 1.2. Límites y Gestión de Cambios:**
+**Cláusula 1.2. Plazo de Ejecución y Entrega:**
+El tiempo de entrega estimado para el despliegue del proyecto es de **[DELIVERY_TIME]**, sujeto a la entrega oportuna de insumos por parte de EL CLIENTE.
+
+LA AGENCIA garantiza el cumplimiento de buenas prácticas de codificación web (estándares W3C, diseño responsivo).
+
+**Cláusula 1.3. Límites y Gestión de Cambios:**
 El desarrollo se restringe a lo descrito en la propuesta formal. La incorporación de nuevas funcionalidades constituye una modificación al alcance original y requerirá una **"Orden de Cambio"** cotizada independientemente.
 Este contrato NO incluye redacción de textos (Copywriting), provisión perpetua de dominio/hosting (salvo anexo expreso), ni registro legal de marcas. Los retrasos imputables a EL CLIENTE en la entrega de insumos desplazarán el cronograma en el mismo número de días hábiles de demora. LA AGENCIA deberá notificar por escrito (correo electrónico) la nueva fecha proyectada de entrega dentro de los tres (3) días hábiles siguientes al retraso, acreditando que este le impide continuar.
 
@@ -103,10 +117,12 @@ Previa al lanzamiento en vivo (Pase a Producción), el Software será desplegado
 **Cláusula 2.3. Penalidad por Incumplimiento de LA AGENCIA:**
 Si LA AGENCIA incurre en retrasos injustificados superiores a quince (15) días hábiles sobre los plazos pactados en el cronograma oficial, EL CLIENTE tendrá derecho a una penalidad equivalente al 0.5% del valor total del contrato por cada día hábil de retraso, con un tope máximo del 15% del valor contractual.
 
+<!-- PAGE BREAK -->
+
 ## TÍTULO III: CONDICIONES FINANCIERAS Y DERECHOS DE AUTOR (CÓDIGO FUENTE)
 
 **Cláusula 3.1. Esquema de Pagos y Retención:**
-Se requiere un anticipo del 50% y un saldo del 50% pagadero tras la validación en Staging. LA AGENCIA retendrá el código fuente maestro y no realizará la migración al dominio final (Pase a Producción) hasta confirmar la cancelación total del saldo.
+Se estipula un monto total de honorarios por desarrollo ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT] LA AGENCIA retendrá el código fuente maestro y no realizará la migración al dominio final (Pase a Producción) hasta confirmar la cancelación total del saldo en caso aplique.
 
 **Cláusula 3.2. Titularidad Plena del Código Fuente y Entregables:**
 Tras el pago total y efectivo del 100% de la contraprestación, **EL CLIENTE adquiere la titularidad plena y exclusiva del código fuente** desarrollado (Frontend y Backend). LA AGENCIA cederá una licencia de uso perpetua, global e irrevocable, y EL CLIENTE tendrá el derecho absoluto de modificar el código directamente o mediante terceros (otros desarrolladores). Asimismo, LA AGENCIA se obliga a entregar la totalidad de las credenciales de administración, accesos a servidores y documentación técnica correspondiente.
@@ -121,6 +137,8 @@ EL CLIENTE tiene derecho a realizar actualizaciones de seguridad rutinarias en s
 
 **Cláusula 4.3. Responsabilidad sobre Terceros (Hosting):**
 Si el proveedor de alojamiento web (Hosting) o servicios en la nube fue elegido, recomendado y contratado operativamente por LA AGENCIA, ésta asume responsabilidad por la idoneidad técnica de su elección. Por el contrario, si EL CLIENTE impone o proporciona un entorno de alojamiento externo propio, LA AGENCIA se exime de responsabilidad por caídas o fallos atribuibles a dicha infraestructura externa.
+
+<!-- PAGE BREAK -->
 
 ## TÍTULO V: CONFIDENCIALIDAD, DATOS PERSONALES Y JURISDICCIÓN
 
@@ -147,9 +165,15 @@ El presente Contrato Marco de Prestación de Servicios Continuados (en adelante,
 ## TÍTULO I: NATURALEZA, ALCANCE (SLA) Y OBLIGACIONES DE MEDIOS
 
 **Cláusula 1.1. Objeto Contractual y Entregables:**
-LA AGENCIA proveerá a EL CLIENTE, bajo suscripción mensual, servicios de Estrategia de Medios, Pauta Publicitaria y/o el despliegue del asistente conversacional con Inteligencia Artificial **"MiamBot"**. LA AGENCIA se obliga a presentar **KPIs y reportes métricos mensuales** evidenciando la optimización de pauta y desempeño del chatbot. Los reportes métricos incluirán como mínimo: (a) alcance y frecuencia de publicaciones, (b) CTR (Click Through Rate) de campañas, (c) CPC, (d) CPM, (e) número de leads generados, (f) tasa de conversión, (g) tiempo de respuesta promedio del MiamBot, y (h) tasa de resolución de consultas sin intervención humana. Los KPIs específicos se detallarán en la Propuesta Técnica anexa.
+LA AGENCIA proveerá a EL CLIENTE el servicio continuado de **[SERVICE_NAME]**, el cual incluye taxativamente:
+[SERVICE_DELIVERABLES]
 
-**Cláusula 1.2. Obligación de Medios:**
+**Cláusula 1.2. Plazo de Ejecución y Modalidad:**
+La modalidad y tiempo de ejecución de los servicios es: **[DELIVERY_TIME]**.
+
+LA AGENCIA se obliga a presentar **KPIs y reportes métricos mensuales** evidenciando la optimización de pauta y desempeño de las acciones digitales. Los reportes métricos incluirán como mínimo: (a) alcance y frecuencia de publicaciones, (b) CTR (Click Through Rate) de campañas, y en caso aplique MiamBot: tiempo de respuesta promedio y tasa de resolución de consultas.
+
+**Cláusula 1.3. Obligación de Medios:**
 Las partes declaran que los servicios de Marketing Digital conllevan una **Obligación de Medios** (diligencia técnica profesional). LA AGENCIA no garantiza un Retorno de Inversión (ROI) exacto debido a factores de mercado externos. No obstante, LA AGENCIA responde legalmente por daños ocasionados por negligencia manifiesta o mala praxis en la configuración de la pauta.
 
 **Cláusula 1.3. Titularidad del Contenido Creado:**
@@ -165,10 +189,12 @@ En caso de que Meta suspenda una cuenta publicitaria o línea de WhatsApp, se in
 **Cláusula 2.2. Responsabilidad por Inteligencia Artificial (MiamBot):**
 LA AGENCIA se obliga a implementar salvaguardas (guardrails), entrenamiento adecuado y reglas de escalamiento a operadores humanos para minimizar imprecisiones de los Modelos de Lenguaje (Alucinaciones). LA AGENCIA se obliga a implementar un protocolo de escalamiento a operador humano cuando el MiamBot detecte: (a) reclamos formales de consumidores, (b) consultas sobre garantías o devoluciones, (c) lenguaje de amenaza legal, o (d) precios o promociones que no consten en la base de datos autorizada. Este protocolo deberá estar operativo desde el primer día de despliegue. LA AGENCIA asumirá responsabilidad frente a defectos críticos originados por errores en la programación del Bot. Por su parte, EL CLIENTE es responsable del contenido basal (inventarios, precios) que suministre para el entrenamiento.
 
+<!-- PAGE BREAK -->
+
 ## TÍTULO III: POLÍTICAS DE FACTURACIÓN, PRE-AVISO Y SUSPENSIÓN
 
-**Cláusula 3.1. Estructura de Prepago y Suspensión:**
-La suscripción se factura **100% Mensual Prepago** (sin incluir presupuesto de Meta Ads). Si EL CLIENTE incurre en mora técnica, LA AGENCIA enviará una **notificación formal con cinco (5) días hábiles** de antelación previo a cualquier suspensión temporal de servicios, salvaguardando el debido proceso y la continuidad operativa.
+**Cláusula 3.1. Estructura de Pagos y Suspensión:**
+Se estipula un esquema de pago recurrente ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT] Si EL CLIENTE incurre en mora técnica, LA AGENCIA enviará una **notificación formal con cinco (5) días hábiles** de antelación previo a cualquier suspensión temporal de servicios, salvaguardando el debido proceso y la continuidad operativa.
 
 **Cláusula 3.2. Cancelación y Penalidad Proporcional:**
 EL CLIENTE puede cancelar la suscripción mensual notificando con **quince (15) días de anticipación (Pre-aviso)** al inicio de su siguiente ciclo. 
@@ -176,6 +202,8 @@ De omitir este plazo, EL CLIENTE deberá abonar una **penalidad estrictamente pr
 
 **Cláusula 3.3. Penalidad por Incumplimiento de LA AGENCIA:**
 Si LA AGENCIA incurre en suspensión injustificada de los servicios, EL CLIENTE tendrá derecho a una penalidad equivalente al 3% del valor mensual por cada día hábil de suspensión o retraso injustificado, con un tope máximo del 50% de la mensualidad en curso.
+
+<!-- PAGE BREAK -->
 
 ## TÍTULO IV: CUMPLIMIENTO NORMATIVO Y PROTECCIÓN DE DATOS (LEY N° 29733)
 
@@ -201,14 +229,30 @@ El presente MSA será interpretado conforme a la legislación peruana. En caso d
 **FIRMA ELECTRÓNICA VINCULANTE (LEY N° 27269):**
 El estampado criptográfico en la plataforma MiamSign constituye firma electrónica válida. Al ejecutar la acción "Adoptar y Firmar", EL CLIENTE declara conocer, entender y aceptar plenamente los derechos y obligaciones de este Acuerdo de Servicios, perfeccionando jurídicamente el contrato.
 `;
-export function generateTemplate(type: string, name: string, document: string, address: string) {
+export function generateTemplate(type: string, name: string, document: string, address: string, paymentAmount?: string, paymentType?: string, serviceName?: string, serviceDeliverables?: string, deliveryTime?: string) {
   let template = "";
   if (type === "BRANDING") template = BRANDING_CONTRACT;
   if (type === "WEB") template = WEB_CONTRACT;
   if (type === "MIAMBOT") template = MIAMBOT_CONTRACT;
 
+  let paymentText = "";
+  if (paymentType === "50_50") {
+    paymentText = "La modalidad de pago será fraccionada: 50% de anticipo para iniciar labores de investigación y reservas de agenda, y el 50% de Saldo Final pagadero contra la aprobación y/o previo a la entrega final de archivos o pase a producción.";
+  } else if (paymentType === "100_UPFRONT") {
+    paymentText = "La modalidad de pago será del 100% como pago único por adelantado para iniciar labores y separar agenda de desarrollo o diseño.";
+  } else if (paymentType === "MONTHLY") {
+    paymentText = "La modalidad de pago será mediante una suscripción de facturación recurrente (mensual prepago).";
+  } else {
+    paymentText = "[MODALIDAD DE PAGO]";
+  }
+
   return template
     .replace(/\[CLIENT_NAME\]/g, name || "[NOMBRE DEL CLIENTE]")
     .replace(/\[CLIENT_DOCUMENT\]/g, document || "[DNI/RUC]")
-    .replace(/\[CLIENT_ADDRESS\]/g, address || "[DIRECCIÓN LEGAL]");
+    .replace(/\[CLIENT_ADDRESS\]/g, address || "[DIRECCIÓN LEGAL]")
+    .replace(/\[PAYMENT_AMOUNT\]/g, paymentAmount || "[MONTO]")
+    .replace(/\[PAYMENT_TYPE_TEXT\]/g, paymentText)
+    .replace(/\[SERVICE_NAME\]/g, serviceName || "[NOMBRE DEL SERVICIO]")
+    .replace(/\[SERVICE_DELIVERABLES\]/g, serviceDeliverables || "✔️ [ENTREGABLE 1]\n✔️ [ENTREGABLE 2]")
+    .replace(/\[DELIVERY_TIME\]/g, deliveryTime || "[TIEMPO DE ENTREGA]");
 }
