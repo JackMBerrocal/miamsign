@@ -25,11 +25,11 @@ Todo requerimiento adicional, pieza extra, idioma adicional o cambio estructural
 **Cláusula 2.1. Obligaciones de LA AGENCIA (Idoneidad):**
 LA AGENCIA se obliga a prestar el servicio con diligencia profesional e idoneidad técnica conforme a la Ley N° 29571, cumpliendo con los entregables detallados en formatos digitales listos para uso web y/o imprenta según la naturaleza de cada servicio.
 
-**Cláusula 2.2. Metodología de Revisiones:**
-EL CLIENTE tendrá derecho a hasta **tres (3) rondas de revisión** consolidadas sobre la propuesta elegida (o las indicadas en la ficha del servicio). Las observaciones deberán remitirse consolidadas por escrito en cada ronda. Solicitudes adicionales posteriores al cierre de rondas o cambios de concepto integral tras aprobar una etapa podrán cotizarse aparte previa aceptación de EL CLIENTE.
+**Cláusula 2.2. Metodología de Revisiones y Cierre por Etapas:**
+EL CLIENTE tendrá derecho a hasta **tres (3) rondas de revisión** consolidadas sobre la propuesta elegida (o las indicadas en la ficha del servicio). Las observaciones deberán remitirse consolidadas por escrito en cada ronda. Cada fase aprobada por escrito (correo o WhatsApp) queda cerrada y validada; cualquier modificación posterior sobre una etapa ya aprobada o ronda adicional requerirá cotización adicional previa aceptación de EL CLIENTE.
 
-**Cláusula 2.3. Inactividad del Cliente y Liquidación Proporcional:**
-EL CLIENTE deberá remitir su retroalimentación o aprobaciones dentro de los **cinco (5) días hábiles** siguientes a cada entrega parcial. Si transcurren **treinta (30) días calendario** continuos sin respuesta ni insumos de EL CLIENTE pese al requerimiento escrito de LA AGENCIA, el proyecto pasará a estado en pausa y su reanudación quedará sujeta a nueva disponibilidad de agenda y actualización presupuestal si excede noventa (90) días.
+**Cláusula 2.3. Inactividad, Licitud de Insumos y Liquidación Proporcional:**
+EL CLIENTE garantiza contar con autorización, licencias y derechos de uso sobre todo texto, logotipo, fotografía o material que entregue a LA AGENCIA, manteniéndola indemne frente a reclamos de terceros por dicho material. Asimismo, EL CLIENTE deberá remitir su retroalimentación o aprobaciones dentro de los **cinco (5) días hábiles** siguientes a cada entrega parcial. Si transcurren **treinta (30) días calendario** continuos sin respuesta ni insumos de EL CLIENTE pese al requerimiento escrito de LA AGENCIA, el proyecto pasará a estado en pausa y su reanudación quedará sujeta a nueva disponibilidad de agenda y actualización presupuestal si excede noventa (90) días.
 Si la inactividad supera **sesenta (60) días calendario**, cualquiera de las partes podrá resolver el contrato. En todo supuesto de resolución anticipada o desistimiento, LA AGENCIA practicará una **Liquidación Proporcional** sustentada con evidencia real (bocetos, archivos editables intermedios y horas ejecutadas): si el avance ejecutado es menor al monto abonado, LA AGENCIA devolverá el saldo restante a EL CLIENTE; si excede lo abonado, EL CLIENTE reconocerá la diferencia efectivamente ejecutada (Art. 1954 del Código Civil).
 
 **Cláusula 2.4. Demora Atribuible a LA AGENCIA:**
@@ -97,11 +97,11 @@ LA AGENCIA se obliga a desarrollar e implementar el servicio tecnológico de **[
 **Cláusula 1.2. Plazo de Ejecución y Cronograma:**
 El plazo estimado para entrega en entorno de pruebas / lanzamiento es de **[DELIVERY_TIME]**, computado desde el abono inicial y la recepción completa de accesos, logotipo, catálogo/productos, textos e imágenes requeridas por parte de EL CLIENTE.
 
-**Cláusula 1.3. Límites Técnicos, Licencias de Terceros y Órdenes de Cambio:**
-El alcance se limita a los módulos contratados. Nuevas pantallas, módulos, integraciones ERP/API no cotizadas o rediseños mayores tras la aprobación de prototipo constituyen una **"Orden de Cambio"** cotizada aparte. Salvo indicación expresa en la ficha del paquete, el contrato NO incluye redacción extensa (copywriting), fotografía de producto, licencias comerciales anuales de plugins/temas PRO, APIs de pago externas ni renovaciones de dominio/hosting posteriores al primer año promocional.
+**Cláusula 1.3. Límites Técnicos, Cierre de Etapas y Órdenes de Cambio:**
+El alcance se limita a los módulos contratados. Cada etapa o prototipo visual aprobado por escrito (correo o WhatsApp) cierra dicha fase; nuevas pantallas, módulos, integraciones ERP/API no cotizadas o rediseños estructurales sobre vistas ya aprobadas constituyen una **"Orden de Cambio"** cotizada aparte. Salvo indicación expresa en la ficha del paquete, el contrato NO incluye redacción extensa (copywriting), fotografía de producto, licencias comerciales anuales de plugins/temas PRO, APIs de pago externas ni renovaciones de dominio/hosting posteriores al primer año promocional.
 
-**Cláusula 1.4. Responsabilidad sobre Contenidos, Términos y Libro de Reclamaciones:**
-LA AGENCIA desarrolla la estructura tecnológica del sitio web y asesorará técnicamente en la ubicación visible de los enlaces legales (Términos y Condiciones, Política de Privacidad y acceso al **Libro de Reclamaciones Virtual**). Sin embargo, el contenido comercial, veracidad de precios/stock, licitud de productos o servicios ofrecidos, redacción legal propia del negocio de EL CLIENTE, inscripción de bancos de datos ante el MINJUS y atención oportuna de reclamos dentro de los quince (15) días hábiles corresponden exclusiva e indelegablemente a **EL CLIENTE** como titular de su comercio electrónico.
+**Cláusula 1.4. Responsabilidad sobre Contenidos, Licencias y Libro de Reclamaciones:**
+LA AGENCIA desarrolla la estructura tecnológica del sitio web y asesorará técnicamente en la ubicación visible de los enlaces legales (Términos y Condiciones, Política de Privacidad y acceso al **Libro de Reclamaciones Virtual**). Sin embargo, la licitud y derechos de uso de todo texto, imagen o marca suministrada por EL CLIENTE, la veracidad de precios/stock, la redacción legal propia del negocio de EL CLIENTE, inscripción de bancos de datos ante el MINJUS y atención oportuna de reclamos dentro de los quince (15) días hábiles corresponden exclusiva e indelegablemente a **EL CLIENTE** como titular de su comercio electrónico.
 
 ## TÍTULO II: FASE UAT, DESPLIEGUE Y ABANDONO DE PROYECTO
 

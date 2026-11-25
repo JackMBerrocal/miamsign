@@ -117,13 +117,12 @@ export default function ContractDocumentPreview({
                     <p className="text-[12px] font-bold text-black mb-0.5">Miam Digital Studio S.A.C.</p>
                     <p className="text-[10.5px] text-gray-600 mb-3">Representante Legal: Jack Michael Berrocal Espinoza</p>
 
-                    <div className="border-b border-black pb-1 relative h-[60px] flex items-end">
-                      <span
-                        className="font-serif italic font-medium tracking-tighter text-[32px] text-black px-1 mb-0.5"
-                        style={{ fontFamily: "'Brush Script MT', 'Cedarville Cursive', cursive" }}
-                      >
-                        Jack M. Berrocal E.
-                      </span>
+                    <div className="border-b border-black pb-1 relative h-[64px] flex items-end justify-start">
+                      <img
+                        src="/img/firma-jack.png"
+                        alt="Firma del Representante Legal - Jack Michael Berrocal Espinoza"
+                        className="max-h-[60px] w-auto object-contain mix-blend-multiply"
+                      />
                     </div>
                     <p className="text-[9px] text-gray-500 font-mono mt-1">Suscrito Digitalmente &bull; Gerencia General</p>
                   </div>
