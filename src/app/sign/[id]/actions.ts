@@ -12,6 +12,8 @@ const PUBLIC_CONTRACT_SELECT = {
   clientName: true,
   clientEmail: true,
   clientDocument: true,
+  paymentAmount: true,
+  paymentType: true,
   createdAt: true,
   signedAt: true,
   signatureData: true,
@@ -95,7 +97,13 @@ export async function signContract(id: string, signatureBase64: string, accepted
       contract.title || "Contrato de Servicios",
       contractUrl,
       contract.signedAt || new Date(),
-      clientIp
+      clientIp,
+      {
+        clientDocument: contract.clientDocument || undefined,
+        paymentAmount: contract.paymentAmount || undefined,
+        paymentType: contract.paymentType || undefined,
+        content: contract.content || undefined,
+      }
     ).catch((err) => console.error("Error sending sign confirmation email:", err));
 
     return { success: true, contract };

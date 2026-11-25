@@ -119,7 +119,12 @@ export async function createContract(data: {
     });
 
     const contractUrl = `${getPortalBaseUrl()}/sign/${contract.id}`;
-    const emailSent = await sendContractEmail(data.clientName, data.clientEmail, data.title, contractUrl);
+    const emailSent = await sendContractEmail(data.clientName, data.clientEmail, data.title, contractUrl, {
+      clientDocument: data.clientDocument,
+      paymentAmount: data.paymentAmount,
+      paymentType: data.paymentType,
+      content: data.content,
+    });
 
     revalidatePath("/");
     revalidatePath("/dashboard/miamsign");
@@ -187,7 +192,13 @@ export async function resendContractEmail(id: string) {
       contract.clientName || "",
       contract.clientEmail || "",
       contract.title || "",
-      contractUrl
+      contractUrl,
+      {
+        clientDocument: contract.clientDocument || undefined,
+        paymentAmount: contract.paymentAmount || undefined,
+        paymentType: contract.paymentType || undefined,
+        content: contract.content || undefined,
+      }
     );
     if (!sent) throw new Error("No se pudo enviar el correo. Verifica EMAIL_PASS en Vercel.");
 

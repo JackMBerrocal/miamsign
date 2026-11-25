@@ -45,7 +45,7 @@ import { BRANDING_CONTRACT, MIAMBOT_CONTRACT, WEB_CONTRACT, generateTemplate } f
 import { CATALOG } from "./services";
 import ContractDocumentPreview from "@/components/ContractDocumentPreview";
 import { splitContractIntoPages } from "@/lib/contract-format";
-import { buildContractInviteEmailHtml } from "@/lib/email-templates";
+import { buildContractInviteEmailHtml, buildContractSignedEmailHtml } from "@/lib/email-templates";
 
 const COMPANY_ID = "63d76e71-460d-4560-af33-b1d5bf59cc28";
 
@@ -399,11 +399,30 @@ export default function MiamSignDashboard({
           : null;
 
   const livePageCount = splitContractIntoPages(content).length;
-  const liveEmailHtml = buildContractInviteEmailHtml({
-    clientName: clientName || "Andrea Mendoza Quispe",
-    contractTitle: title,
-    contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
-  });
+  const liveEmailMeta = {
+    serviceName,
+    clientDocument: clientDocument || "20608812345",
+    paymentAmount,
+    paymentType,
+    deliveryTime,
+    content,
+    pageCount: livePageCount,
+  };
+  const liveEmailHtml = simulateSignedPreview
+    ? buildContractSignedEmailHtml({
+        clientName: clientName || "Andrea Mendoza Quispe",
+        contractTitle: title,
+        contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
+        signedAt: new Date(),
+        clientIp: "190.237.48.12",
+        ...liveEmailMeta,
+      })
+    : buildContractInviteEmailHtml({
+        clientName: clientName || "Andrea Mendoza Quispe",
+        contractTitle: title,
+        contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
+        ...liveEmailMeta,
+      });
 
   const initials = (displayName || userEmail || "JA")
     .split(/[\s@]+/)
@@ -1107,7 +1126,7 @@ export default function MiamSignDashboard({
                     </button>
                   </div>
 
-                  {createPreviewTab === "client-a4" && (
+                  {(createPreviewTab === "client-a4" || createPreviewTab === "email") && (
                     <label className="inline-flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
                       <input
                         type="checkbox"
@@ -1173,7 +1192,10 @@ export default function MiamSignDashboard({
                             <strong>Para:</strong> {clientEmail || "cliente@empresa.pe"}
                           </div>
                           <div>
-                            <strong>Asunto:</strong> Firma Requerida: {title} - Miam Digital Studio
+                            <strong>Asunto:</strong>{" "}
+                            {simulateSignedPreview
+                              ? `✅ Contrato Firmado y PDF A4 Listo: ${title} - Miam Digital Studio`
+                              : `Firma Requerida: ${title} - Miam Digital Studio`}
                           </div>
                         </div>
                         <iframe
@@ -1274,13 +1296,31 @@ export default function MiamSignDashboard({
                 <div className="max-w-[640px] mx-auto bg-white rounded-xl border border-gray-300 overflow-hidden shadow-sm">
                   <iframe
                     title="Vista del correo al cliente"
-                    srcDoc={buildContractInviteEmailHtml({
-                      clientName: viewingContract.clientName || "Cliente",
-                      contractTitle: viewingContract.title || "Contrato Miam",
-                      contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
-                    })}
+                    srcDoc={
+                      viewingContract.status === "SIGNED"
+                        ? buildContractSignedEmailHtml({
+                            clientName: viewingContract.clientName || "Cliente",
+                            contractTitle: viewingContract.title || "Contrato Miam",
+                            contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
+                            signedAt: viewingContract.signedAt ? new Date(viewingContract.signedAt) : new Date(),
+                            clientIp: viewingContract.clientIp || "Registrada por servidor",
+                            clientDocument: viewingContract.clientDocument || undefined,
+                            paymentAmount: viewingContract.paymentAmount || undefined,
+                            paymentType: viewingContract.paymentType || undefined,
+                            content: viewingContract.content || undefined,
+                          })
+                        : buildContractInviteEmailHtml({
+                            clientName: viewingContract.clientName || "Cliente",
+                            contractTitle: viewingContract.title || "Contrato Miam",
+                            contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
+                            clientDocument: viewingContract.clientDocument || undefined,
+                            paymentAmount: viewingContract.paymentAmount || undefined,
+                            paymentType: viewingContract.paymentType || undefined,
+                            content: viewingContract.content || undefined,
+                          })
+                    }
                     sandbox=""
-                    className="w-full h-[560px] border-0 bg-[#f1f5f9]"
+                    className="w-full h-[640px] border-0 bg-[#eef2f7]"
                   />
                 </div>
               )}
