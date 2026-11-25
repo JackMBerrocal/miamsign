@@ -107,6 +107,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [isSignModalOpen, setIsSignModalOpen] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   
   const sigCanvas = useRef<any>(null);
@@ -142,6 +143,10 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
   };
 
   const handleSign = async () => {
+    if (!acceptedTerms) {
+      alert("Por favor, marca la casilla de aceptación expresa antes de adoptar tu firma.");
+      return;
+    }
     if (sigCanvas.current?.isEmpty()) {
       alert("Por favor, dibuje su firma para continuar.");
       return;
@@ -149,9 +154,14 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
     setSaving(true);
     const signatureBase64 = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
     
-    const res = await signContract(contract.id, signatureBase64);
+    const res = await signContract(contract.id, signatureBase64, acceptedTerms);
     if (res.success) {
-      setContract({ ...contract, status: "SIGNED", signatureData: signatureBase64 });
+      setContract({
+        ...contract,
+        ...(res.contract || {}),
+        status: "SIGNED",
+        signatureData: signatureBase64,
+      });
       setIsSignModalOpen(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -211,7 +221,7 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
         <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
           <AlertCircle className="w-8 h-8" />
         </div>
-        <h2 className="text-2xl font-bold mb-3 text-gray-800">Error de Autenticación</h2>
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">Documento no disponible</h2>
         <p className="text-gray-600 leading-relaxed">{error}</p>
       </div>
     </div>
@@ -394,8 +404,8 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
                         
                         {contract.status === "SIGNED" && (
                           <div className="mt-1 text-[8.5px] text-gray-500 font-mono leading-tight">
-                            <p>IP: {contract.clientIp || "190.237.45.12"}</p>
-                            <p>Fecha Criptográfica: {new Date(contract.signedAt || Date.now()).toLocaleString('es-PE')}</p>
+                            <p>IP: {contract.clientIp || "Registrada en servidor"}</p>
+                            <p>Fecha y Hora de Registro: {contract.signedAt ? new Date(contract.signedAt).toLocaleString('es-PE') : "Registrada en servidor"}</p>
                           </div>
                         )}
                       </div>
@@ -459,9 +469,17 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
                 />
               </div>
               
-              <div className="mt-5 text-[11px] text-gray-600 leading-relaxed border border-gray-200 bg-gray-50 p-3 rounded-sm">
-                Al hacer clic en <strong>Adoptar y firmar</strong>, acepto que la firma y las iniciales serán la representación electrónica de mi firma y mis iniciales para todos los propósitos vinculantes, de la misma manera que si fueran escritos en un documento físico.
-              </div>
+              <label className="mt-5 flex items-start gap-2.5 text-[11px] text-gray-700 leading-relaxed border border-gray-200 bg-gray-50 p-3 rounded-sm cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 shrink-0"
+                />
+                <span>
+                  He leído íntegramente el contrato y al hacer clic en <strong>Adoptar y firmar</strong> expreso mi consentimiento libre e informado mediante firma electrónica simple/avanzada vinculante conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
+                </span>
+              </label>
             </div>
 
             {/* Modal Footer */}
@@ -474,8 +492,8 @@ export default function SignContractPage({ params }: { params: Promise<{ id: str
               </button>
               <button 
                 onClick={handleSign}
-                disabled={saving}
-                className="px-6 py-2.5 text-[13px] font-bold text-white bg-[#ffc820] hover:bg-[#e6b41c] text-[#1e1e1e] rounded-sm transition-colors flex items-center gap-2 disabled:opacity-70 shadow-sm"
+                disabled={saving || !acceptedTerms}
+                className="px-6 py-2.5 text-[13px] font-bold bg-[#ffc820] hover:bg-[#e6b41c] text-[#1e1e1e] rounded-sm transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {saving ? "PROCESANDO..." : "ADOPTAR Y FIRMAR"}
               </button>

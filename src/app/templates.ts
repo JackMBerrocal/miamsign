@@ -1,235 +1,240 @@
 export const BRANDING_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS PROFESIONALES DE DISEÑO E IDENTIDAD VISUAL CORPORATIVA (MASTER SERVICES AGREEMENT)
 
-Este Contrato Marco de Prestación de Servicios Profesionales (en lo sucesivo, el **"Contrato"** o **"MSA"**), se celebra y perfecciona electrónicamente con fecha efectiva a partir del día de su suscripción mediante firma electrónica certificada y el abono del anticipo estipulado (la **"Fecha Efectiva"**), por y entre:
+Este Contrato Marco de Prestación de Servicios Profesionales (en lo sucesivo, el **"Contrato"** o **"MSA"**), se celebra y perfecciona electrónicamente con fecha efectiva a partir de su suscripción mediante firma electrónica vinculante y la confirmación del abono estipulado (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente de conformidad con las leyes de la República del Perú, inscrita en la Partida Registral de Lima, con Registro Único de Contribuyentes (R.U.C.) N° 20615782344, y con domicilio legal en Urb. José Gálvez, JIRON JOSE DE SAN MARTIN, Villa María del Triunfo 15822, Lima, Perú (en adelante, indistintamente, **"LA AGENCIA"**); y,
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente conforme a las leyes de la República del Perú, con Registro Único de Contribuyentes (R.U.C.) N° **20615782344**, domiciliada en Urb. José Gálvez, Jirón José de San Martín, Villa María del Triunfo 15822, Lima, Perú, debidamente representada por su Gerente General, **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
 
-**[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
+**[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
 ---
 
 ## TÍTULO I: DECLARACIONES Y OBJETO DEL CONTRATO
 
 **Cláusula 1.1. Objeto del Contrato:**
-Bajo los términos y condiciones de este MSA, EL CLIENTE contrata a LA AGENCIA para proveer el servicio de **[SERVICE_NAME]**, el cual incluye taxativamente los siguientes entregables y características:
+Bajo los términos y condiciones de este MSA, EL CLIENTE contrata a LA AGENCIA para ejecutar el servicio de **[SERVICE_NAME]**, el cual comprende taxativamente los siguientes entregables:
 [SERVICE_DELIVERABLES]
 
-**Cláusula 1.2. Plazo de Ejecución y Entrega:**
-El tiempo de entrega estimado para la presentación de los entregables iniciales es de **[DELIVERY_TIME]**, sujeto a la entrega oportuna de insumos y aprobaciones por parte de EL CLIENTE.
+**Cláusula 1.2. Plazo de Ejecución e Insumos:**
+El plazo estimado para la entrega de los avances iniciales y entregables finales es de **[DELIVERY_TIME]**, computado desde el día hábil siguiente a la confirmación del pago inicial y a la entrega completa de los insumos obligatorios (brief, textos, logos previos o fotografías) por parte de EL CLIENTE. Los retrasos de EL CLIENTE en responder o enviar insumos suspenden y extienden el cronograma por un periodo equivalente.
 
-**Cláusula 1.3. Gestión de Cambios (Out of Scope):**
-Cualquier solicitud de servicio adicional o modificación sustancial posterior a las etapas de aprobación estructural, que no conste expresamente en la propuesta original, se considerará fuera del alcance (*Out of Scope*). Dichas solicitudes requerirán una **"Orden de Cambio"** documentada y cotizada de manera independiente.
+**Cláusula 1.3. Alcance, Exclusiones y Cambios (Out of Scope):**
+Todo requerimiento adicional, pieza extra, idioma adicional o cambio estructural posterior a la aprobación de una etapa se considera fuera de alcance (*Out of Scope*) y requerirá una cotización adicional aprobada por escrito. Este contrato NO incluye impresión física, registro de marca ante INDECOPI, redacción publicitaria integral (copywriting extenso) ni compra de licencias comerciales de tipografías o bancos fotográficos de pago, los cuales correrán por cuenta de EL CLIENTE salvo mención expresa.
 
-## TÍTULO II: OBLIGACIONES, NIVELES DE SERVICIO (SLA) Y ABANDONO
+## TÍTULO II: OBLIGACIONES, REVISIONES Y LIQUIDACIÓN PROPORCIONAL
 
-**Cláusula 2.1. Obligaciones de LA AGENCIA (SLA):**
-LA AGENCIA se compromete a: (a) Prestar los Servicios con un alto estándar de diligencia y pericia técnica. (b) Cumplir con los plazos de entrega estipulados en el Cronograma Oficial, sujeto a la retroalimentación oportuna del Cliente. (c) Asignar personal calificado para la ejecución del proyecto.
+**Cláusula 2.1. Obligaciones de LA AGENCIA (Idoneidad):**
+LA AGENCIA se obliga a prestar el servicio con diligencia profesional e idoneidad técnica conforme a la Ley N° 29571, cumpliendo con los entregables detallados en formatos digitales listos para uso web y/o imprenta según la naturaleza de cada servicio.
 
 **Cláusula 2.2. Metodología de Revisiones:**
-El proceso creativo es iterativo. EL CLIENTE tendrá derecho a un máximo de **tres (3) rondas de revisión** por fase de diseño (la cantidad y naturaleza de cada fase se especificará estrictamente en la Propuesta Comercial, p.ej. conceptualización, propuesta visual y refinamiento). EL CLIENTE deberá consolidar todas sus observaciones de forma clara en cada ronda. Revisiones adicionales fuera de este límite estarán sujetas a facturación extra por tarifa horaria.
+EL CLIENTE tendrá derecho a hasta **tres (3) rondas de revisión** consolidadas sobre la propuesta elegida (o las indicadas en la ficha del servicio). Las observaciones deberán remitirse consolidadas por escrito en cada ronda. Solicitudes adicionales posteriores al cierre de rondas o cambios de concepto integral tras aprobar una etapa podrán cotizarse aparte previa aceptación de EL CLIENTE.
 
-**Cláusula 2.3. Resoluciones y Liquidación Proporcional (Anti-Ghosting):**
-Es obligación de EL CLIENTE emitir feedback en un plazo máximo de cinco (5) días hábiles. Si EL CLIENTE suspende las comunicaciones o no provee insumos por un periodo continuo de **treinta (30) días calendario**, el proyecto entrará en estado de latencia, requiriendo un pago del 10% por costos administrativos para su reactivación de agenda.
-Si la inactividad persiste por **sesenta (60) días calendario**, cualquiera de las partes podrá resolver el contrato. En caso de resolución anticipada o abandono, LA AGENCIA practicará una **Liquidación Proporcional**: se cuantificarán las horas-hombre efectivamente ejecutadas hasta la fecha de cese; para ello, LA AGENCIA presentará un informe detallado con evidencia (capturas de trabajo, archivos intermedios) que justifique la liquidación. Si el monto ejecutado es menor al anticipo recibido, LA AGENCIA reembolsará el saldo a favor de EL CLIENTE. Si el monto ejecutado es mayor, EL CLIENTE se obliga a abonar la diferencia, garantizando así la proscripción del enriquecimiento sin causa (Art. 1954 del Código Civil Peruano).
+**Cláusula 2.3. Inactividad del Cliente y Liquidación Proporcional:**
+EL CLIENTE deberá remitir su retroalimentación o aprobaciones dentro de los **cinco (5) días hábiles** siguientes a cada entrega parcial. Si transcurren **treinta (30) días calendario** continuos sin respuesta ni insumos de EL CLIENTE pese al requerimiento escrito de LA AGENCIA, el proyecto pasará a estado en pausa y su reanudación quedará sujeta a nueva disponibilidad de agenda y actualización presupuestal si excede noventa (90) días.
+Si la inactividad supera **sesenta (60) días calendario**, cualquiera de las partes podrá resolver el contrato. En todo supuesto de resolución anticipada o desistimiento, LA AGENCIA practicará una **Liquidación Proporcional** sustentada con evidencia real (bocetos, archivos editables intermedios y horas ejecutadas): si el avance ejecutado es menor al monto abonado, LA AGENCIA devolverá el saldo restante a EL CLIENTE; si excede lo abonado, EL CLIENTE reconocerá la diferencia efectivamente ejecutada (Art. 1954 del Código Civil).
 
-**Cláusula 2.4. Penalidad por Incumplimiento de LA AGENCIA:**
-Si LA AGENCIA incurre en retrasos injustificados superiores a quince (15) días hábiles sobre los plazos pactados en el cronograma oficial, EL CLIENTE tendrá derecho a una penalidad equivalente al 0.5% del valor total del contrato por cada día hábil de retraso, con un tope máximo del 15% del valor contractual.
+**Cláusula 2.4. Demora Atribuible a LA AGENCIA:**
+Si LA AGENCIA incurre en retrasos injustificados superiores a quince (15) días hábiles respecto al cronograma vigente (no atribuibles a demoras del cliente ni fuerza mayor), EL CLIENTE podrá exigir un descuento compensatorio del 0.5% del valor contractual por día hábil de atraso (tope 15%) o resolver el contrato con reembolso de lo no ejecutado.
 
 <!-- PAGE BREAK -->
 
-## TÍTULO III: CONDICIONES ECONÓMICAS Y REEMBOLSOS
+## TÍTULO III: CONDICIONES ECONÓMICAS Y FACTURACIÓN (SUNAT)
 
-**Cláusula 3.1. Estructura de Pagos:**
-Se estipula un monto total de honorarios profesionales ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT]
+**Cláusula 3.1. Honorarios, Comprobante SUNAT y Entrega:**
+Se pacta una contraprestación total ascendente a **[PAYMENT_AMOUNT]** (IGV incluido cuando corresponda según comprobante peruano). [PAYMENT_TYPE_TEXT]
+Los comprobantes electrónicos (Boleta de Venta o Factura de Anticipo / Final según corresponda conforme a la Ley del IGV y Reglamento de Comprobantes de Pago de SUNAT) se emitirán estrictamente de acuerdo con los datos consignados por EL CLIENTE. En servicios bajo modalidad 50/50, los archivos maestros editables finales se liberan al confirmarse el pago del 50% restante.
 
-**Cláusula 3.2. Derecho de Rectificación y Desistimiento:**
-Al tratarse de un servicio de carácter creativo e intelectual, EL CLIENTE cuenta con las rondas de revisión pactadas para ajustar el diseño a sus requerimientos. Si tras agotar dichas rondas, EL CLIENTE decide, por mera apreciación subjetiva, no continuar con el proyecto, LA AGENCIA facturará únicamente el trabajo efectivamente realizado hasta esa fase, emitiendo el reembolso o nota de crédito correspondiente según la Liquidación Proporcional de la Cláusula 2.3. 
+**Cláusula 3.2. Desistimiento Informado:**
+Dado que la labor creativa implica horas profesionales irrecuperables, si tras revisar y agotar las rondas acordadas EL CLIENTE decide desistir unilateralmente sin que exista incumplimiento o defecto técnico de LA AGENCIA, aplicará exclusivamente la Liquidación Proporcional objetiva descrita en la Cláusula 2.3.
 
-## TÍTULO IV: PROPIEDAD INTELECTUAL Y GARANTÍA DE ORIGINALIDAD (D.L. 822)
+## TÍTULO IV: PROPIEDAD INTELECTUAL (D.L. N° 822) Y CONFIDENCIALIDAD
 
 **Cláusula 4.1. Garantía de Originalidad:**
-LA AGENCIA garantiza y declara bajo juramento que los diseños creados y entregados a EL CLIENTE son obras originales y propias, y que no infringen derechos de autor, marcas registradas u otros derechos de propiedad intelectual de terceros. LA AGENCIA asume plena responsabilidad y mantendrá indemne a EL CLIENTE ante cualquier reclamo de plagio directamente imputable al proceso creativo de LA AGENCIA. En caso de reclamo fundado de terceros, LA AGENCIA se obliga a rediseñar la obra infractora sin costo adicional o, en su defecto, reembolsar proporcionalmente el valor de dicha obra.
+LA AGENCIA declara que las creaciones entregadas son originales y no vulneran derechos de terceros. Si por error atribuible a LA AGENCIA existiera una infracción acreditada de terceros sobre diseños propios, LA AGENCIA rediseñará la pieza sin costo adicional o devolverá proporcionalmente el importe correspondiente. Se excluyen recursos, marcas, fotografías o textos proporcionados directamente por EL CLIENTE, quien garantiza contar con autorización de uso.
 
-**Cláusula 4.2. Cesión Detallada de Derechos Patrimoniales:**
-Sujeto a la cancelación del 100% de la contraprestación, LA AGENCIA transfiere y cede a favor de EL CLIENTE, los derechos patrimoniales sobre el **Diseño Final Aprobado** conforme al D.L. N° 822 (Ley sobre el Derecho de Autor). Esta cesión incluye expresamente:
-*   **Modalidades de Explotación:** Derecho exclusivo de reproducción, distribución, comunicación pública y transformación (aplicación a merchandising, web, imprenta, y facultad de registrar la marca ante INDECOPI u otra autoridad competente a nombre exclusivo de EL CLIENTE).
-*   **Ámbito Territorial:** Global (A nivel Mundial).
-*   **Duración:** Por la duración máxima legal permitida por la normativa vigente.
+**Cláusula 4.2. Cesión de Derechos Patrimoniales:**
+Una vez cancelado el **100%** del precio pactado, LA AGENCIA cede a favor de EL CLIENTE, en exclusiva, a nivel mundial y por todo el plazo legal de protección del D.L. N° 822, los derechos patrimoniales de reproducción, distribución, comunicación pública y transformación sobre el **Diseño Final Aprobado** (incluyendo facultad de registro marcario ante INDECOPI). Los bocetos descartados continúan siendo propiedad intelectual de LA AGENCIA.
 
-**Cláusula 4.3. Confidencialidad y Derecho de Portafolio:**
-LA AGENCIA conserva el derecho de exhibir el trabajo final en su portafolio institucional y postularlo a premios de diseño. No obstante, si EL CLIENTE requiere estricta confidencialidad por estrategias comerciales (ej. lanzamiento futuro o registro previo de marca), podrá notificarlo a LA AGENCIA, quien aplicará un embargo de publicación (NDA) hasta que EL CLIENTE autorice el levantamiento del mismo.
+**Cláusula 4.3. Confidencialidad y Portafolio Previa Autorización:**
+Toda información comercial o estratégica compartida por EL CLIENTE será tratada bajo reserva y confidencialidad. LA AGENCIA solo podrá exhibir el trabajo final en su portafolio o canales institucionales **si cuenta con autorización previa y expresa de EL CLIENTE**.
 
 <!-- PAGE BREAK -->
 
-## TÍTULO V: TRATAMIENTO DE DATOS PERSONALES (LEY N° 29733)
+## TÍTULO V: PROTECCIÓN DE DATOS PERSONALES (LEY N° 29733)
 
-**Cláusula 5.1. Privacidad Comercial:**
-De conformidad con la Ley N° 29733 y su Reglamento, MIAM DIGITAL STUDIO S.A.C. (con domicilio en Urb. José Gálvez, JIRON JOSE DE SAN MARTIN, Villa María del Triunfo 15822, Lima) es la entidad Responsable del Banco de Datos Personales de Clientes. Los datos recopilados tienen la **finalidad exclusiva** de ejecutar este contrato, procesar facturación y mantener el histórico de diseño. No se transferirán datos a terceros no vinculados con la operación sin consentimiento expreso. 
-La entrega de los datos es obligatoria para la facturación. EL CLIENTE podrá ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) comunicándose al correo contacto@miam.com.pe. Nuestra política de privacidad completa está disponible en miam.com.pe/politicas-de-privacidad.php.
+**Cláusula 5.1. Banco de Datos y Derechos ARCO:**
+De conformidad con la Ley N° 29733 y su Reglamento, MIAM DIGITAL STUDIO S.A.C. trata los datos personales proporcionados exclusivamente para ejecutar este contrato, emitir comprobantes electrónicos ante SUNAT, gestionar entregas y atender garantías. EL CLIENTE puede ejercer en cualquier momento sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) escribiendo a **contacto@miam.com.pe**. Política completa disponible en **miam.com.pe**.
 
-## TÍTULO VI: CLÁUSULAS MISCELÁNEAS
+## TÍTULO VI: LIBRO DE RECLAMACIONES, LEGISLACIÓN Y ACEPTACIÓN
 
-**Cláusula 6.1. Legislación y Jurisdicción Aplicable:**
-La validez y ejecución de este Contrato se rigen por las leyes de la República del Perú. Para la resolución de cualquier controversia, las Partes se someten expresamente a la jurisdicción de los Jueces y Tribunales competentes correspondientes al **domicilio de EL CLIENTE** (o alternativamente, a los tribunales del Distrito Judicial de Lima si el cliente es persona jurídica), en concordancia con el Art. 85 del Código de Protección y Defensa del Consumidor (Ley N° 29571).
+**Cláusula 6.1. Libro de Reclamaciones y Atención al Consumidor (INDECOPI):**
+De conformidad con la Ley N° 29571 y el D.S. N° 011-2011-PCM, MIAM DIGITAL STUDIO S.A.C. pone a disposición de sus clientes el **Libro de Reclamaciones Virtual** en su portal web y el correo **contacto@miam.com.pe**, comprometiéndose a dar respuesta dentro del plazo legal máximo de **quince (15) días hábiles**. Ninguna estipulación del presente contrato limita los derechos irrenunciables que la Ley N° 29571 reconoce a los consumidores (Arts. 49°, 50° y 51°), interpretándose siempre del modo más favorable al consumidor en relaciones de consumo.
+
+**Cláusula 6.2. Ley Aplicable y Jurisdicción:**
+Este acuerdo se rige por las leyes de la República del Perú. Agotado el trato directo o conciliación, en relaciones de consumo (B2C) será competente el juez del **domicilio de EL CLIENTE** o la autoridad administrativa competente (**INDECOPI**); en contratos entre empresas (B2B), serán competentes los Jueces y Tribunales de Lima.
 
 ---
 
-**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE:**
-Al firmar digitalmente este Contrato a través de MiamSign (Ley N° 27269), EL CLIENTE y LA AGENCIA perfeccionan este acuerdo, declarando haber leído, negociado y comprendido la totalidad de sus cláusulas, dotándolo de plena validez jurídica e irrevocabilidad operativa.
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE (ARTS. 141 Y 141-A CC / LEY N° 27269):**
+Al aceptar expresamente este documento y registrar su firma electrónica en MiamSign (con trazabilidad de correo electrónico, dirección IP, fecha y hora verificadas por el servidor), las Partes perfeccionan el presente contrato por adhesión/acuerdo digital con plena validez y eficacia probatoria conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
 `;
 
 export const WEB_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS TECNOLÓGICOS: DESARROLLO WEB Y ARQUITECTURA DIGITAL (MASTER SERVICES AGREEMENT)
 
-Este Contrato Marco de Prestación de Servicios Tecnológicos (en adelante, el **"Contrato"** o **"MSA"**), constituye un acuerdo jurídicamente vinculante suscrito de forma electrónica a partir de la fecha de su firma y/o abono del anticipo correspondiente (la **"Fecha Efectiva"**), por y entre:
+Este Contrato Marco de Prestación de Servicios Tecnológicos (en adelante, el **"Contrato"** o **"MSA"**), se celebra y perfecciona electrónicamente a partir de su suscripción y la confirmación del pago correspondiente (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, entidad comercial peruana, con R.U.C. N° 20615782344 (en adelante, indistintamente, **"LA AGENCIA"**); y,
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Urb. José Gálvez, Jirón José de San Martín, Villa María del Triunfo 15822, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
 
-**[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
+**[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
 ---
 
-## TÍTULO I: ALCANCE DE LOS SERVICIOS DE INGENIERÍA Y EXCLUSIONES
+## TÍTULO I: ALCANCE DE INGENIERÍA, EXCLUSIONES Y CONTENIDO
 
-**Cláusula 1.1. Objeto Principal y SLA:**
-LA AGENCIA se obliga a proveer el servicio tecnológico de **[SERVICE_NAME]**, el cual incluye taxativamente los siguientes módulos y entregables:
+**Cláusula 1.1. Objeto Principal y Entregables:**
+LA AGENCIA se obliga a desarrollar e implementar el servicio tecnológico de **[SERVICE_NAME]**, que incluye taxativamente:
 [SERVICE_DELIVERABLES]
 
-**Cláusula 1.2. Plazo de Ejecución y Entrega:**
-El tiempo de entrega estimado para el despliegue del proyecto es de **[DELIVERY_TIME]**, sujeto a la entrega oportuna de insumos por parte de EL CLIENTE.
+**Cláusula 1.2. Plazo de Ejecución y Cronograma:**
+El plazo estimado para entrega en entorno de pruebas / lanzamiento es de **[DELIVERY_TIME]**, computado desde el abono inicial y la recepción completa de accesos, logotipo, catálogo/productos, textos e imágenes requeridas por parte de EL CLIENTE.
 
-LA AGENCIA garantiza el cumplimiento de buenas prácticas de codificación web (estándares W3C, diseño responsivo).
+**Cláusula 1.3. Límites Técnicos, Licencias de Terceros y Órdenes de Cambio:**
+El alcance se limita a los módulos contratados. Nuevas pantallas, módulos, integraciones ERP/API no cotizadas o rediseños mayores tras la aprobación de prototipo constituyen una **"Orden de Cambio"** cotizada aparte. Salvo indicación expresa en la ficha del paquete, el contrato NO incluye redacción extensa (copywriting), fotografía de producto, licencias comerciales anuales de plugins/temas PRO, APIs de pago externas ni renovaciones de dominio/hosting posteriores al primer año promocional.
 
-**Cláusula 1.3. Límites y Gestión de Cambios:**
-El desarrollo se restringe a lo descrito en la propuesta formal. La incorporación de nuevas funcionalidades constituye una modificación al alcance original y requerirá una **"Orden de Cambio"** cotizada independientemente.
-Este contrato NO incluye redacción de textos (Copywriting), provisión perpetua de dominio/hosting (salvo anexo expreso), ni registro legal de marcas. Los retrasos imputables a EL CLIENTE en la entrega de insumos desplazarán el cronograma en el mismo número de días hábiles de demora. LA AGENCIA deberá notificar por escrito (correo electrónico) la nueva fecha proyectada de entrega dentro de los tres (3) días hábiles siguientes al retraso, acreditando que este le impide continuar.
+**Cláusula 1.4. Responsabilidad sobre Contenidos, Términos y Libro de Reclamaciones:**
+LA AGENCIA desarrolla la estructura tecnológica del sitio web y asesorará técnicamente en la ubicación visible de los enlaces legales (Términos y Condiciones, Política de Privacidad y acceso al **Libro de Reclamaciones Virtual**). Sin embargo, el contenido comercial, veracidad de precios/stock, licitud de productos o servicios ofrecidos, redacción legal propia del negocio de EL CLIENTE, inscripción de bancos de datos ante el MINJUS y atención oportuna de reclamos dentro de los quince (15) días hábiles corresponden exclusiva e indelegablemente a **EL CLIENTE** como titular de su comercio electrónico.
 
-**Cláusula 1.3. Responsabilidad Legal del Contenido (Indecopi):**
-LA AGENCIA provee la infraestructura tecnológica; el contenido es responsabilidad de EL CLIENTE. Es obligación ineludible de EL CLIENTE proveer los textos de sus **Términos y Condiciones, Políticas de Privacidad y el enlace al Libro de Reclamaciones Virtual** conforme a la normativa de su jurisdicción (Ej. Ley N° 29571). LA AGENCIA se obliga a notificar formalmente a EL CLIENTE, al menos diez (10) días antes del Pase a Producción, sobre la necesidad de contar con los textos legales obligatorios. Si LA AGENCIA no realiza dicha advertencia, no podrá eximirse de responsabilidad frente a multas administrativas que se deriven de la omisión.
+## TÍTULO II: FASE UAT, DESPLIEGUE Y ABANDONO DE PROYECTO
 
-## TÍTULO II: OBLIGACIONES, DESPLIEGUE Y ABANDONO (ANTI-GHOSTING)
+**Cláusula 2.1. Inactividad del Cliente y Liquidación Proporcional:**
+EL CLIENTE remitirá feedback o insumos dentro de los **cinco (5) días hábiles** siguientes a cada solicitud. Si el proyecto permanece detenido por falta de respuesta o insumos de EL CLIENTE durante **treinta (30) días calendario** continuos tras aviso escrito de LA AGENCIA, pasará a estado en pausa y su reactivación requerirá reprogramación de agenda. Superados **sesenta (60) días calendario** sin respuesta, cualquiera de las partes podrá resolver el contrato practicándose una **Liquidación Proporcional** objetiva sustentada con informe de módulos completados, repositorio/capturas y evidencia de horas trabajadas (reembolsándose lo no ejecutado o cobrándose el avance real excedente según el Art. 1954 del Código Civil).
 
-**Cláusula 2.1. Penalidad por Interrupción Injustificada y Liquidación:**
-En caso de que el proyecto se paralice por más de **treinta (30) días calendario** a causa de omisiones de EL CLIENTE, se aplicará una penalidad administrativa del 10% del valor para reprogramación. Si el abandono supera los **sesenta (60) días calendario**, el contrato podrá resolverse. Al resolverse, LA AGENCIA aplicará una **Liquidación Proporcional** estrictamente basada en el avance técnico comprobable del software. El avance técnico se determinará mediante un informe técnico emitido por LA AGENCIA que incluirá: (a) módulos completados, (b) porcentaje de avance por módulo, y (c) evidencia visual del desarrollo. EL CLIENTE tendrá cinco (5) días hábiles para objetar con sustento. En caso de discrepancia, las partes podrán designar un perito informático independiente.
+**Cláusula 2.2. Pruebas de Aceptación (UAT) y Pase a Producción:**
+Previo a publicar en el dominio oficial, el proyecto se habilitará en entorno de pruebas (*Staging*). EL CLIENTE dispondrá de **diez (10) días hábiles** desde la notificación formal de pruebas para reportar observaciones funcionales dentro del alcance contratado. En caso de ausencia total de respuesta tras un segundo requerimiento escrito al término del plazo, los entregables funcionales conformes se tendrán por validados para proseguir con el cierre.
 
-**Cláusula 2.2. Hitos de Aprobación y Fase UAT:**
-Previa al lanzamiento en vivo (Pase a Producción), el Software será desplegado en un servidor de pruebas (Staging). EL CLIENTE contará con **quince (15) días hábiles** para ejecutar las Pruebas de Aceptación (UAT). La aceptación del software no será tácita de forma automática; LA AGENCIA deberá notificar formalmente el inicio y fin del periodo de pruebas. Solo si EL CLIENTE no responde a dicha notificación oficial, el Software se considerará Aceptado.
-
-**Cláusula 2.3. Penalidad por Incumplimiento de LA AGENCIA:**
-Si LA AGENCIA incurre en retrasos injustificados superiores a quince (15) días hábiles sobre los plazos pactados en el cronograma oficial, EL CLIENTE tendrá derecho a una penalidad equivalente al 0.5% del valor total del contrato por cada día hábil de retraso, con un tope máximo del 15% del valor contractual.
+**Cláusula 2.3. Penalidad por Demora Injustificada de LA AGENCIA:**
+Ante atrasos injustificados de LA AGENCIA superiores a quince (15) días hábiles respecto al cronograma vigente, EL CLIENTE tendrá derecho a una penalidad del 0.5% del valor del contrato por día hábil de retraso (tope 15%) o a resolver el acuerdo con devolución íntegra de montos correspondientes a entregables no ejecutados.
 
 <!-- PAGE BREAK -->
 
-## TÍTULO III: CONDICIONES FINANCIERAS Y DERECHOS DE AUTOR (CÓDIGO FUENTE)
+## TÍTULO III: CONDICIONES FINANCIERAS Y CÓDIGO FUENTE
 
-**Cláusula 3.1. Esquema de Pagos y Retención:**
-Se estipula un monto total de honorarios por desarrollo ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT] LA AGENCIA retendrá el código fuente maestro y no realizará la migración al dominio final (Pase a Producción) hasta confirmar la cancelación total del saldo en caso aplique.
+**Cláusula 3.1. Esquema de Pagos, SUNAT y Retención:**
+Los honorarios por desarrollo ascienden a **[PAYMENT_AMOUNT]** (con comprobante electrónico Boleta o Factura emitida conforme a SUNAT según los abonos percibidos). [PAYMENT_TYPE_TEXT] LA AGENCIA mantendrá el despliegue en staging y no ejecutará el Pase a Producción ni entregará accesos administradores maestros hasta verificarse la cancelación total del 100% pactado.
 
-**Cláusula 3.2. Titularidad Plena del Código Fuente y Entregables:**
-Tras el pago total y efectivo del 100% de la contraprestación, **EL CLIENTE adquiere la titularidad plena y exclusiva del código fuente** desarrollado (Frontend y Backend). LA AGENCIA cederá una licencia de uso perpetua, global e irrevocable, y EL CLIENTE tendrá el derecho absoluto de modificar el código directamente o mediante terceros (otros desarrolladores). Asimismo, LA AGENCIA se obliga a entregar la totalidad de las credenciales de administración, accesos a servidores y documentación técnica correspondiente.
+**Cláusula 3.2. Titularidad del Código y Entregables (D.L. N° 822):**
+Efectuado el pago íntegro del **100%**, **EL CLIENTE adquiere los derechos patrimoniales de explotación sobre el código y configuración desarrollados a medida** (excluyendo componentes open-source/librerías de terceros sujetos a sus propias licencias y herramientas propietarias preexistentes de LA AGENCIA), recibiendo sus credenciales de administración y respaldos técnicos.
 
-## TÍTULO IV: GARANTÍA TÉCNICA (WARRANTY) Y SANEAMIENTO
+## TÍTULO IV: GARANTÍA TÉCNICA, TERCEROS Y FUERZA MAYOR
 
-**Cláusula 4.1. Garantía Extendida y Vicios Ocultos:**
-LA AGENCIA otorga una garantía extendida de **noventa (90) días calendario** post-lanzamiento para la corrección gratuita de "Bugs" y fallos operacionales. Adicionalmente, conforme al Art. 1514 del Código Civil, EL CLIENTE conserva el derecho a reclamar por **vicios ocultos** que no hubiesen podido ser detectados razonablemente durante la fase UAT ordinaria. El plazo para reclamar vicios ocultos será de seis (6) meses desde la fecha de Pase a Producción, conforme a los plazos de saneamiento establecidos en los Artículos 1514 y siguientes del Código Civil.
+**Cláusula 4.1. Garantía Técnica Comercial y Vicios Ocultos:**
+LA AGENCIA otorga una **garantía técnica gratuita de noventa (90) días calendario** desde el Pase a Producción para corregir errores de programación (*bugs*) propios del desarrollo entregado. Esta garantía comercial complementa y en ningún caso recorta los derechos legales irrenunciables del consumidor frente a vicios ocultos o falta de idoneidad conforme al Código Civil (Art. 1514 y concordantes) y la Ley N° 29571.
 
-**Cláusula 4.2. Mantenimiento y Actualizaciones Seguras:**
-EL CLIENTE tiene derecho a realizar actualizaciones de seguridad rutinarias en su CMS (ej. WordPress) sin perder la garantía. La garantía únicamente quedará sin efecto si dichas intervenciones directas de terceros o instalación de módulos no autorizados **causan directamente** el fallo técnico reportado.
+**Cláusula 4.2. Modificaciones por Terceros:**
+EL CLIENTE puede realizar respaldos o actualizaciones rutinarias de seguridad en su CMS sin perder la garantía, salvo cuando la instalación de código ajeno, plugins de origen inseguro o edición directa de archivos por terceros cause de manera directa el fallo reportado.
 
-**Cláusula 4.3. Responsabilidad sobre Terceros (Hosting):**
-Si el proveedor de alojamiento web (Hosting) o servicios en la nube fue elegido, recomendado y contratado operativamente por LA AGENCIA, ésta asume responsabilidad por la idoneidad técnica de su elección. Por el contrario, si EL CLIENTE impone o proporciona un entorno de alojamiento externo propio, LA AGENCIA se exime de responsabilidad por caídas o fallos atribuibles a dicha infraestructura externa.
+**Cláusula 4.3. Infraestructura Externa, Pasarelas y Fuerza Mayor:**
+LA AGENCIA no es responsable por caídas, cambios unilaterales de APIs, bloqueos de cuenta o modificaciones de tarifas imputables a terceros ajenos a su control directo (proveedores cloud externos contratados directamente por el cliente, pasarelas Culqi/Niubiz/MercadoPago/Yape/Plin, Meta, Google o fallos de conectividad global). Si el hosting fue provisto e incluido por LA AGENCIA, esta responderá por su gestión técnica y soporte operativo durante el periodo incluido.
 
 <!-- PAGE BREAK -->
 
-## TÍTULO V: CONFIDENCIALIDAD, DATOS PERSONALES Y JURISDICCIÓN
+## TÍTULO V: DATOS PERSONALES, LIBRO DE RECLAMACIONES Y JURISDICCIÓN
 
-**Cláusula 5.1. Datos Personales (Ley N° 29733):**
-Si el desarrollo es un E-commerce, EL CLIENTE asume jurídicamente el rol de **"Titular del Banco de Datos Personales"** de todos sus compradores. LA AGENCIA opera únicamente como "Encargado de Tratamiento" durante la fase de desarrollo. LA AGENCIA se obliga a: (a) tratar los datos únicamente conforme a las instrucciones documentadas de EL CLIENTE; (b) implementar medidas de seguridad técnicas y organizativas apropiadas; (c) no comunicar datos a terceros sin autorización expresa; y (d) mantener confidencialidad incluso tras la finalización del contrato. 
+**Cláusula 5.1. Encargado de Tratamiento y Privacidad (Ley N° 29733):**
+En tiendas virtuales o sistemas con captura de leads, EL CLIENTE es el **Titular del Banco de Datos Personales** de sus usuarios finales, y LA AGENCIA actúa únicamente como **Encargado del Tratamiento** durante la fase de implementación técnica, obligándose a guardar estricta confidencialidad, aplicar cifrado/accesos seguros y no utilizar ni divulgar bases de datos para fines distintos al proyecto. Los datos de facturación de EL CLIENTE son tratados por LA AGENCIA conforme a la Ley N° 29733 (derechos ARCO en **contacto@miam.com.pe**).
 
-**Cláusula 5.2. Jurisdicción Consumidor:**
-Todo litigio derivado de la ejecución de este MSA será resuelto preferentemente mediante conciliación. En su defecto, las partes se someterán a la jurisdicción de los jueces correspondientes al **domicilio del consumidor (EL CLIENTE)**, respetando íntegramente las prerrogativas del Código de Protección y Defensa del Consumidor de Perú.
+**Cláusula 5.2. Libro de Reclamaciones y Jurisdicción (INDECOPI):**
+LA AGENCIA dispone de **Libro de Reclamaciones Virtual** y atención vía **contacto@miam.com.pe** (respuesta máx. **15 días hábiles**, D.S. N° 011-2011-PCM). Este contrato respeta íntegramente los Arts. 49°, 50° y 51° de la Ley N° 29571: en operaciones con consumidores finales (B2C) será competente el domicilio de EL CLIENTE o INDECOPI; en contratos entre empresas (B2B), los tribunales de Lima.
 
 ---
 
-**FIRMA ELECTRÓNICA Y PERFECCIONAMIENTO LEGAL:**
-Mediante la validación de MiamSign, EL CLIENTE acepta de manera voluntaria e irrevocable este Acuerdo de Servicios Tecnológicos, reconociendo el equilibrio y transparencia de sus cláusulas.
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE (ARTS. 141 Y 141-A CC / LEY N° 27269):**
+Al registrar su firma electrónica en MiamSign (con trazabilidad de correo, dirección IP, fecha y hora verificadas por el servidor), EL CLIENTE y LA AGENCIA expresan su consentimiento libre e informado, perfeccionando jurídicamente este acuerdo digital.
 `;
 
 export const MIAMBOT_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS CONTINUADOS: MARKETING DIGITAL Y AUTOMATIZACIÓN DE IA (MASTER SERVICES AGREEMENT)
 
-El presente Contrato Marco de Prestación de Servicios Continuados (en adelante, el **"Contrato"** o **"MSA"**), se perfecciona electrónicamente a partir de la fecha de su suscripción o pago de activación (la **"Fecha Efectiva"**), por y entre:
+El presente Contrato Marco de Prestación de Servicios Continuados y/o Suscripción SaaS (en adelante, el **"Contrato"** o **"MSA"**), se perfecciona electrónicamente a partir de la fecha de su firma y pago de activación (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana, con R.U.C. N° 20615782344 (en adelante, indistintamente, **"LA AGENCIA"**); y, **[CLIENT_NAME]**, debidamente identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Urb. José Gálvez, Jirón José de San Martín, Villa María del Triunfo 15822, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
+
+**[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
 ---
 
-## TÍTULO I: NATURALEZA, ALCANCE (SLA) Y OBLIGACIONES DE MEDIOS
+## TÍTULO I: ALCANCE DE SERVICIO, REPORTES Y DERECHOS DE AUTOR
 
 **Cláusula 1.1. Objeto Contractual y Entregables:**
-LA AGENCIA proveerá a EL CLIENTE el servicio continuado de **[SERVICE_NAME]**, el cual incluye taxativamente:
+LA AGENCIA proveerá a EL CLIENTE el servicio continuado / suscripción **[SERVICE_NAME]**, el cual comprende taxativamente:
 [SERVICE_DELIVERABLES]
 
-**Cláusula 1.2. Plazo de Ejecución y Modalidad:**
-La modalidad y tiempo de ejecución de los servicios es: **[DELIVERY_TIME]**.
+**Cláusula 1.2. Modalidad y Reportes Periódicos:**
+El plazo / ciclo del servicio contratado es: **[DELIVERY_TIME]**. LA AGENCIA entregará reportes periódicos de cumplimiento o métricas disponibles dentro de la plataforma MiamBot y/o informe mensual de publicaciones y desempeño según el servicio contratado.
 
-LA AGENCIA se obliga a presentar **KPIs y reportes métricos mensuales** evidenciando la optimización de pauta y desempeño de las acciones digitales. Los reportes métricos incluirán como mínimo: (a) alcance y frecuencia de publicaciones, (b) CTR (Click Through Rate) de campañas, y en caso aplique MiamBot: tiempo de respuesta promedio y tasa de resolución de consultas.
+**Cláusula 1.3. Obligación de Medios y Pauta Publicitaria:**
+Los servicios de gestión de redes sociales, pauta y automatización conversacional constituyen una **Obligación de Medios** (diligencia técnica profesional) y no garantizan un volumen fijo de ventas o ROI, al depender de presupuesto publicitario, precio/oferta de EL CLIENTE y algoritmos de terceros. El presupuesto directo pagado a plataformas publicitarias (Meta Ads, TikTok Ads, Google Ads) es asumido directamente por EL CLIENTE, salvo pacto distinto por escrito.
 
-**Cláusula 1.3. Obligación de Medios:**
-Las partes declaran que los servicios de Marketing Digital conllevan una **Obligación de Medios** (diligencia técnica profesional). LA AGENCIA no garantiza un Retorno de Inversión (ROI) exacto debido a factores de mercado externos. No obstante, LA AGENCIA responde legalmente por daños ocasionados por negligencia manifiesta o mala praxis en la configuración de la pauta.
+**Cláusula 1.4. Titularidad de Piezas y Entregables (D.L. N° 822):**
+Todo diseño gráfico, video o copy elaborado por LA AGENCIA dentro de un plan de contenidos pasa a ser propiedad patrimonial exclusiva de EL CLIENTE conforme al D.L. N° 822 tras el pago de la mensualidad o paquete correspondiente.
 
-**Cláusula 1.3. Titularidad del Contenido Creado:**
-Todo diseño, publicación gráfica o copy creado por LA AGENCIA durante la vigencia del contrato pasa a ser propiedad exclusiva de EL CLIENTE (cesión de derechos patrimoniales según D.L. 822) tras el abono de la mensualidad correspondiente.
+## TÍTULO II: ECOSISTEMA META, APIs EXTERNAS E INTELIGENCIA ARTIFICIAL
 
-## TÍTULO II: RESPONSABILIDAD TECNOLÓGICA (META E IA)
+**Cláusula 2.1. Políticas de Meta Platforms, WhatsApp API y TikTok:**
+En caso Meta, WhatsApp Cloud API o TikTok suspendan o restrinjan una cuenta comercial o línea conectada:
+*   Si la restricción deriva de **mala praxis técnica comprobada de LA AGENCIA** (automatización contraria a las políticas técnicas configurada por la agencia sin autorización del cliente), LA AGENCIA asumirá la remediación técnica y devolverá/acreditará proporcionalmente los días de servicio mensual no prestados (Art. 1328 del Código Civil).
+*   Si el bloqueo obedece a **giros comerciales restringidos, envíos masivos solicitados por EL CLIENTE sin opt-in, incumplimiento de políticas de comercio de Meta o decisiones unilaterales de dichas plataformas**, LA AGENCIA queda exenta de responsabilidad por daños indirectos.
 
-**Cláusula 2.1. Ecosistema Meta Platforms y Baneos:**
-En caso de que Meta suspenda una cuenta publicitaria o línea de WhatsApp, se investigará la causa:
-*   Si el bloqueo obedece a **mala praxis técnica de LA AGENCIA** (ej. uso de cuentas sin verificación, segmentaciones discriminatorias contrarias a políticas de Meta, uso de creativos engañosos diseñados por LA AGENCIA, manipulación de algoritmos mediante técnicas prohibidas o ignorar advertencias formales), LA AGENCIA asume la responsabilidad (Art. 1328 CC) y reembolsará proporcionalmente los días afectados.
-*   Si el bloqueo ocurre por **contenido comercial, productos prohibidos o directrices dictadas por EL CLIENTE**, LA AGENCIA queda eximida y el servicio mensual se factura de manera normal.
-
-**Cláusula 2.2. Responsabilidad por Inteligencia Artificial (MiamBot):**
-LA AGENCIA se obliga a implementar salvaguardas (guardrails), entrenamiento adecuado y reglas de escalamiento a operadores humanos para minimizar imprecisiones de los Modelos de Lenguaje (Alucinaciones). LA AGENCIA se obliga a implementar un protocolo de escalamiento a operador humano cuando el MiamBot detecte: (a) reclamos formales de consumidores, (b) consultas sobre garantías o devoluciones, (c) lenguaje de amenaza legal, o (d) precios o promociones que no consten en la base de datos autorizada. Este protocolo deberá estar operativo desde el primer día de despliegue. LA AGENCIA asumirá responsabilidad frente a defectos críticos originados por errores en la programación del Bot. Por su parte, EL CLIENTE es responsable del contenido basal (inventarios, precios) que suministre para el entrenamiento.
+**Cláusula 2.2. Salvaguardas en Inteligencia Artificial (MiamBot):**
+LA AGENCIA implementará reglas de respuesta basadas en la base de conocimientos suministrada (Motor RAG), límites operativos (*guardrails*) y derivación a asesor humano ante reclamos formales, consultas no cubiertas o solicitudes de devolución/garantía. No obstante, dado que los modelos de lenguaje probabilísticos pueden presentar variaciones excepcionales ante preguntas ambiguas, EL CLIENTE debe mantener actualizados sus catálogos, precios y políticas y supervisar las escalaciones humanas.
 
 <!-- PAGE BREAK -->
 
-## TÍTULO III: POLÍTICAS DE FACTURACIÓN, PRE-AVISO Y SUSPENSIÓN
+## TÍTULO III: FACTURACIÓN, RENOVACIÓN Y CANCELACIÓN JUSTA
 
-**Cláusula 3.1. Estructura de Pagos y Suspensión:**
-Se estipula un esquema de pago recurrente ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT] Si EL CLIENTE incurre en mora técnica, LA AGENCIA enviará una **notificación formal con cinco (5) días hábiles** de antelación previo a cualquier suspensión temporal de servicios, salvaguardando el debido proceso y la continuidad operativa.
+**Cláusula 3.1. Pago Adelantado y Suspensión por Falta de Pago:**
+Se establece el esquema económico ascendente a **[PAYMENT_AMOUNT]**. [PAYMENT_TYPE_TEXT]
+En planes y suscripciones mensuales prepago, la renovación requiere abono oportuno del ciclo. Ante falta de pago, LA AGENCIA enviará un **aviso previo con cinco (5) días hábiles** antes de suspender el acceso o la continuidad operativa del servicio.
 
-**Cláusula 3.2. Cancelación y Penalidad Proporcional:**
-EL CLIENTE puede cancelar la suscripción mensual notificando con **quince (15) días de anticipación (Pre-aviso)** al inicio de su siguiente ciclo. 
-De omitir este plazo, EL CLIENTE deberá abonar una **penalidad estrictamente proporcional a los días de retraso** en el aviso. La penalidad por incumplimiento del pre-aviso se calculará de la siguiente manera: (Valor mensual del servicio ÷ 30) × (días de retraso en el aviso) × 1.5. Esta fórmula garantiza proporcionalidad y evita penalidades excesivas.
+**Cláusula 3.2. Cancelación Libre sin Penalidades Abusivas:**
+EL CLIENTE puede cancelar libremente su plan mensual o suscripción en cualquier momento **antes de la fecha de su siguiente renovación** escribiendo a **contacto@miam.com.pe** o por WhatsApp oficial, sin penalidades ni recargos por cancelación. Los ciclos mensuales ya iniciados, contenidos ya producidos o activaciones SaaS del periodo en curso ya consumido no son reembolsables; si existieran pagos adelantados por periodos futuros aún no iniciados (ej. planes semestrales o anuales), LA AGENCIA reembolsará proporcionalmente los meses completos no devengados tras el cierre del ciclo corriente.
 
-**Cláusula 3.3. Penalidad por Incumplimiento de LA AGENCIA:**
-Si LA AGENCIA incurre en suspensión injustificada de los servicios, EL CLIENTE tendrá derecho a una penalidad equivalente al 3% del valor mensual por cada día hábil de suspensión o retraso injustificado, con un tope máximo del 50% de la mensualidad en curso.
+**Cláusula 3.3. Incumplimiento o Indisponibilidad Atribuible a LA AGENCIA:**
+Si por causa técnica directamente imputable a LA AGENCIA el servicio MiamBot o mensual sufre interrupción continua injustificada superior a cuarenta y ocho (48) horas hábiles (excluyendo caídas globales de Meta, AWS/Vercel o proveedores IA externos), EL CLIENTE tendrá derecho a un crédito o reembolso proporcional equivalente a los días afectados, sin perjuicio de los derechos que le asisten conforme a la Ley N° 29571.
 
 <!-- PAGE BREAK -->
 
-## TÍTULO IV: CUMPLIMIENTO NORMATIVO Y PROTECCIÓN DE DATOS (LEY N° 29733)
+## TÍTULO IV: DATOS PERSONALES (LEY N° 29733), PORTABILIDAD Y NDA
 
-**Cláusula 4.1. Co-Responsabilidad de Tratamiento (Privacidad):**
-Conforme a la Ley N° 29733, dado que LA AGENCIA diseña operativamente los flujos de captación y decide técnicamente el procesamiento de datos del MiamBot, ambas partes actúan bajo regímenes de responsabilidad compartida frente a vulnerabilidades. Obligaciones de LA AGENCIA: (a) implementar cifrado TLS/SSL en todas las comunicaciones, (b) realizar auditorías de seguridad trimestrales, (c) notificar a EL CLIENTE en un plazo máximo de 48 horas ante cualquier brecha de seguridad. Obligaciones de EL CLIENTE: (a) declarar el banco de datos ante el Ministerio de Justicia, (b) definir las finalidades del tratamiento, y (c) obtener el consentimiento expreso de los titulares.
+**Cláusula 4.1. Roles en Protección de Datos Personales:**
+EL CLIENTE es el **Titular del Banco de Datos Personales** de sus leads y compradores finales, siendo responsable de recabar sus consentimientos e inscribir su banco de datos ante el Ministerio de Justicia cuando corresponda. LA AGENCIA actúa como **Encargado de Tratamiento**, obligándose a mantener cifrado en tránsito (TLS/SSL), restringir accesos, notificar brechas de seguridad en máximo 48 horas y respetar confidencialidad estricta (NDA).
 
-**Cláusula 4.2. Retención Legal de Logs y Confidencialidad (NDA):**
-LA AGENCIA conservará los registros (logs) de chat en servidores encriptados por un plazo mínimo de **doce (12) meses** a efectos de auditoría y defensa legal del CLIENTE ante posibles reclamos de consumidores en Indecopi. Transcurrido el plazo de doce (12) meses, LA AGENCIA podrá anonimizar los datos o proceder a su destrucción definitiva, previa notificación a EL CLIENTE con treinta (30) días de anticipación para que este pueda solicitar la exportación de los registros si lo considera necesario. LA AGENCIA y su personal suscriben automáticamente un acuerdo de estricta confidencialidad (NDA) respecto a métricas, leads, bases de datos y estrategias comerciales del CLIENTE.
+**Cláusula 4.2. Conservación y Exportación de Datos (Portabilidad):**
+Mientras dure la suscripción activa, los registros de conversaciones e información cargada permanecen disponibles y exportables para EL CLIENTE. Al término del contrato, previa solicitud escrita, LA AGENCIA entregará en un plazo máximo de **quince (15) días hábiles** la exportación de historiales, prompts e instrucciones de configuración personalizadas en formato estándar (JSON/CSV), procediendo luego a la supresión segura tras el plazo de custodia de auditoría que EL CLIENTE autorice o exija la ley.
 
-**Cláusula 4.3. Titularidad del MiamBot y Portabilidad:**
-El software MiamBot, su arquitectura base y su motor de IA son y seguirán siendo propiedad exclusiva de LA AGENCIA, otorgándose a EL CLIENTE una licencia de uso temporal durante la vigencia del contrato. No obstante, los flujos conversacionales personalizados, prompts específicos, y datos de entrenamiento desarrollados exclusivamente para EL CLIENTE constituyen parte de los entregables y son de titularidad exclusiva de EL CLIENTE. Al término del contrato, previa solicitud escrita, LA AGENCIA exportará y entregará a EL CLIENTE: (a) transcripciones de conversaciones, (b) árboles de decisión conversacional, y (c) prompts personalizados, en formato editable estándar (JSON/CSV), en un plazo no mayor a quince (15) días hábiles.
+**Cláusula 4.3. Propiedad Intelectual del Software MiamBot:**
+La plataforma **MiamBot**, su código fuente, infraestructura y motor base pertenecen exclusivamente a **MIAM DIGITAL STUDIO S.A.C.**, otorgándose a EL CLIENTE una licencia de uso no exclusiva y temporal durante la vigencia de su plan. Los catálogos, PDFs, textos y flujos propios cargados por EL CLIENTE siguen siendo propiedad exclusiva de EL CLIENTE.
 
-**Cláusula 4.4. Conflicto de Intereses:**
-LA AGENCIA podrá prestar servicios a múltiples clientes, incluso de industrias similares. No obstante, LA AGENCIA se obliga a: (a) asignar equipos diferenciados para clientes competidores directos, (b) mantener estricta confidencialidad de estrategias comerciales, y (c) no utilizar información propietaria de un cliente para beneficio de otro.
+## TÍTULO V: LIBRO DE RECLAMACIONES, LEGISLACIÓN Y ACEPTACIÓN
 
-## TÍTULO V: MISCELÁNEAS Y JURISDICCIÓN
-
-**Cláusula 5.1. Legislación Aplicable:** 
-El presente MSA será interpretado conforme a la legislación peruana. En caso de disputa, y fallando una etapa de trato directo, las Partes se someterán voluntariamente a la jurisdicción de los jueces competentes del **domicilio de EL CLIENTE**, garantizando sus derechos procesales (Ley N° 29571).
+**Cláusula 5.1. Libro de Reclamaciones y Ley Aplicable (INDECOPI):**
+MIAM DIGITAL STUDIO S.A.C. dispone de **Libro de Reclamaciones Virtual** y atención directa en **contacto@miam.com.pe** (plazo máximo de respuesta **15 días hábiles**, D.S. N° 011-2011-PCM). Este acuerdo se interpreta bajo las leyes de la República del Perú y respeta íntegramente los Arts. 49°, 50° y 51° de la Ley N° 29571. En relaciones de consumo (B2C) será competente el juez del **domicilio de EL CLIENTE** o **INDECOPI**; entre empresas (B2B), los tribunales de Lima.
 
 ---
 
-**FIRMA ELECTRÓNICA VINCULANTE (LEY N° 27269):**
-El estampado criptográfico en la plataforma MiamSign constituye firma electrónica válida. Al ejecutar la acción "Adoptar y Firmar", EL CLIENTE declara conocer, entender y aceptar plenamente los derechos y obligaciones de este Acuerdo de Servicios, perfeccionando jurídicamente el contrato.
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE (ARTS. 141 Y 141-A CC / LEY N° 27269):**
+Al aceptar y firmar en la plataforma MiamSign (con trazabilidad verificada de correo electrónico, dirección IP, fecha y hora registradas en servidor), EL CLIENTE y LA AGENCIA perfeccionan este contrato por vía electrónica con plena validez legal conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
 `;
-export function generateTemplate(type: string, name: string, document: string, address: string, paymentAmount?: string, paymentType?: string, serviceName?: string, serviceDeliverables?: string, deliveryTime?: string) {
+
+export function generateTemplate(
+  type: string,
+  name: string,
+  document: string,
+  address: string,
+  paymentAmount?: string,
+  paymentType?: string,
+  serviceName?: string,
+  serviceDeliverables?: string,
+  deliveryTime?: string
+) {
   let template = "";
   if (type === "BRANDING") template = BRANDING_CONTRACT;
   if (type === "WEB") template = WEB_CONTRACT;
@@ -237,11 +242,14 @@ export function generateTemplate(type: string, name: string, document: string, a
 
   let paymentText = "";
   if (paymentType === "50_50") {
-    paymentText = "La modalidad de pago será fraccionada: 50% de anticipo para iniciar labores de investigación y reservas de agenda, y el 50% de Saldo Final pagadero contra la aprobación y/o previo a la entrega final de archivos o pase a producción.";
+    paymentText =
+      "La modalidad de pago será fraccionada: 50% de anticipo al iniciar el proyecto para reserva de agenda y desarrollo inicial, y 50% de Saldo Final contra aprobación previa al pase a producción o entrega de archivos editables finales.";
   } else if (paymentType === "100_UPFRONT") {
-    paymentText = "La modalidad de pago será del 100% como pago único por adelantado para iniciar labores y separar agenda de desarrollo o diseño.";
+    paymentText =
+      "La modalidad de pago será 100% por adelantado al momento de contratar el servicio.";
   } else if (paymentType === "MONTHLY") {
-    paymentText = "La modalidad de pago será mediante una suscripción de facturación recurrente (mensual prepago).";
+    paymentText =
+      "La modalidad de pago será 100% por adelantado bajo esquema mensual prepago al activar o renovar cada ciclo.";
   } else {
     paymentText = "[MODALIDAD DE PAGO]";
   }
@@ -253,6 +261,9 @@ export function generateTemplate(type: string, name: string, document: string, a
     .replace(/\[PAYMENT_AMOUNT\]/g, paymentAmount || "[MONTO]")
     .replace(/\[PAYMENT_TYPE_TEXT\]/g, paymentText)
     .replace(/\[SERVICE_NAME\]/g, serviceName || "[NOMBRE DEL SERVICIO]")
-    .replace(/\[SERVICE_DELIVERABLES\]/g, serviceDeliverables || "✔️ [ENTREGABLE 1]\n✔️ [ENTREGABLE 2]")
+    .replace(
+      /\[SERVICE_DELIVERABLES\]/g,
+      serviceDeliverables || "✔️ [ENTREGABLE 1]\n✔️ [ENTREGABLE 2]"
+    )
     .replace(/\[DELIVERY_TIME\]/g, deliveryTime || "[TIEMPO DE ENTREGA]");
 }

@@ -1,14 +1,33 @@
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || "a0090610.ferozo.com",
-  port: parseInt(process.env.EMAIL_PORT || "465", 10),
-  secure: true, // true for 465, false for other ports
-  auth: {
-    user: process.env.EMAIL_USER || "noreply@miam.com.pe",
-    pass: process.env.EMAIL_PASS || "Reply23@*",
-  },
-});
+function escapeHtml(value: string): string {
+  return (value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function getTransporter() {
+  const host = process.env.EMAIL_HOST;
+  const user = process.env.EMAIL_USER;
+  const pass = process.env.EMAIL_PASS;
+  const port = parseInt(process.env.EMAIL_PORT || "465", 10);
+
+  if (!host || !user || !pass) {
+    throw new Error(
+      "Configuración SMTP incompleta. Define EMAIL_HOST, EMAIL_USER y EMAIL_PASS en las variables de entorno."
+    );
+  }
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+  });
+}
 
 export const sendContractEmail = async (
   clientName: string,
@@ -17,6 +36,9 @@ export const sendContractEmail = async (
   contractUrl: string
 ) => {
   const currentYear = new Date().getFullYear();
+  const safeName = escapeHtml(clientName);
+  const safeTitle = escapeHtml(contractTitle);
+  const safeUrl = escapeHtml(contractUrl);
 
   const htmlContent = `
 <!DOCTYPE html>
@@ -213,15 +235,15 @@ export const sendContractEmail = async (
             <span class="badge">Acción Requerida &bull; Firma de Contrato</span>
           </div>
 
-          <h1 class="greeting">Hola, ${clientName}</h1>
+          <h1 class="greeting">Hola, ${safeName}</h1>
 
           <p class="paragraph">
-            Te informamos que <strong>Miam Digital Studio S.A.C.</strong> ha generado formalmente tu contrato de servicios profesionales bajo la modalidad <strong>Master Services Agreement (MSA)</strong> para tu revisión y firma digital certificada.
+            Te informamos que <strong>Miam Digital Studio S.A.C.</strong> ha generado formalmente tu contrato de servicios profesionales bajo la modalidad <strong>Master Services Agreement (MSA)</strong> para tu revisión y firma electrónica vinculante.
           </p>
 
           <!-- Document Box -->
           <div class="document-card">
-            <p class="document-title">📄 ${contractTitle}</p>
+            <p class="document-title">📄 ${safeTitle}</p>
             <p style="font-size: 13px; color: #475569; margin: 4px 0 10px 0;">
               <strong>Emisor:</strong> Miam Digital Studio S.A.C. (RUC 20615782344)
             </p>
@@ -237,7 +259,7 @@ export const sendContractEmail = async (
 
           <!-- CTA Button -->
           <div class="btn-container">
-            <a href="${contractUrl}" class="btn-action" target="_blank">
+            <a href="${safeUrl}" class="btn-action" target="_blank">
               Revisar y Firmar Documento &rarr;
             </a>
           </div>
@@ -245,10 +267,10 @@ export const sendContractEmail = async (
           <!-- Security and Compliance -->
           <div class="security-section">
             <div class="security-item">
-              🛡️ <strong>Validez Legal Plena:</strong> Perfeccionamiento bajo la Ley N° 27269 (Ley de Firmas y Certificados Digitales) y el Código Civil del Perú.
+              🛡️ <strong>Validez Legal Plena:</strong> Perfeccionamiento bajo los Arts. 141 y 141-A del Código Civil del Perú y la Ley N° 27269 (Ley de Firmas y Certificados Digitales).
             </div>
             <div class="security-item">
-              🔒 <strong>Cifrado y Trazabilidad:</strong> Tu firma es registrada con estampado criptográfico, dirección IP y sellado de tiempo inmutable.
+              🔒 <strong>Trazabilidad Electrónica:</strong> Tu firma es registrada con dirección IP, correo verificado y fecha/hora del servidor.
             </div>
             <div class="security-item">
               📥 <strong>Descarga Instantánea:</strong> Al firmar, podrás descargar tu copia completa en PDF en formato A4 de alta fidelidad.
@@ -258,7 +280,7 @@ export const sendContractEmail = async (
           <!-- Direct Link Fallback -->
           <p class="link-fallback">
             Si el botón superior no responde, copia y pega este enlace seguro en tu navegador:<br>
-            <a href="${contractUrl}">${contractUrl}</a>
+            <a href="${safeUrl}">${safeUrl}</a>
           </p>
         </td>
       </tr>
@@ -289,8 +311,9 @@ export const sendContractEmail = async (
   `;
 
   try {
+    const transporter = getTransporter();
     const info = await transporter.sendMail({
-      from: '"MiamSign - Legal" <noreply@miam.com.pe>',
+      from: `"MiamSign - Legal" <${process.env.EMAIL_USER || "noreply@miam.com.pe"}>`,
       to: clientEmail,
       subject: `Firma Requerida: ${contractTitle} - Miam Digital Studio`,
       html: htmlContent,
@@ -312,6 +335,11 @@ export const sendSignedConfirmationEmail = async (
   clientIp: string
 ) => {
   const currentYear = new Date().getFullYear();
+  const safeName = escapeHtml(clientName);
+  const safeEmail = escapeHtml(clientEmail);
+  const safeTitle = escapeHtml(contractTitle);
+  const safeUrl = escapeHtml(contractUrl);
+  const safeIp = escapeHtml(clientIp);
   const formattedDate = new Date(signedAt).toLocaleString('es-PE', {
     dateStyle: 'long',
     timeStyle: 'medium',
@@ -503,26 +531,26 @@ export const sendSignedConfirmationEmail = async (
           <h1 class="greeting">¡Firma Completada con Éxito!</h1>
 
           <p class="paragraph">
-            Hola <strong>${clientName}</strong>, te confirmamos que has completado satisfactoriamente el proceso de firma electrónica para el documento <strong>${contractTitle}</strong>.
+            Hola <strong>${safeName}</strong>, te confirmamos que has completado satisfactoriamente el proceso de firma electrónica para el documento <strong>${safeTitle}</strong>.
           </p>
 
           <!-- Document Box -->
           <div class="document-card">
-            <p class="document-title">📄 ${contractTitle}</p>
+            <p class="document-title">📄 ${safeTitle}</p>
             <div class="meta-row"><strong>Emisor:</strong> Miam Digital Studio S.A.C. (RUC 20615782344)</div>
-            <div class="meta-row"><strong>Firmante:</strong> ${clientName} (${clientEmail})</div>
+            <div class="meta-row"><strong>Firmante:</strong> ${safeName} (${safeEmail})</div>
             <div class="meta-row"><strong>Fecha de Firma:</strong> ${formattedDate}</div>
-            <div class="meta-row"><strong>Dirección IP:</strong> ${clientIp}</div>
+            <div class="meta-row"><strong>Dirección IP:</strong> ${safeIp}</div>
             <div style="margin-top: 12px;">
               <span style="background-color: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 4px; font-weight: 700; font-size: 11.5px;">
-                ✓ Certificado y Perfeccionado
+                ✓ Firmado y Perfeccionado
               </span>
             </div>
           </div>
 
           <!-- CTA Button to Download PDF -->
           <div class="btn-container">
-            <a href="${contractUrl}" class="btn-action" target="_blank">
+            <a href="${safeUrl}" class="btn-action" target="_blank">
               Ver y Descargar Documento Firmado (PDF) &rarr;
             </a>
           </div>
@@ -530,10 +558,10 @@ export const sendSignedConfirmationEmail = async (
           <!-- Security and Compliance -->
           <div class="security-section">
             <div class="security-item">
-              ⚖️ <strong>Plena Validez Legal:</strong> Este contrato electrónico goza de plena eficacia probatoria y validez jurídica según la Ley N° 27269 y el Código Civil del Perú.
+              ⚖️ <strong>Plena Validez Legal:</strong> Este contrato electrónico goza de plena eficacia probatoria y validez jurídica según los Arts. 141 y 141-A del Código Civil del Perú y la Ley N° 27269.
             </div>
             <div class="security-item">
-              🔒 <strong>Custodia Segura:</strong> Una copia original con sellado de tiempo y metadatos criptográficos queda archivada permanentemente en los servidores seguros de Miam Digital Studio S.A.C.
+              🔒 <strong>Custodia Segura:</strong> Una copia original con registro de fecha/hora e IP queda archivada en los servidores seguros de Miam Digital Studio S.A.C.
             </div>
             <div class="security-item">
               📥 <strong>Tu Copia Oficial:</strong> Puedes acceder al enlace en cualquier momento para volver a descargar tu contrato firmado en formato PDF A4 de alta definición.
@@ -568,9 +596,12 @@ export const sendSignedConfirmationEmail = async (
   `;
 
   try {
+    const transporter = getTransporter();
+    const sender = process.env.EMAIL_USER || "noreply@miam.com.pe";
+
     // 1. Enviar confirmación al cliente
     await transporter.sendMail({
-      from: '"MiamSign - Legal" <noreply@miam.com.pe>',
+      from: `"MiamSign - Legal" <${sender}>`,
       to: clientEmail,
       subject: `✅ Contrato Firmado y Completado: ${contractTitle} - Miam Digital Studio`,
       html: htmlContent,
@@ -578,17 +609,17 @@ export const sendSignedConfirmationEmail = async (
 
     // 2. Enviar notificación interna a la agencia
     await transporter.sendMail({
-      from: '"MiamSign - Notificaciones" <noreply@miam.com.pe>',
+      from: `"MiamSign - Notificaciones" <${sender}>`,
       to: "contacto@miam.com.pe",
       subject: `🎉 Contrato Firmado por Cliente: ${clientName} - ${contractTitle}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px; color: #333;">
           <h2 style="color: #059669;">¡El cliente ha firmado el contrato!</h2>
-          <p><strong>Cliente:</strong> ${clientName} (${clientEmail})</p>
-          <p><strong>Contrato:</strong> ${contractTitle}</p>
+          <p><strong>Cliente:</strong> ${safeName} (${safeEmail})</p>
+          <p><strong>Contrato:</strong> ${safeTitle}</p>
           <p><strong>Fecha y Hora:</strong> ${formattedDate}</p>
-          <p><strong>IP Registrada:</strong> ${clientIp}</p>
-          <p><a href="${contractUrl}" style="background-color: #005cb9; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Ver Contrato Firmado en MiamSign</a></p>
+          <p><strong>IP Registrada:</strong> ${safeIp}</p>
+          <p><a href="${safeUrl}" style="background-color: #005cb9; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Ver Contrato Firmado en MiamSign</a></p>
         </div>
       `,
     });

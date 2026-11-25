@@ -7,7 +7,8 @@ export type ServiceCategory =
   | "PAQUETES INTEGRALES PROMOCIONALES"
   | "PLANES MENSUALES: REDES SOCIALES"
   | "PAQUETES: WEB + REDES SOCIALES"
-  | "PAQUETES DIGITALES COMPLETOS";
+  | "PAQUETES DIGITALES COMPLETOS"
+  | "MIAMBOT IA (AUTOMATIZACIÓN SAAS)";
 
 export type BaseTemplateType = "BRANDING" | "WEB" | "MIAMBOT";
 
@@ -38,7 +39,7 @@ export const CATALOG: MiamService[] = [
     price: "531.00 PEN",
     deliveryTime: "5 a 7 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "id_visual",
@@ -53,7 +54,7 @@ export const CATALOG: MiamService[] = [
     price: "224.20 PEN",
     deliveryTime: "3 a 5 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "id_brand",
@@ -68,7 +69,7 @@ export const CATALOG: MiamService[] = [
     price: "377.60 PEN",
     deliveryTime: "7 a 10 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
 
   // PAPELERÍA CORPORATIVA
@@ -85,7 +86,7 @@ export const CATALOG: MiamService[] = [
     price: "141.60 PEN",
     deliveryTime: "2 a 3 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "pap_membrete",
@@ -97,10 +98,10 @@ export const CATALOG: MiamService[] = [
       "Formato digital para imprenta (PDF)",
       "Plantilla editable en Microsoft Word"
     ],
-    price: "224.20 PEN",
+    price: "259.60 PEN",
     deliveryTime: "2 a 3 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "pap_folder",
@@ -114,7 +115,7 @@ export const CATALOG: MiamService[] = [
     price: "259.60 PEN",
     deliveryTime: "3 a 5 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "pap_brochure_3",
@@ -129,7 +130,7 @@ export const CATALOG: MiamService[] = [
     price: "460.20 PEN",
     deliveryTime: "5 a 7 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "pap_brochure_a4",
@@ -143,7 +144,7 @@ export const CATALOG: MiamService[] = [
     price: "342.20 PEN",
     deliveryTime: "4 a 6 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "pap_volante",
@@ -157,7 +158,7 @@ export const CATALOG: MiamService[] = [
     price: "177.00 PEN",
     deliveryTime: "2 a 4 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "pap_triptico",
@@ -171,7 +172,7 @@ export const CATALOG: MiamService[] = [
     price: "259.60 PEN",
     deliveryTime: "4 a 5 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
 
   // DISEÑO DIGITAL
@@ -187,7 +188,7 @@ export const CATALOG: MiamService[] = [
     price: "212.40 PEN",
     deliveryTime: "3 a 4 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "dig_banner_jpg",
@@ -201,7 +202,7 @@ export const CATALOG: MiamService[] = [
     price: "118.00 PEN",
     deliveryTime: "2 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "dig_banner_gif",
@@ -215,7 +216,7 @@ export const CATALOG: MiamService[] = [
     price: "177.00 PEN",
     deliveryTime: "3 a 4 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "dig_banner_ae",
@@ -229,7 +230,7 @@ export const CATALOG: MiamService[] = [
     price: "224.20 PEN",
     deliveryTime: "4 a 5 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "dig_post_img",
@@ -243,7 +244,7 @@ export const CATALOG: MiamService[] = [
     price: "70.80 PEN",
     deliveryTime: "1 a 2 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
   {
     id: "dig_post_vid",
@@ -257,7 +258,7 @@ export const CATALOG: MiamService[] = [
     price: "118.00 PEN",
     deliveryTime: "2 a 3 días hábiles",
     baseTemplate: "BRANDING",
-    defaultPaymentType: "100_UPFRONT"
+    defaultPaymentType: "50_50"
   },
 
   // DESARROLLO WEB BÁSICO
@@ -533,5 +534,52 @@ export const CATALOG: MiamService[] = [
     deliveryTime: "35 a 45 días hábiles (Lanzamiento)",
     baseTemplate: "MIAMBOT",
     defaultPaymentType: "50_50"
+  },
+
+  // MIAMBOT IA (AUTOMATIZACIÓN SAAS)
+  {
+    id: "miambot_emprendedor",
+    category: "MIAMBOT IA (AUTOMATIZACIÓN SAAS)",
+    name: "MiamBot Plan Emprendedor",
+    description: "Agente de IA para automatización de atención y ventas 24/7 con WhatsApp Cloud API y redes sociales.",
+    deliverables: [
+      "Agente de IA conectado a WhatsApp Cloud API, Instagram y Messenger",
+      "Motor IA RAG entrenado con PDFs y catálogo del negocio",
+      "CRM básico de conversaciones con derivación a asesor humano y 0% comisiones por ventas"
+    ],
+    price: "39.00 USD / mes",
+    deliveryTime: "Mensual (Activación en 24–48 h)",
+    baseTemplate: "MIAMBOT",
+    defaultPaymentType: "MONTHLY"
+  },
+  {
+    id: "miambot_negocio",
+    category: "MIAMBOT IA (AUTOMATIZACIÓN SAAS)",
+    name: "MiamBot Plan Negocio",
+    description: "Automatización omnicanal con IA RAG, TikTok Business Messaging y cobros en chat sin comisiones.",
+    deliverables: [
+      "WhatsApp Cloud API oficial, TikTok, Instagram y Messenger",
+      "Motor IA RAG + flujos visuales No-Code y CRM de tickets",
+      "Conexión con Stripe, MercadoPago, PayPal, Culqi e Izipay (0% comisiones)"
+    ],
+    price: "99.00 USD / mes",
+    deliveryTime: "Mensual (Activación en 24–72 h)",
+    baseTemplate: "MIAMBOT",
+    defaultPaymentType: "MONTHLY"
+  },
+  {
+    id: "miambot_corporativo",
+    category: "MIAMBOT IA (AUTOMATIZACIÓN SAAS)",
+    name: "MiamBot Plan Corporativo",
+    description: "Solución empresarial a medida con múltiples agentes, integraciones API dedicadas y soporte prioritario.",
+    deliverables: [
+      "Multi-sede, múltiples líneas de WhatsApp Cloud API y roles de equipo",
+      "Integraciones API / ERP personalizadas y entrenamiento avanzado",
+      "Acuerdo de nivel de servicio (SLA) empresarial y 0% comisiones"
+    ],
+    price: "A medida (USD / mes)",
+    deliveryTime: "Mensual (Implementación a medida)",
+    baseTemplate: "MIAMBOT",
+    defaultPaymentType: "MONTHLY"
   }
 ];
