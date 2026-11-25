@@ -4,17 +4,23 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Bell,
+  BookOpen,
   CheckCircle2,
+  ClipboardList,
   Clock,
   Copy,
   Edit,
+  ExternalLink,
   Eye,
   EyeOff,
   FileSignature,
   FileText,
   Folder,
+  FolderOpen,
+  HardDrive,
   Home,
   KeyRound,
+  Layers,
   LayoutTemplate,
   LogOut,
   Mail,
@@ -31,6 +37,8 @@ import {
   UserCheck,
   X,
 } from "lucide-react";
+import AdminAgencyWorkspace, { AgencyAdminSection } from "@/components/AdminAgencyWorkspace";
+import { formatBytes } from "@/components/BentoWidgets";
 import {
   changeAdminPasswordAction,
   createContract,
@@ -111,7 +119,13 @@ export default function MiamSignDashboard({
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState<"home" | "manage" | "templates" | "settings">("home");
+  const [activeTab, setActiveTab] = useState<
+    AgencyAdminSection | "home" | "manage" | "templates" | "settings"
+  >("ledger");
+  const [agencySummary, setAgencySummary] = useState<{ usedBytes: number; totalOrders: number }>({
+    usedBytes: 0,
+    totalOrders: 0,
+  });
 
   // Profile & Security State
   const [displayName, setDisplayName] = useState(initialDisplayName || "Jack M. Berrocal");
@@ -434,33 +448,60 @@ export default function MiamSignDashboard({
 
   return (
     <div className="min-h-screen bg-[#f8fafc] flex font-sans text-gray-900">
-      {/* Sidebar */}
-      <aside className={`bg-white border-r border-gray-200 transition-[width] duration-200 flex flex-col shrink-0 ${sidebarOpen ? "w-64" : "w-20"}`}>
-        <div className="h-16 flex items-center px-4 border-b border-gray-200">
+      {/* Dark Propuesta 1 Sidebar */}
+      <aside className={`bg-[#0B0F19] text-slate-200 transition-[width] duration-200 flex flex-col shrink-0 ${sidebarOpen ? "w-64" : "w-20"}`}>
+        <div className="h-16 flex items-center px-4 border-b border-white/10">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-label="Alternar barra lateral"
-            className="w-10 h-10 flex items-center justify-center hover:bg-gray-100 rounded-lg text-gray-500 transition-colors"
+            className="w-10 h-10 flex items-center justify-center hover:bg-white/10 rounded-lg text-slate-400 transition-colors"
           >
             <Menu className="w-5 h-5" />
           </button>
           {sidebarOpen && (
-            <div className="ml-2.5 flex items-center font-bold text-base tracking-tight text-slate-900">
-              <FileSignature className="w-5 h-5 mr-2 text-blue-600" />
-              MiamSign
+            <div className="ml-2 flex items-center gap-2.5">
+              <img src="/img/miam-cat-white.png" alt="Miam" className="w-7 h-7 object-contain" />
+              <div className="leading-tight">
+                <div className="font-extrabold text-sm text-white tracking-tight">MiamOS</div>
+                <div className="text-[10px] text-slate-400">Digital Studio S.A.C.</div>
+              </div>
             </div>
           )}
         </div>
 
-        <nav className="flex-1 py-4 flex flex-col gap-1 px-3" aria-label="Navegación principal">
-          <NavItem icon={<Home className="w-5 h-5" />} label="Inicio" active={activeTab === "home"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("home")} />
-          <NavItem icon={<Folder className="w-5 h-5" />} label="Gestionar" active={activeTab === "manage"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("manage")} />
-          <NavItem icon={<LayoutTemplate className="w-5 h-5" />} label="Plantillas" active={activeTab === "templates"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("templates")} />
+        <nav className="flex-1 py-4 flex flex-col gap-1 px-3 overflow-y-auto" aria-label="Navegación principal">
+          <NavItem icon={<BookOpen className="w-4 h-4" />} label="Libro Contable" badge={agencySummary.totalOrders ? String(agencySummary.totalOrders) : undefined} active={activeTab === "ledger"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("ledger")} />
+          <NavItem icon={<Layers className="w-4 h-4" />} label="Proyectos y Etapas" active={activeTab === "stages"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("stages")} />
+          <NavItem icon={<FolderOpen className="w-4 h-4" />} label="Bóveda Archivos" active={activeTab === "vault"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("vault")} />
+          <NavItem icon={<ClipboardList className="w-4 h-4" />} label="Encuestas Brief" active={activeTab === "surveys"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("surveys")} />
+          <NavItem icon={<HardDrive className="w-4 h-4" />} label="Storage 180d" active={activeTab === "storage"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("storage")} />
+
+          <div className="my-2 border-t border-white/10" />
+
+          <NavItem icon={<Home className="w-4 h-4" />} label="MiamSign Inicio" active={activeTab === "home"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("home")} />
+          <NavItem icon={<Folder className="w-4 h-4" />} label="Gestionar Contratos" active={activeTab === "manage"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("manage")} />
+          <NavItem icon={<LayoutTemplate className="w-4 h-4" />} label="Plantillas Legales" active={activeTab === "templates"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("templates")} />
         </nav>
 
-        <div className="p-3 border-t border-gray-200">
+        <div className="p-3 border-t border-white/10 space-y-2">
+          {sidebarOpen && (
+            <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-[11px]">
+              <div className="flex justify-between font-bold text-slate-300">
+                <span>Bóveda 180d</span>
+                <span className="font-mono text-[#00E076]">{formatBytes(agencySummary.usedBytes)}</span>
+              </div>
+              <a
+                href="/portal"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1.5 inline-flex items-center gap-1 text-[10.5px] font-semibold text-indigo-300 hover:text-white"
+              >
+                <ExternalLink className="w-3 h-3" /> Abrir Portal Cliente
+              </a>
+            </div>
+          )}
           <NavItem
-            icon={<KeyRound className="w-5 h-5" />}
+            icon={<KeyRound className="w-4 h-4" />}
             label="Perfil y Clave"
             badge={mustChangePassword ? "!" : undefined}
             active={activeTab === "settings"}
@@ -522,7 +563,19 @@ export default function MiamSignDashboard({
 
         {/* Dashboard Body */}
         <main className="flex-1 overflow-auto p-6 sm:p-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
+            {(activeTab === "ledger" ||
+              activeTab === "stages" ||
+              activeTab === "vault" ||
+              activeTab === "surveys" ||
+              activeTab === "storage") && (
+              <AdminAgencyWorkspace
+                section={activeTab}
+                onSectionChange={(next) => setActiveTab(next)}
+                onStorageSummary={setAgencySummary}
+              />
+            )}
+
             {/* Banner de Primer Ingreso / Contraseña Temporal */}
             {mustChangePassword && activeTab !== "settings" && (
               <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4 flex flex-wrap items-center justify-between gap-4">
@@ -1523,16 +1576,16 @@ function NavItem({
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors ${
-        active ? "bg-blue-50 text-blue-700" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors ${
+        active ? "bg-white/10 text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
       }`}
     >
       <span className="flex items-center">
-        <span className={active ? "text-blue-600" : "text-gray-500"}>{icon}</span>
-        {sidebarOpen && <span className={`ml-3 text-sm font-semibold ${active ? "text-blue-800" : ""}`}>{label}</span>}
+        <span className={active ? "text-[#00E076]" : "text-slate-400"}>{icon}</span>
+        {sidebarOpen && <span className={`ml-3 text-xs font-semibold ${active ? "text-white font-bold" : ""}`}>{label}</span>}
       </span>
       {badge && sidebarOpen && (
-        <span className="w-5 h-5 rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center">
+        <span className="px-1.5 py-0.5 rounded-full bg-[#00E076]/20 text-[#00E076] text-[10px] font-extrabold">
           {badge}
         </span>
       )}

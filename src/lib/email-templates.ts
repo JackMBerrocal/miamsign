@@ -516,3 +516,70 @@ export function buildContractSignedEmailHtml(
     logoUrl: `${assetBase}/img/miam-cat-white.png`,
   });
 }
+
+export function buildOrderReceiptEmailHtml(params: {
+  clientName: string;
+  clientEmail: string;
+  orderCode: string;
+  serviceName: string;
+  paidAmountLabel: string;
+  balanceLabel: string;
+  paymentMethod: string;
+  sunatType: string;
+  portalUrl: string;
+  portalPasswordHint: string;
+  year?: number;
+}): string {
+  const currentYear = params.year || new Date().getFullYear();
+  const safeName = escapeHtml(params.clientName || "Cliente");
+  const assetBase = resolveAssetBaseUrl(params.portalUrl);
+
+  return renderBentoNoirShell({
+    pageTitle: `Comprobante de Orden ${params.orderCode} - Miam Digital Studio`,
+    headerBadge: `✓ ORDEN ${params.orderCode}`,
+    headerBadgeStyle: "signed",
+    eyebrow: "COMPROBANTE DE COMPRA & PORTAL PRIVADO",
+    headingHtml: `¡Gracias, ${safeName}!`,
+    leadHtml: `Registramos formalmente tu orden <strong>${escapeHtml(params.orderCode)}</strong> para <strong>${escapeHtml(params.serviceName)}</strong>. Creamos tu cuenta permanente en el <strong>Portal Cliente Miam</strong> para que hagas seguimiento de etapas, completes tu encuesta brief y descargues tus archivos.`,
+    steps: [
+      { kicker: "ORDEN", label: params.orderCode, state: "done" },
+      { kicker: "ACCESO PORTAL", label: `Clave: ${params.portalPasswordHint}`, state: "active" },
+      { kicker: "SIGUIENTE PASO", label: "Firma + Encuesta", state: "pending" },
+    ],
+    bentoTiles: [
+      { label: "SERVICIO CONTRATADO", value: params.serviceName },
+      {
+        label: "ABONO & SALDO",
+        value: `${params.paidAmountLabel} (${params.paymentMethod}) · Saldo: ${params.balanceLabel}`,
+      },
+      {
+        label: "COMPROBANTE SUNAT",
+        value: `${params.sunatType} Electrónica en emisión`,
+      },
+      {
+        label: "USUARIO DE PORTAL",
+        value: `${params.clientEmail} · Clave: ${params.portalPasswordHint}`,
+      },
+    ],
+    ctaUrl: params.portalUrl || "https://firmas.miam.com.pe/portal",
+    ctaLabel: "Entrar a Mi Portal Cliente",
+    ctaTag: "Abrir Portal →",
+    trustItems: [
+      {
+        title: "🔐 Cuenta Vitalicia",
+        body: "Tu acceso con este correo es permanente; puedes cambiar tu clave adentro.",
+      },
+      {
+        title: "📅 Etapas y Fechas",
+        body: "Visualiza lo ya hecho, avances en curso y fechas comprometidas.",
+      },
+      {
+        title: "📥 Bóveda 180 Días",
+        body: "Descarga tus entregables por 6 meses y tu contrato firmado siempre.",
+      },
+    ],
+    fallbackText: "Guarda este acceso directo a tu Portal Privado:",
+    footerYear: currentYear,
+    logoUrl: `${assetBase}/img/miam-cat-white.png`,
+  });
+}

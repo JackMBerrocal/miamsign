@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import {
   buildContractInviteEmailHtml,
   buildContractSignedEmailHtml,
+  buildOrderReceiptEmailHtml,
   ContractEmailMeta,
   escapeHtml,
 } from "@/lib/email-templates";
@@ -120,6 +121,48 @@ export const sendSignedConfirmationEmail = async (
     return true;
   } catch (error) {
     console.error("Error sending confirmation email:", error);
+    return false;
+  }
+};
+
+export const sendOrderReceiptEmail = async (params: {
+  clientName: string;
+  clientEmail: string;
+  orderCode: string;
+  serviceName: string;
+  paidAmountLabel: string;
+  balanceLabel: string;
+  paymentMethod: string;
+  sunatType: string;
+  portalUrl: string;
+  contractUrl: string;
+  portalPasswordHint: string;
+}) => {
+  const htmlContent = buildOrderReceiptEmailHtml({
+    clientName: params.clientName,
+    clientEmail: params.clientEmail,
+    orderCode: params.orderCode,
+    serviceName: params.serviceName,
+    paidAmountLabel: params.paidAmountLabel,
+    balanceLabel: params.balanceLabel,
+    paymentMethod: params.paymentMethod,
+    sunatType: params.sunatType,
+    portalUrl: params.portalUrl,
+    portalPasswordHint: params.portalPasswordHint,
+  });
+
+  try {
+    const transporter = getTransporter();
+    const sender = process.env.EMAIL_USER || "noreply@miam.com.pe";
+    await transporter.sendMail({
+      from: `"Miam Digital Studio" <${sender}>`,
+      to: params.clientEmail,
+      subject: `🧾 Comprobante de Orden ${params.orderCode} y Acceso a tu Portal — Miam`,
+      html: htmlContent,
+    });
+    return true;
+  } catch (error) {
+    console.error("Error sending order receipt email:", error);
     return false;
   }
 };

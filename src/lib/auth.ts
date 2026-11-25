@@ -1,6 +1,13 @@
-import crypto from "crypto";
 import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
+import {
+  getSessionSecret,
+  hashPassword,
+  safeCompare,
+  signToken,
+  verifyPasswordHash,
+  verifySignedToken,
+} from "@/lib/crypto-session";
 
 export const SESSION_COOKIE_NAME = "miamsign_admin_session";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
@@ -22,12 +29,7 @@ interface StoredAdminAuth {
 function getAuthConfig() {
   const email = (process.env.MIAMSIGN_ADMIN_EMAIL || process.env.ADMIN_EMAIL || "").trim().toLowerCase();
   const password = process.env.MIAMSIGN_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || "";
-  const secret =
-    process.env.MIAMSIGN_SESSION_SECRET ||
-    process.env.SESSION_SECRET ||
-    process.env.AUTH_SECRET ||
-    process.env.NEXTAUTH_SECRET ||
-    "";
+  const secret = getSessionSecret();
 
   return {
     email,
@@ -39,34 +41,6 @@ function getAuthConfig() {
 
 export function isAuthConfigured(): boolean {
   return getAuthConfig().configured;
-}
-
-function safeCompare(a: string, b: string): boolean {
-  const hashA = crypto.createHash("sha256").update(a, "utf8").digest();
-  const hashB = crypto.createHash("sha256").update(b, "utf8").digest();
-  return crypto.timingSafeEqual(hashA, hashB);
-}
-
-function hashPassword(plain: string): string {
-  const salt = crypto.randomBytes(16).toString("hex");
-  const derived = crypto.scryptSync(plain, salt, 64).toString("hex");
-  return `scrypt:${salt}:${derived}`;
-}
-
-function verifyPasswordHash(plain: string, storedHash: string): boolean {
-  if (!storedHash || !storedHash.startsWith("scrypt:")) return false;
-  const parts = storedHash.split(":");
-  if (parts.length !== 3) return false;
-  const [, salt, hexDigest] = parts;
-  if (!salt || !hexDigest) return false;
-  try {
-    const derived = crypto.scryptSync(plain, salt, 64);
-    const expected = Buffer.from(hexDigest, "hex");
-    if (derived.length !== expected.length) return false;
-    return crypto.timingSafeEqual(derived, expected);
-  } catch {
-    return false;
-  }
 }
 
 async function ensureAuthTable(): Promise<void> {
@@ -95,10 +69,6 @@ async function getStoredAuth(email: string): Promise<StoredAdminAuth | null> {
     console.error("Error reading miam_sign_auth:", err);
     return null;
   }
-}
-
-function signPayload(payloadB64: string, secret: string): string {
-  return crypto.createHmac("sha256", secret).update(payloadB64).digest("base64url");
 }
 
 export async function verifyAdminCredentials(
@@ -132,7 +102,6 @@ export async function verifyAdminCredentials(
     };
   }
 
-  // Primer ingreso usando clave genérica/inicial de entorno
   if (!safeCompare(inputPassword || "", cfg.password)) {
     return { ok: false, error: "Credenciales inválidas." };
   }
@@ -192,7 +161,10 @@ export async function updateAdminPasswordAndProfile(params: {
   return { ok: true, displayName: nextDisplay };
 }
 
-export async function updateAdminDisplayName(email: string, displayName: string): Promise<{ ok: boolean; displayName?: string; error?: string }> {
+export async function updateAdminDisplayName(
+  email: string,
+  displayName: string
+): Promise<{ ok: boolean; displayName?: string; error?: string }> {
   const cleanName = (displayName || "").trim().slice(0, 80);
   if (cleanName.length < 2) {
     return { ok: false, error: "Ingresa un nombre válido (mínimo 2 caracteres)." };
@@ -234,8 +206,8 @@ export async function updateAdminDisplayName(email: string, displayName: string)
 }
 
 export function createSessionToken(session: Omit<AdminSession, "exp">): string {
-  const cfg = getAuthConfig();
-  if (!cfg.secret) {
+  const secret = getSessionSecret();
+  if (!secret) {
     throw new Error("MIAMSIGN_SESSION_SECRET no configurado.");
   }
   const payload: AdminSession = {
@@ -244,41 +216,22 @@ export function createSessionToken(session: Omit<AdminSession, "exp">): string {
     mustChangePassword: Boolean(session.mustChangePassword),
     exp: Date.now() + SESSION_TTL_MS,
   };
-  const payloadB64 = Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
-  const sig = signPayload(payloadB64, cfg.secret);
-  return `${payloadB64}.${sig}`;
+  return signToken(payload, secret);
 }
 
 export function verifySessionToken(token: string | undefined): AdminSession | null {
-  if (!token) return null;
   const cfg = getAuthConfig();
   if (!cfg.configured) return null;
-
-  const parts = token.split(".");
-  if (parts.length !== 2) return null;
-  const [payloadB64, sig] = parts;
-  if (!payloadB64 || !sig) return null;
-
-  const expectedSig = signPayload(payloadB64, cfg.secret);
-  if (!safeCompare(sig, expectedSig)) return null;
-
-  try {
-    const decoded = JSON.parse(Buffer.from(payloadB64, "base64url").toString("utf8")) as AdminSession;
-    if (!decoded.email || typeof decoded.exp !== "number" || decoded.exp < Date.now()) {
-      return null;
-    }
-    if (!safeCompare(decoded.email.trim().toLowerCase(), cfg.email)) {
-      return null;
-    }
-    return {
-      email: decoded.email,
-      displayName: decoded.displayName || "Jack M. Berrocal",
-      mustChangePassword: Boolean(decoded.mustChangePassword),
-      exp: decoded.exp,
-    };
-  } catch {
+  const decoded = verifySignedToken<AdminSession>(token, cfg.secret);
+  if (!decoded?.email || !safeCompare(decoded.email.trim().toLowerCase(), cfg.email)) {
     return null;
   }
+  return {
+    email: decoded.email,
+    displayName: decoded.displayName || "Jack M. Berrocal",
+    mustChangePassword: Boolean(decoded.mustChangePassword),
+    exp: decoded.exp,
+  };
 }
 
 export async function getAdminSession(): Promise<AdminSession | null> {
