@@ -9,5 +9,11 @@ export default async function HomePage() {
   if (!session) {
     return <AdminLogin configured={isAuthConfigured()} />;
   }
-  return <MiamSignDashboard userEmail={session.email} />;
+  return (
+    <MiamSignDashboard
+      userEmail={session.email}
+      initialDisplayName={session.displayName}
+      initialMustChangePassword={session.mustChangePassword}
+    />
+  );
 }

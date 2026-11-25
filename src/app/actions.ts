@@ -6,6 +6,8 @@ import {
   clearAdminSessionCookie,
   requireAdminSession,
   setAdminSessionCookie,
+  updateAdminDisplayName,
+  updateAdminPasswordAndProfile,
   verifyAdminCredentials,
 } from "@/lib/auth";
 
@@ -16,19 +18,60 @@ function getPortalBaseUrl(): string {
 }
 
 export async function loginAdminAction(email: string, password: string) {
-  const check = verifyAdminCredentials(email, password);
+  const check = await verifyAdminCredentials(email, password);
   if (!check.ok) {
     return { success: false, error: check.error || "Credenciales inválidas." };
   }
-  await setAdminSessionCookie(email);
+  await setAdminSessionCookie({
+    email,
+    displayName: check.displayName || "Jack M. Berrocal",
+    mustChangePassword: Boolean(check.mustChangePassword),
+  });
   revalidatePath("/");
-  return { success: true };
+  return { success: true, mustChangePassword: Boolean(check.mustChangePassword) };
 }
 
 export async function logoutAdminAction() {
   await clearAdminSessionCookie();
   revalidatePath("/");
   return { success: true };
+}
+
+export async function changeAdminPasswordAction(
+  currentPassword: string,
+  newPassword: string,
+  displayName?: string
+) {
+  try {
+    const session = await requireAdminSession();
+    const res = await updateAdminPasswordAndProfile({
+      email: session.email,
+      currentPassword,
+      newPassword,
+      displayName: displayName || session.displayName,
+    });
+    if (!res.ok) {
+      return { success: false, error: res.error };
+    }
+    revalidatePath("/");
+    return { success: true, displayName: res.displayName };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateAdminProfileAction(displayName: string) {
+  try {
+    const session = await requireAdminSession();
+    const res = await updateAdminDisplayName(session.email, displayName);
+    if (!res.ok) {
+      return { success: false, error: res.error };
+    }
+    revalidatePath("/");
+    return { success: true, displayName: res.displayName };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
 }
 
 export async function createContract(data: {
@@ -76,11 +119,11 @@ export async function createContract(data: {
     });
 
     const contractUrl = `${getPortalBaseUrl()}/sign/${contract.id}`;
-    await sendContractEmail(data.clientName, data.clientEmail, data.title, contractUrl);
+    const emailSent = await sendContractEmail(data.clientName, data.clientEmail, data.title, contractUrl);
 
     revalidatePath("/");
     revalidatePath("/dashboard/miamsign");
-    return { success: true, contract };
+    return { success: true, contract, emailSent };
   } catch (error: any) {
     return { success: false, error: error.message };
   }
@@ -146,7 +189,7 @@ export async function resendContractEmail(id: string) {
       contract.title || "",
       contractUrl
     );
-    if (!sent) throw new Error("No se pudo enviar el correo. Verifica la configuración SMTP.");
+    if (!sent) throw new Error("No se pudo enviar el correo. Verifica EMAIL_PASS en Vercel.");
 
     return { success: true };
   } catch (error: any) {
