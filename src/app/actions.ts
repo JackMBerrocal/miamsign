@@ -2,6 +2,7 @@
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { sendContractEmail } from "@/lib/email";
+import { ensureContractSchema } from "@/lib/contract-schema";
 import {
   clearAdminSessionCookie,
   requireAdminSession,
@@ -89,6 +90,7 @@ export async function createContract(data: {
 }) {
   try {
     await requireAdminSession();
+    await ensureContractSchema();
 
     let company = await prisma.company.findUnique({ where: { id: data.companyId } });
     if (!company) {
@@ -137,6 +139,7 @@ export async function createContract(data: {
 export async function getContracts(companyId: string) {
   try {
     await requireAdminSession();
+    await ensureContractSchema();
     const contracts = await prisma.contract.findMany({
       where: { companyId },
       orderBy: { createdAt: "desc" },
@@ -169,6 +172,7 @@ export async function updateContractClient(
 ) {
   try {
     await requireAdminSession();
+    await ensureContractSchema();
     await prisma.contract.update({
       where: { id },
       data: { clientName, clientEmail, clientPhone, clientDocument, clientAddress },
@@ -184,6 +188,7 @@ export async function updateContractClient(
 export async function resendContractEmail(id: string) {
   try {
     await requireAdminSession();
+    await ensureContractSchema();
     const contract = await prisma.contract.findUnique({ where: { id } });
     if (!contract) throw new Error("Contrato no encontrado");
 

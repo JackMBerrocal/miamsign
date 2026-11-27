@@ -261,7 +261,7 @@ export default function MiamSignDashboard({
     const isMixed = hasSplit && hasMonthly;
 
     const penSum = picked.reduce((acc, s) => {
-      const m = s.price.match(/([\d.]+)\s*PEN/i);
+      const m = s.price.replace(/,/g, "").match(/([\d.]+)\s*PEN/i);
       return acc + (m ? parseFloat(m[1]) : 0);
     }, 0);
 

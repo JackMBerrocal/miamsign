@@ -92,11 +92,14 @@ export function getPortalBaseUrl(): string {
   return (process.env.NEXT_PUBLIC_APP_URL || "https://firmas.miam.com.pe").replace(/\/$/, "");
 }
 
+import { ensureContractSchema } from "@/lib/contract-schema";
+
 let tablesReadyPromise: Promise<void> | null = null;
 
 export async function ensureAgencyTables(): Promise<void> {
   if (tablesReadyPromise) return tablesReadyPromise;
   tablesReadyPromise = (async () => {
+    await ensureContractSchema();
     await ensureClientAccountsTable();
 
     await prisma.$executeRawUnsafe(`
