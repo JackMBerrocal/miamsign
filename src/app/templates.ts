@@ -1,8 +1,8 @@
-export const BRANDING_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS PROFESIONALES DE DISEÑO E IDENTIDAD VISUAL CORPORATIVA (MASTER SERVICES AGREEMENT)
+export const BRANDING_CONTRACT = `# CONTRATO ESPECÍFICO DE PRESTACIÓN DE SERVICIOS DE DISEÑO E IDENTIDAD VISUAL CORPORATIVA
 
-Este Contrato Marco de Prestación de Servicios Profesionales (en lo sucesivo, el **"Contrato"** o **"MSA"**), se celebra y perfecciona electrónicamente con fecha efectiva a partir de su suscripción mediante firma electrónica vinculante y la confirmación del abono estipulado (la **"Fecha Efectiva"**), por y entre:
+Este Contrato Específico de Prestación de Servicios Profesionales (en lo sucesivo, el **"Contrato"**), se celebra y perfecciona electrónicamente en Lima, Perú, con fecha efectiva a partir de su suscripción mediante firma electrónica simple y la confirmación del abono estipulado (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente conforme a las leyes de la República del Perú, con Registro Único de Contribuyentes (R.U.C.) N° **20615782344**, domiciliada en Urb. José Gálvez, Jirón José de San Martín, Villa María del Triunfo 15822, Lima, Perú, debidamente representada por su Gerente General, **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad mercantil debidamente constituida y vigente conforme a las leyes de la República del Perú, con Registro Único de Contribuyentes (R.U.C.) N° **20615782344**, domiciliada en Jr. José de San Martín Mz. 131, Lote A4 - Urb. José Gálvez, Villa María del Triunfo, Lima, Perú, debidamente representada por su Gerente General, **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
 
 **[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
@@ -30,7 +30,7 @@ EL CLIENTE tendrá derecho a hasta **tres (3) rondas de revisión** consolidadas
 
 **Cláusula 2.3. Inactividad, Licitud de Insumos y Liquidación Proporcional:**
 EL CLIENTE garantiza contar con autorización, licencias y derechos de uso sobre todo texto, logotipo, fotografía o material que entregue a LA AGENCIA, manteniéndola indemne frente a reclamos de terceros por dicho material. Asimismo, EL CLIENTE deberá remitir su retroalimentación o aprobaciones dentro de los **cinco (5) días hábiles** siguientes a cada entrega parcial. Si transcurren **treinta (30) días calendario** continuos sin respuesta ni insumos de EL CLIENTE pese al requerimiento escrito de LA AGENCIA, el proyecto pasará a estado en pausa y su reanudación quedará sujeta a nueva disponibilidad de agenda y actualización presupuestal si excede noventa (90) días.
-Si la inactividad supera **sesenta (60) días calendario**, cualquiera de las partes podrá resolver el contrato. En todo supuesto de resolución anticipada o desistimiento, LA AGENCIA practicará una **Liquidación Proporcional** sustentada con evidencia real (bocetos, archivos editables intermedios y horas ejecutadas): si el avance ejecutado es menor al monto abonado, LA AGENCIA devolverá el saldo restante a EL CLIENTE; si excede lo abonado, EL CLIENTE reconocerá la diferencia efectivamente ejecutada (Art. 1954 del Código Civil).
+Si la inactividad supera **sesenta (60) días calendario**, cualquiera de las partes podrá resolver el contrato. En todo supuesto de resolución anticipada o desistimiento, LA AGENCIA practicará una **Liquidación Proporcional** sustentada con evidencia real (bocetos, archivos editables intermedios y horas ejecutadas): si el avance ejecutado es menor al monto abonado, LA AGENCIA devolverá el saldo restante a EL CLIENTE; si excede lo abonado, EL CLIENTE reconocerá la diferencia efectivamente ejecutada (Art. 1372 del Código Civil).
 
 **Cláusula 2.4. Demora Atribuible a LA AGENCIA:**
 Si LA AGENCIA incurre en retrasos injustificados superiores a quince (15) días hábiles respecto al cronograma vigente (no atribuibles a demoras del cliente ni fuerza mayor), EL CLIENTE podrá exigir un descuento compensatorio del 0.5% del valor contractual por día hábil de atraso (tope 15%) o resolver el contrato con reembolso de lo no ejecutado.
@@ -74,15 +74,15 @@ Este acuerdo se rige por las leyes de la República del Perú. Agotado el trato 
 
 ---
 
-**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE (ARTS. 141 Y 141-A CC / LEY N° 27269):**
-Al aceptar expresamente este documento y registrar su firma electrónica en MiamSign (con trazabilidad de correo electrónico, dirección IP, fecha y hora verificadas por el servidor), las Partes perfeccionan el presente contrato por adhesión/acuerdo digital con plena validez y eficacia probatoria conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA SIMPLE (ARTS. 141 Y 141-A CC / ART. 1° LEY N° 27269):**
+Al aceptar expresamente este documento y registrar su firma electrónica simple en MiamSign (con trazabilidad de correo electrónico, dirección IP, fecha y hora verificadas por el servidor, sin requerir certificado digital de firma digital certificada), las Partes perfeccionan el presente contrato con plena validez y eficacia probatoria conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
 `;
 
-export const WEB_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS TECNOLÓGICOS: DESARROLLO WEB Y ARQUITECTURA DIGITAL (MASTER SERVICES AGREEMENT)
+export const WEB_CONTRACT = `# CONTRATO ESPECÍFICO DE PRESTACIÓN DE SERVICIOS TECNOLÓGICOS: DESARROLLO WEB Y ARQUITECTURA DIGITAL
 
-Este Contrato Marco de Prestación de Servicios Tecnológicos (en adelante, el **"Contrato"** o **"MSA"**), se celebra y perfecciona electrónicamente a partir de su suscripción y la confirmación del pago correspondiente (la **"Fecha Efectiva"**), por y entre:
+Este Contrato Específico de Prestación de Servicios Tecnológicos (en adelante, el **"Contrato"**), se celebra y perfecciona electrónicamente en Lima, Perú, a partir de su suscripción y la confirmación del pago correspondiente (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Urb. José Gálvez, Jirón José de San Martín, Villa María del Triunfo 15822, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Jr. José de San Martín Mz. 131, Lote A4 - Urb. José Gálvez, Villa María del Triunfo, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
 
 **[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
@@ -106,7 +106,7 @@ LA AGENCIA desarrolla la estructura tecnológica del sitio web y asesorará téc
 ## TÍTULO II: FASE UAT, DESPLIEGUE Y ABANDONO DE PROYECTO
 
 **Cláusula 2.1. Inactividad del Cliente y Liquidación Proporcional:**
-EL CLIENTE remitirá feedback o insumos dentro de los **cinco (5) días hábiles** siguientes a cada solicitud. Si el proyecto permanece detenido por falta de respuesta o insumos de EL CLIENTE durante **treinta (30) días calendario** continuos tras aviso escrito de LA AGENCIA, pasará a estado en pausa y su reactivación requerirá reprogramación de agenda. Superados **sesenta (60) días calendario** sin respuesta, cualquiera de las partes podrá resolver el contrato practicándose una **Liquidación Proporcional** objetiva sustentada con informe de módulos completados, repositorio/capturas y evidencia de horas trabajadas (reembolsándose lo no ejecutado o cobrándose el avance real excedente según el Art. 1954 del Código Civil).
+EL CLIENTE remitirá feedback o insumos dentro de los **cinco (5) días hábiles** siguientes a cada solicitud. Si el proyecto permanece detenido por falta de respuesta o insumos de EL CLIENTE durante **treinta (30) días calendario** continuos tras aviso escrito de LA AGENCIA, pasará a estado en pausa y su reactivación requerirá reprogramación de agenda. Superados **sesenta (60) días calendario** sin respuesta, cualquiera de las partes podrá resolver el contrato practicándose una **Liquidación Proporcional** objetiva sustentada con informe de módulos completados, repositorio/capturas y evidencia de horas trabajadas (reembolsándose lo no ejecutado o cobrándose el avance real excedente según el Art. 1372 del Código Civil).
 
 **Cláusula 2.2. Pruebas de Aceptación (UAT) y Pase a Producción:**
 Previo a publicar en el dominio oficial, el proyecto se habilitará en entorno de pruebas (*Staging*). EL CLIENTE dispondrá de **diez (10) días hábiles** desde la notificación formal de pruebas para reportar observaciones funcionales dentro del alcance contratado. En caso de ausencia total de respuesta tras un segundo requerimiento escrito al término del plazo, los entregables funcionales conformes se tendrán por validados para proseguir con el cierre.
@@ -147,15 +147,15 @@ LA AGENCIA dispone de **Libro de Reclamaciones Virtual** y atención vía **cont
 
 ---
 
-**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE (ARTS. 141 Y 141-A CC / LEY N° 27269):**
-Al registrar su firma electrónica en MiamSign (con trazabilidad de correo, dirección IP, fecha y hora verificadas por el servidor), EL CLIENTE y LA AGENCIA expresan su consentimiento libre e informado, perfeccionando jurídicamente este acuerdo digital.
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA SIMPLE (ARTS. 141 Y 141-A CC / ART. 1° LEY N° 27269):**
+Al registrar su firma electrónica simple en MiamSign (con trazabilidad de correo, dirección IP, fecha y hora verificadas por el servidor, sin requerir certificado digital de firma digital certificada), EL CLIENTE y LA AGENCIA expresan su consentimiento libre e informado, perfeccionando jurídicamente este acuerdo digital.
 `;
 
-export const MIAMBOT_CONTRACT = `# CONTRATO MARCO DE PRESTACIÓN DE SERVICIOS CONTINUADOS: MARKETING DIGITAL Y AUTOMATIZACIÓN DE IA (MASTER SERVICES AGREEMENT)
+export const MIAMBOT_CONTRACT = `# CONTRATO ESPECÍFICO DE PRESTACIÓN DE SERVICIOS CONTINUADOS: MARKETING DIGITAL Y AUTOMATIZACIÓN DE IA
 
-El presente Contrato Marco de Prestación de Servicios Continuados y/o Suscripción SaaS (en adelante, el **"Contrato"** o **"MSA"**), se perfecciona electrónicamente a partir de la fecha de su firma y pago de activación (la **"Fecha Efectiva"**), por y entre:
+El presente Contrato Específico de Prestación de Servicios Continuados y/o Suscripción SaaS (en adelante, el **"Contrato"**), se perfecciona electrónicamente en Lima, Perú, a partir de la fecha de su firma y pago de activación (la **"Fecha Efectiva"**), por y entre:
 
-**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Urb. José Gálvez, Jirón José de San Martín, Villa María del Triunfo 15822, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Jr. José de San Martín Mz. 131, Lote A4 - Urb. José Gálvez, Villa María del Triunfo, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
 
 **[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
 
@@ -204,8 +204,8 @@ Si por causa técnica directamente imputable a LA AGENCIA el servicio MiamBot o 
 
 ## TÍTULO IV: DATOS PERSONALES (LEY N° 29733), PORTABILIDAD Y NDA
 
-**Cláusula 4.1. Roles en Protección de Datos Personales:**
-EL CLIENTE es el **Titular del Banco de Datos Personales** de sus leads y compradores finales, siendo responsable de recabar sus consentimientos e inscribir su banco de datos ante el Ministerio de Justicia cuando corresponda. LA AGENCIA actúa como **Encargado de Tratamiento**, obligándose a mantener cifrado en tránsito (TLS/SSL), restringir accesos, notificar brechas de seguridad en máximo 48 horas y respetar confidencialidad estricta (NDA).
+**Cláusula 4.1. Roles en Protección de Datos Personales (Ley N° 29733, D.S. N° 016-2024-JUS y Ley N° 32323):**
+EL CLIENTE es el **Titular del Banco de Datos Personales** de sus leads y compradores finales, siendo responsable de recabar sus consentimientos expresos (incluyendo prospección comercial bajo la Ley N° 32323), informar sobre el flujo transfronterizo hacia servidores cloud/APIs de mensajería e inscribir su banco de datos ante el Ministerio de Justicia cuando corresponda. LA AGENCIA actúa como **Encargado de Tratamiento**, obligándose a procesar los datos solo según instrucciones de EL CLIENTE, mantener cifrado en tránsito (TLS/SSL), restringir accesos, notificar de inmediato cualquier brecha de seguridad (para su reporte ante la ANPD dentro de las 48 horas) y respetar confidencialidad estricta (NDA).
 
 **Cláusula 4.2. Conservación y Exportación de Datos (Portabilidad):**
 Mientras dure la suscripción activa, los registros de conversaciones e información cargada permanecen disponibles y exportables para EL CLIENTE. Al término del contrato, previa solicitud escrita, LA AGENCIA entregará en un plazo máximo de **quince (15) días hábiles** la exportación de historiales, prompts e instrucciones de configuración personalizadas en formato estándar (JSON/CSV), procediendo luego a la supresión segura tras el plazo de custodia de auditoría que EL CLIENTE autorice o exija la ley.
@@ -220,8 +220,8 @@ MIAM DIGITAL STUDIO S.A.C. dispone de **Libro de Reclamaciones Virtual** y atenc
 
 ---
 
-**ACEPTACIÓN Y FIRMA ELECTRÓNICA VINCULANTE (ARTS. 141 Y 141-A CC / LEY N° 27269):**
-Al aceptar y firmar en la plataforma MiamSign (con trazabilidad verificada de correo electrónico, dirección IP, fecha y hora registradas en servidor), EL CLIENTE y LA AGENCIA perfeccionan este contrato por vía electrónica con plena validez legal conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA SIMPLE (ARTS. 141 Y 141-A CC / ART. 1° LEY N° 27269):**
+Al aceptar y firmar en la plataforma MiamSign (con trazabilidad verificada de correo electrónico, dirección IP, fecha y hora registradas en servidor, sin requerir certificado digital de firma digital certificada), EL CLIENTE y LA AGENCIA perfeccionan este contrato por vía electrónica con plena validez legal conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
 `;
 
 export function generateTemplate(
@@ -233,7 +233,8 @@ export function generateTemplate(
   paymentType?: string,
   serviceName?: string,
   serviceDeliverables?: string,
-  deliveryTime?: string
+  deliveryTime?: string,
+  briefingNotes?: string
 ) {
   let template = "";
   if (type === "BRANDING") template = BRANDING_CONTRACT;
@@ -254,16 +255,30 @@ export function generateTemplate(
     paymentText = "[MODALIDAD DE PAGO]";
   }
 
-  return template
-    .replace(/\[CLIENT_NAME\]/g, name || "[NOMBRE DEL CLIENTE]")
-    .replace(/\[CLIENT_DOCUMENT\]/g, document || "[DNI/RUC]")
-    .replace(/\[CLIENT_ADDRESS\]/g, address || "[DIRECCIÓN LEGAL]")
-    .replace(/\[PAYMENT_AMOUNT\]/g, paymentAmount || "[MONTO]")
-    .replace(/\[PAYMENT_TYPE_TEXT\]/g, paymentText)
-    .replace(/\[SERVICE_NAME\]/g, serviceName || "[NOMBRE DEL SERVICIO]")
-    .replace(
-      /\[SERVICE_DELIVERABLES\]/g,
-      serviceDeliverables || "✔️ [ENTREGABLE 1]\n✔️ [ENTREGABLE 2]"
-    )
-    .replace(/\[DELIVERY_TIME\]/g, deliveryTime || "[TIEMPO DE ENTREGA]");
+  const todayStr = new Date().toLocaleDateString("es-PE", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const briefingBlock =
+    briefingNotes && briefingNotes.trim()
+      ? `\n\n**ANEXO I — BRIEFING INICIAL DEL CLIENTE:**\n${briefingNotes.trim()}\n`
+      : "";
+
+  return (
+    template
+      .replace(/\[CLIENT_NAME\]/g, name || "[NOMBRE DEL CLIENTE]")
+      .replace(/\[CLIENT_DOCUMENT\]/g, document || "[DNI/RUC]")
+      .replace(/\[CLIENT_ADDRESS\]/g, address || "[DIRECCIÓN LEGAL]")
+      .replace(/\[PAYMENT_AMOUNT\]/g, paymentAmount || "[MONTO]")
+      .replace(/\[PAYMENT_TYPE_TEXT\]/g, paymentText)
+      .replace(/\[SERVICE_NAME\]/g, serviceName || "[NOMBRE DEL SERVICIO]")
+      .replace(
+        /\[SERVICE_DELIVERABLES\]/g,
+        serviceDeliverables || "✔️ [ENTREGABLE 1]\n✔️ [ENTREGABLE 2]"
+      )
+      .replace(/\[DELIVERY_TIME\]/g, deliveryTime || "[TIEMPO DE ENTREGA]")
+      .replace(/\[SUBSCRIPTION_DATE\]/g, todayStr) + briefingBlock
+  );
 }

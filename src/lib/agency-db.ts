@@ -300,7 +300,8 @@ export async function createFullAgencyOrder(input: CreateAgencyOrderInput) {
     paymentTypeForTemplate,
     `${input.serviceName} (${orderCode})`,
     deliverablesText,
-    input.deliveryTime || "Según cronograma de etapas en Portal Cliente"
+    input.deliveryTime || "Según cronograma de etapas en Portal Cliente",
+    input.notes
   );
 
   const contractTitle = `Contrato ${input.serviceName} (${orderCode}) - Miam`;
