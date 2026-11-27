@@ -11,7 +11,7 @@ Este Contrato Específico de Prestación de Servicios Profesionales (en lo suces
 ## TÍTULO I: DECLARACIONES Y OBJETO DEL CONTRATO
 
 **Cláusula 1.1. Objeto del Contrato:**
-Bajo los términos y condiciones de este MSA, EL CLIENTE contrata a LA AGENCIA para ejecutar el servicio de **[SERVICE_NAME]**, el cual comprende taxativamente los siguientes entregables:
+Bajo los términos y condiciones de este Contrato, EL CLIENTE contrata a LA AGENCIA para ejecutar el servicio de **[SERVICE_NAME]**, el cual comprende taxativamente los siguientes entregables:
 [SERVICE_DELIVERABLES]
 
 **Cláusula 1.2. Plazo de Ejecución e Insumos:**
@@ -26,7 +26,7 @@ Todo requerimiento adicional, pieza extra, idioma adicional o cambio estructural
 LA AGENCIA se obliga a prestar el servicio con diligencia profesional e idoneidad técnica conforme a la Ley N° 29571, cumpliendo con los entregables detallados en formatos digitales listos para uso web y/o imprenta según la naturaleza de cada servicio.
 
 **Cláusula 2.2. Metodología de Revisiones y Cierre por Etapas:**
-EL CLIENTE tendrá derecho a hasta **tres (3) rondas de revisión** consolidadas sobre la propuesta elegida (o las indicadas en la ficha del servicio). Las observaciones deberán remitirse consolidadas por escrito en cada ronda. Cada fase aprobada por escrito (correo o WhatsApp) queda cerrada y validada; cualquier modificación posterior sobre una etapa ya aprobada o ronda adicional requerirá cotización adicional previa aceptación de EL CLIENTE.
+EL CLIENTE tendrá derecho a hasta **dos (2) rondas de revisión** consolidadas sobre la propuesta elegida (o las indicadas en la ficha del servicio). Las observaciones deberán remitirse consolidadas por escrito en cada ronda. Cada fase aprobada por escrito (correo o WhatsApp) queda cerrada y validada; cualquier modificación posterior sobre una etapa ya aprobada o ronda adicional requerirá cotización adicional previa aceptación de EL CLIENTE.
 
 **Cláusula 2.3. Inactividad, Licitud de Insumos y Liquidación Proporcional:**
 EL CLIENTE garantiza contar con autorización, licencias y derechos de uso sobre todo texto, logotipo, fotografía o material que entregue a LA AGENCIA, manteniéndola indemne frente a reclamos de terceros por dicho material. Asimismo, EL CLIENTE deberá remitir su retroalimentación o aprobaciones dentro de los **cinco (5) días hábiles** siguientes a cada entrega parcial. Si transcurren **treinta (30) días calendario** continuos sin respuesta ni insumos de EL CLIENTE pese al requerimiento escrito de LA AGENCIA, el proyecto pasará a estado en pausa y su reanudación quedará sujeta a nueva disponibilidad de agenda y actualización presupuestal si excede noventa (90) días.
