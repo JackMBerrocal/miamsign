@@ -121,7 +121,7 @@ export default function MiamSignDashboard({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<
     AgencyAdminSection | "home" | "manage" | "templates" | "settings"
-  >("ledger");
+  >("home");
   const [agencySummary, setAgencySummary] = useState<{ usedBytes: number; totalOrders: number }>({
     usedBytes: 0,
     totalOrders: 0,
@@ -462,22 +462,14 @@ export default function MiamSignDashboard({
             <div className="ml-2 flex items-center gap-2.5">
               <img src="/img/miam-cat-white.png" alt="Miam" className="w-7 h-7 object-contain" />
               <div className="leading-tight">
-                <div className="font-extrabold text-sm text-white tracking-tight">MiamOS</div>
-                <div className="text-[10px] text-slate-400">Digital Studio S.A.C.</div>
+                <div className="font-extrabold text-sm text-white tracking-tight">MiamSign</div>
+                <div className="text-[10px] text-slate-400">Firmas y Contratos</div>
               </div>
             </div>
           )}
         </div>
 
         <nav className="flex-1 py-4 flex flex-col gap-1 px-3 overflow-y-auto" aria-label="Navegación principal">
-          <NavItem icon={<BookOpen className="w-4 h-4" />} label="Libro Contable" badge={agencySummary.totalOrders ? String(agencySummary.totalOrders) : undefined} active={activeTab === "ledger"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("ledger")} />
-          <NavItem icon={<Layers className="w-4 h-4" />} label="Proyectos y Etapas" active={activeTab === "stages"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("stages")} />
-          <NavItem icon={<FolderOpen className="w-4 h-4" />} label="Bóveda Archivos" active={activeTab === "vault"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("vault")} />
-          <NavItem icon={<ClipboardList className="w-4 h-4" />} label="Encuestas Brief" active={activeTab === "surveys"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("surveys")} />
-          <NavItem icon={<HardDrive className="w-4 h-4" />} label="Storage 180d" active={activeTab === "storage"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("storage")} />
-
-          <div className="my-2 border-t border-white/10" />
-
           <NavItem icon={<Home className="w-4 h-4" />} label="MiamSign Inicio" active={activeTab === "home"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("home")} />
           <NavItem icon={<Folder className="w-4 h-4" />} label="Gestionar Contratos" active={activeTab === "manage"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("manage")} />
           <NavItem icon={<LayoutTemplate className="w-4 h-4" />} label="Plantillas Legales" active={activeTab === "templates"} sidebarOpen={sidebarOpen} onClick={() => setActiveTab("templates")} />
@@ -486,17 +478,14 @@ export default function MiamSignDashboard({
         <div className="p-3 border-t border-white/10 space-y-2">
           {sidebarOpen && (
             <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-[11px]">
-              <div className="flex justify-between font-bold text-slate-300">
-                <span>Bóveda 180d</span>
-                <span className="font-mono text-[#00E076]">{formatBytes(agencySummary.usedBytes)}</span>
-              </div>
+              <div className="font-bold text-slate-300">MiamOS &amp; SUNAT</div>
               <a
-                href="/portal"
+                href="https://miam.com.pe/miam-admin.php"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1.5 inline-flex items-center gap-1 text-[10.5px] font-semibold text-indigo-300 hover:text-white"
+                className="mt-1 inline-flex items-center gap-1 text-[10.5px] font-semibold text-[#00E076] hover:text-white"
               >
-                <ExternalLink className="w-3 h-3" /> Abrir Portal Cliente
+                <ExternalLink className="w-3 h-3" /> Abrir MiamOS Admin
               </a>
             </div>
           )}
