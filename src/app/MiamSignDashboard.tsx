@@ -160,6 +160,15 @@ export default function MiamSignDashboard({
   const [emailDeviceMode, setEmailDeviceMode] = useState<"desktop" | "mobile">("desktop");
   const [simulateSignedPreview, setSimulateSignedPreview] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const [resendingId, setResendingId] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
+
+  const showToast = (type: "success" | "error" | "info", text: string) => {
+    setToast({ type, text });
+    setTimeout(() => {
+      setToast((prev) => (prev?.text === text ? null : prev));
+    }, 5500);
+  };
 
   const [title, setTitle] = useState(`Contrato de ${CATALOG[0].name} - Miam`);
   const [clientName, setClientName] = useState("");
@@ -319,10 +328,11 @@ export default function MiamSignDashboard({
       });
 
       if (res.success) {
-        alert(
+        showToast(
+          res.emailSent ? "success" : "info",
           res.emailSent
             ? "¡Contrato creado y enviado al correo del cliente exitosamente!"
-            : "Contrato creado en MiamSign (falta configurar EMAIL_PASS en Vercel para envío automático por correo; puedes copiar el enlace /sign/... y enviarlo por WhatsApp)."
+            : "Contrato creado en MiamSign (no se pudo enviar el correo; reenvía desde el ícono de avión de papel)."
         );
         setClientName("");
         setClientEmail("");
@@ -334,10 +344,10 @@ export default function MiamSignDashboard({
         setIsModalOpen(false);
         loadContracts();
       } else {
-        alert("Error al crear contrato: " + res.error);
+        showToast("error", "Error al crear contrato: " + res.error);
       }
     } catch (err: any) {
-      alert("Error inesperado: " + err.message);
+      showToast("error", "Error inesperado: " + err.message);
     } finally {
       setIsCreating(false);
     }
@@ -346,29 +356,36 @@ export default function MiamSignDashboard({
   const copyLink = (id: string) => {
     const url = `${window.location.origin}/sign/${id}`;
     navigator.clipboard.writeText(url);
-    alert("¡Enlace copiado! Envíalo por WhatsApp al cliente.");
+    showToast("success", "¡Enlace copiado! Envíalo por WhatsApp al cliente.");
   };
 
   const handleDelete = async (id: string) => {
     if (confirm("¿Estás seguro de eliminar este contrato permanentemente? El enlace y el documento dejarán de existir.")) {
       const res = await deleteContract(id);
       if (res.success) {
-        alert("Contrato eliminado correctamente.");
+        showToast("success", "Contrato eliminado correctamente.");
         loadContracts();
       } else {
-        alert("Error al eliminar: " + res.error);
+        showToast("error", "Error al eliminar: " + res.error);
       }
     }
   };
 
   const handleResend = async (id: string) => {
-    if (confirm("¿Deseas volver a disparar el correo electrónico hacia este cliente?")) {
+    if (resendingId) return;
+    setResendingId(id);
+    showToast("info", "Enviando correo electrónico al cliente...");
+    try {
       const res = await resendContractEmail(id);
       if (res.success) {
-        alert("¡Correo reenviado exitosamente!");
+        showToast("success", "¡Correo reenviado exitosamente al cliente!");
       } else {
-        alert("Error al reenviar: " + res.error);
+        showToast("error", "Error al reenviar: " + res.error);
       }
+    } catch (err: any) {
+      showToast("error", "Error inesperado al reenviar: " + (err?.message || "Recarga la página e intenta de nuevo"));
+    } finally {
+      setResendingId(null);
     }
   };
 
@@ -489,19 +506,19 @@ export default function MiamSignDashboard({
   };
   const liveEmailHtml = simulateSignedPreview
     ? buildContractSignedEmailHtml({
-        clientName: clientName || "Andrea Mendoza Quispe",
-        contractTitle: title,
-        contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
-        signedAt: new Date(),
-        clientIp: "190.237.48.12",
-        ...liveEmailMeta,
-      })
+      clientName: clientName || "Andrea Mendoza Quispe",
+      contractTitle: title,
+      contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
+      signedAt: new Date(),
+      clientIp: "190.237.48.12",
+      ...liveEmailMeta,
+    })
     : buildContractInviteEmailHtml({
-        clientName: clientName || "Andrea Mendoza Quispe",
-        contractTitle: title,
-        contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
-        ...liveEmailMeta,
-      });
+      clientName: clientName || "Andrea Mendoza Quispe",
+      contractTitle: title,
+      contractUrl: "https://firmas.miam.com.pe/sign/vista-previa-cliente",
+      ...liveEmailMeta,
+    });
 
   const initials = (displayName || userEmail || "JA")
     .split(/[\s@]+/)
@@ -513,6 +530,26 @@ export default function MiamSignDashboard({
 
   return (
     <div className="min-h-screen bg-[#f8fafc] flex font-sans text-gray-900">
+      {toast && (
+        <div
+          className={`fixed top-5 right-5 z-[100] max-w-md px-4 py-3 rounded-xl shadow-lg border text-sm font-semibold flex items-center gap-3 ${
+            toast.type === "success"
+              ? "bg-emerald-600 text-white border-emerald-500"
+              : toast.type === "error"
+                ? "bg-red-600 text-white border-red-500"
+                : "bg-slate-900 text-white border-slate-700"
+          }`}
+        >
+          <span>{toast.text}</span>
+          <button
+            type="button"
+            onClick={() => setToast(null)}
+            className="text-white/80 hover:text-white font-bold ml-2"
+          >
+            ×
+          </button>
+        </div>
+      )}
       {/* Dark Propuesta 1 Sidebar */}
       <aside className={`bg-[#0B0F19] text-slate-200 transition-[width] duration-200 flex flex-col shrink-0 ${sidebarOpen ? "w-64" : "w-20"}`}>
         <div className="h-16 flex items-center px-4 border-b border-white/10">
@@ -623,12 +660,12 @@ export default function MiamSignDashboard({
               activeTab === "vault" ||
               activeTab === "surveys" ||
               activeTab === "storage") && (
-              <AdminAgencyWorkspace
-                section={activeTab}
-                onSectionChange={(next) => setActiveTab(next)}
-                onStorageSummary={setAgencySummary}
-              />
-            )}
+                <AdminAgencyWorkspace
+                  section={activeTab}
+                  onSectionChange={(next) => setActiveTab(next)}
+                  onStorageSummary={setAgencySummary}
+                />
+              )}
 
             {/* Banner de Primer Ingreso / Contraseña Temporal */}
             {mustChangePassword && activeTab !== "settings" && (
@@ -814,11 +851,17 @@ export default function MiamSignDashboard({
                                 {contract.status !== "SIGNED" && (
                                   <>
                                     <button
+                                      type="button"
                                       onClick={() => handleResend(contract.id)}
+                                      disabled={resendingId === contract.id}
                                       title="Reenviar Correo"
-                                      className="text-gray-600 hover:text-green-600 bg-white border border-gray-200 hover:border-green-200 rounded-md p-1.5 transition-colors"
+                                      className="text-gray-600 hover:text-green-600 bg-white border border-gray-200 hover:border-green-200 rounded-md p-1.5 transition-colors disabled:opacity-50"
                                     >
-                                      <Send className="w-4 h-4" />
+                                      {resendingId === contract.id ? (
+                                        <span className="inline-block w-4 h-4 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+                                      ) : (
+                                        <Send className="w-4 h-4" />
+                                      )}
                                     </button>
                                     <button
                                       onClick={() => openEditModal(contract)}
@@ -922,9 +965,8 @@ export default function MiamSignDashboard({
                         </div>
                       </div>
                       <span
-                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${
-                          mustChangePassword ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"
-                        }`}
+                        className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${mustChangePassword ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"
+                          }`}
                       >
                         {mustChangePassword ? "Clave temporal activa" : "Clave personalizada"}
                       </span>
@@ -932,11 +974,10 @@ export default function MiamSignDashboard({
 
                     {pwdFeedback && (
                       <div
-                        className={`mb-4 rounded-lg border px-3.5 py-2.5 text-xs font-medium ${
-                          pwdFeedback.type === "ok"
+                        className={`mb-4 rounded-lg border px-3.5 py-2.5 text-xs font-medium ${pwdFeedback.type === "ok"
                             ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                             : "border-red-200 bg-red-50 text-red-700"
-                        }`}
+                          }`}
                       >
                         {pwdFeedback.msg}
                       </div>
@@ -1262,27 +1303,24 @@ export default function MiamSignDashboard({
                     <button
                       type="button"
                       onClick={() => setCreatePreviewTab("client-a4")}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                        createPreviewTab === "client-a4" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
-                      }`}
+                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${createPreviewTab === "client-a4" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
+                        }`}
                     >
                       📄 Contrato A4 Cliente ({livePageCount} págs)
                     </button>
                     <button
                       type="button"
                       onClick={() => setCreatePreviewTab("email")}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                        createPreviewTab === "email" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
-                      }`}
+                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${createPreviewTab === "email" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
+                        }`}
                     >
                       ✉️ Correo al Cliente
                     </button>
                     <button
                       type="button"
                       onClick={() => setCreatePreviewTab("markdown")}
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                        createPreviewTab === "markdown" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
-                      }`}
+                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${createPreviewTab === "markdown" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
+                        }`}
                     >
                       📝 Editar Texto Base
                     </button>
@@ -1342,9 +1380,8 @@ export default function MiamSignDashboard({
                   {createPreviewTab === "email" && (
                     <div className="flex justify-center">
                       <div
-                        className={`bg-white rounded-xl border border-gray-300 shadow-sm overflow-hidden transition-[width] duration-200 ${
-                          emailDeviceMode === "mobile" ? "w-[375px]" : "w-full max-w-[660px]"
-                        }`}
+                        className={`bg-white rounded-xl border border-gray-300 shadow-sm overflow-hidden transition-[width] duration-200 ${emailDeviceMode === "mobile" ? "w-[375px]" : "w-full max-w-[660px]"
+                          }`}
                       >
                         <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200 text-xs text-gray-600 space-y-0.5">
                           <div>
@@ -1424,18 +1461,16 @@ export default function MiamSignDashboard({
                   <button
                     type="button"
                     onClick={() => setViewContractTab("a4")}
-                    className={`px-3 py-1 rounded-md text-xs font-semibold ${
-                      viewContractTab === "a4" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
-                    }`}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold ${viewContractTab === "a4" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
+                      }`}
                   >
                     📄 Documento A4
                   </button>
                   <button
                     type="button"
                     onClick={() => setViewContractTab("email")}
-                    className={`px-3 py-1 rounded-md text-xs font-semibold ${
-                      viewContractTab === "email" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
-                    }`}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold ${viewContractTab === "email" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
+                      }`}
                   >
                     ✉️ Correo enviado
                   </button>
@@ -1461,25 +1496,25 @@ export default function MiamSignDashboard({
                     srcDoc={
                       viewingContract.status === "SIGNED"
                         ? buildContractSignedEmailHtml({
-                            clientName: viewingContract.clientName || "Cliente",
-                            contractTitle: viewingContract.title || "Contrato Miam",
-                            contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
-                            signedAt: viewingContract.signedAt ? new Date(viewingContract.signedAt) : new Date(),
-                            clientIp: viewingContract.clientIp || "Registrada por servidor",
-                            clientDocument: viewingContract.clientDocument || undefined,
-                            paymentAmount: viewingContract.paymentAmount || undefined,
-                            paymentType: viewingContract.paymentType || undefined,
-                            content: viewingContract.content || undefined,
-                          })
+                          clientName: viewingContract.clientName || "Cliente",
+                          contractTitle: viewingContract.title || "Contrato Miam",
+                          contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
+                          signedAt: viewingContract.signedAt ? new Date(viewingContract.signedAt) : new Date(),
+                          clientIp: viewingContract.clientIp || "Registrada por servidor",
+                          clientDocument: viewingContract.clientDocument || undefined,
+                          paymentAmount: viewingContract.paymentAmount || undefined,
+                          paymentType: viewingContract.paymentType || undefined,
+                          content: viewingContract.content || undefined,
+                        })
                         : buildContractInviteEmailHtml({
-                            clientName: viewingContract.clientName || "Cliente",
-                            contractTitle: viewingContract.title || "Contrato Miam",
-                            contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
-                            clientDocument: viewingContract.clientDocument || undefined,
-                            paymentAmount: viewingContract.paymentAmount || undefined,
-                            paymentType: viewingContract.paymentType || undefined,
-                            content: viewingContract.content || undefined,
-                          })
+                          clientName: viewingContract.clientName || "Cliente",
+                          contractTitle: viewingContract.title || "Contrato Miam",
+                          contractUrl: `${typeof window !== "undefined" ? window.location.origin : "https://firmas.miam.com.pe"}/sign/${viewingContract.id}`,
+                          clientDocument: viewingContract.clientDocument || undefined,
+                          paymentAmount: viewingContract.paymentAmount || undefined,
+                          paymentType: viewingContract.paymentType || undefined,
+                          content: viewingContract.content || undefined,
+                        })
                     }
                     sandbox=""
                     className="w-full h-[640px] border-0 bg-[#eef2f7]"
@@ -1532,18 +1567,16 @@ export default function MiamSignDashboard({
                   <button
                     type="button"
                     onClick={() => setTemplatePreviewMode("a4")}
-                    className={`px-3 py-1 rounded-md text-xs font-semibold ${
-                      templatePreviewMode === "a4" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
-                    }`}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold ${templatePreviewMode === "a4" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
+                      }`}
                   >
                     📄 Vista Cliente (A4)
                   </button>
                   <button
                     type="button"
                     onClick={() => setTemplatePreviewMode("raw")}
-                    className={`px-3 py-1 rounded-md text-xs font-semibold ${
-                      templatePreviewMode === "raw" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
-                    }`}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold ${templatePreviewMode === "raw" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
+                      }`}
                   >
                     📝 Texto Base Markdown
                   </button>
@@ -1685,9 +1718,8 @@ function NavItem({
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors ${
-        active ? "bg-white/10 text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
-      }`}
+      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors ${active ? "bg-white/10 text-white" : "text-slate-400 hover:bg-white/5 hover:text-white"
+        }`}
     >
       <span className="flex items-center">
         <span className={active ? "text-[#00E076]" : "text-slate-400"}>{icon}</span>
