@@ -577,7 +577,7 @@ export const CATALOG: MiamService[] = [
       "Integraciones API / ERP personalizadas y entrenamiento avanzado",
       "Acuerdo de nivel de servicio (SLA) empresarial y 0% comisiones"
     ],
-    price: "A medida (PEN / mes)",
+    price: "685.00 PEN / mes",
     deliveryTime: "Mensual (Implementación a medida)",
     baseTemplate: "MIAMBOT",
     defaultPaymentType: "MONTHLY"
