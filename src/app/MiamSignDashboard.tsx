@@ -161,6 +161,8 @@ export default function MiamSignDashboard({
   const [simulateSignedPreview, setSimulateSignedPreview] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [resendingId, setResendingId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; title: string } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [toast, setToast] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
 
   const showToast = (type: "success" | "error" | "info", text: string) => {
@@ -359,15 +361,26 @@ export default function MiamSignDashboard({
     showToast("success", "¡Enlace copiado! Envíalo por WhatsApp al cliente.");
   };
 
-  const handleDelete = async (id: string) => {
-    if (confirm("¿Estás seguro de eliminar este contrato permanentemente? El enlace y el documento dejarán de existir.")) {
-      const res = await deleteContract(id);
+  const requestDelete = (id: string, docTitle: string) => {
+    setDeleteTarget({ id, title: docTitle || "Documento" });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteTarget || isDeleting) return;
+    setIsDeleting(true);
+    try {
+      const res = await deleteContract(deleteTarget.id);
       if (res.success) {
         showToast("success", "Contrato eliminado correctamente.");
+        setDeleteTarget(null);
         loadContracts();
       } else {
         showToast("error", "Error al eliminar: " + res.error);
       }
+    } catch (err: any) {
+      showToast("error", "Error inesperado al eliminar: " + (err?.message || "Intenta recargar"));
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -530,6 +543,34 @@ export default function MiamSignDashboard({
 
   return (
     <div className="min-h-screen bg-[#f8fafc] flex font-sans text-gray-900">
+      {deleteTarget && (
+        <div className="fixed inset-0 z-[110] bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-2xl max-w-md w-full p-6">
+            <h3 className="text-base font-bold text-gray-900 mb-2">¿Eliminar contrato permanentemente?</h3>
+            <p className="text-sm text-gray-600 mb-5">
+              Se eliminará <strong>{deleteTarget.title}</strong> y su enlace de firma dejará de existir. Esta acción no se puede deshacer.
+            </p>
+            <div className="flex justify-end gap-2.5">
+              <button
+                type="button"
+                onClick={() => setDeleteTarget(null)}
+                disabled={isDeleting}
+                className="px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={confirmDelete}
+                disabled={isDeleting}
+                className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors disabled:opacity-60"
+              >
+                {isDeleting ? "Eliminando..." : "Sí, eliminar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {toast && (
         <div
           className={`fixed top-5 right-5 z-[100] max-w-md px-4 py-3 rounded-xl shadow-lg border text-sm font-semibold flex items-center gap-3 ${
@@ -874,7 +915,8 @@ export default function MiamSignDashboard({
                                 )}
 
                                 <button
-                                  onClick={() => handleDelete(contract.id)}
+                                  type="button"
+                                  onClick={() => requestDelete(contract.id, contract.title)}
                                   title="Eliminar Documento"
                                   className="text-gray-600 hover:text-red-600 bg-white border border-gray-200 hover:border-red-200 rounded-md p-1.5 transition-colors"
                                 >
