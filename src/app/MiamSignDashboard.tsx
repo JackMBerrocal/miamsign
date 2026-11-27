@@ -49,7 +49,7 @@ import {
   updateAdminProfileAction,
   updateContractClient,
 } from "./actions";
-import { BRANDING_CONTRACT, MIAMBOT_CONTRACT, WEB_CONTRACT, generateTemplate } from "./templates";
+import { BRANDING_CONTRACT, MIAMBOT_CONTRACT, MIXED_CONTRACT, WEB_CONTRACT, generateTemplate } from "./templates";
 import { CATALOG } from "./services";
 import ContractDocumentPreview from "@/components/ContractDocumentPreview";
 import { splitContractIntoPages } from "@/lib/contract-format";
@@ -95,13 +95,28 @@ const TEMPLATES: Record<string, { title: string; content: string; paymentHint: s
       "Empresa Cliente S.A.C.",
       "20601234567",
       "Av. Javier Prado Este 1234, San Borja, Lima",
-      "99.00 USD / mes",
+      "341.00 PEN / mes",
       "MONTHLY",
       "MiamBot Plan Negocio",
       "✔️ WhatsApp Cloud API, TikTok, Instagram y Messenger\n✔️ Motor IA RAG + flujos No-Code\n✔️ 0% comisiones en cobros",
       "Mensual (Activación en 24–72 h)"
     ),
     paymentHint: "100% Prepago Mensual",
+  },
+  MIXED: {
+    title: "Contrato Específico Mixto: Proyecto 50/50 + Plan Mensual 100% (Vista Previa)",
+    content: generateTemplate(
+      "MIXED",
+      "Empresa Cliente S.A.C.",
+      "20601234567",
+      "Av. Javier Prado Este 1234, San Borja, Lima",
+      "872.00 PEN (S/ 531 proyecto + S/ 341/mes IA)",
+      "MIXED",
+      "Diseño de Logotipo + MiamBot Plan Negocio",
+      "**Diseño de Logotipo (531.00 PEN · 50/50):**\n✔️ 3 propuestas vectoriales, editables AI y paleta\n\n**MiamBot Plan Negocio (341.00 PEN/mes · 100% Mensual):**\n✔️ WhatsApp Cloud API, Instagram, Messenger y TikTok",
+      "5 a 7 días hábiles / Mensual"
+    ),
+    paymentHint: "Mixto: 50/50 + 100% Mensual",
   },
 };
 
@@ -152,6 +167,7 @@ export default function MiamSignDashboard({
   const [clientDocument, setClientDocument] = useState("");
   const [clientAddress, setClientAddress] = useState("");
   const [clientPhone, setClientPhone] = useState("");
+  const [selectedServiceIds, setSelectedServiceIds] = useState<string[]>([CATALOG[0].id]);
   const [selectedServiceId, setSelectedServiceId] = useState(CATALOG[0].id);
   const [serviceName, setServiceName] = useState(CATALOG[0].name);
   const [serviceDeliverables, setServiceDeliverables] = useState(
@@ -218,18 +234,67 @@ export default function MiamSignDashboard({
     );
   }, [clientName, clientDocument, clientAddress, type, paymentAmount, paymentType, serviceName, serviceDeliverables, deliveryTime]);
 
-  const handleServiceChange = (newId: string) => {
-    const service = CATALOG.find((s) => s.id === newId);
-    if (!service) return;
+  const syncSelectedServices = (ids: string[]) => {
+    const validIds = ids.filter((id) => CATALOG.some((s) => s.id === id));
+    const finalIds = validIds.length > 0 ? validIds : [CATALOG[0].id];
+    setSelectedServiceIds(finalIds);
+    setSelectedServiceId(finalIds[0]);
 
-    setSelectedServiceId(newId);
-    setServiceName(service.name);
-    setServiceDeliverables(service.deliverables.map((d) => `✔️ ${d}`).join("\n\n"));
-    setDeliveryTime(service.deliveryTime);
-    setPaymentAmount(service.price);
-    setPaymentType(service.defaultPaymentType);
-    setType(service.baseTemplate);
-    setTitle(`Contrato de ${service.name} - Miam`);
+    const picked = finalIds
+      .map((id) => CATALOG.find((s) => s.id === id))
+      .filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+    if (picked.length === 1) {
+      const service = picked[0];
+      setServiceName(service.name);
+      setServiceDeliverables(service.deliverables.map((d) => `✔️ ${d}`).join("\n\n"));
+      setDeliveryTime(service.deliveryTime);
+      setPaymentAmount(service.price);
+      setPaymentType(service.defaultPaymentType);
+      setType(service.baseTemplate);
+      setTitle(`Contrato de ${service.name} - Miam`);
+      return;
+    }
+
+    const hasSplit = picked.some((s) => s.defaultPaymentType === "50_50");
+    const hasMonthly = picked.some((s) => s.defaultPaymentType === "MONTHLY" || s.defaultPaymentType === "100_UPFRONT");
+    const isMixed = hasSplit && hasMonthly;
+
+    const penSum = picked.reduce((acc, s) => {
+      const m = s.price.match(/([\d.]+)\s*PEN/i);
+      return acc + (m ? parseFloat(m[1]) : 0);
+    }, 0);
+
+    const combinedName = picked.map((s) => s.name).join(" + ");
+    const combinedDeliverables = picked
+      .map((s) => {
+        const tag = s.defaultPaymentType === "50_50" ? "50/50" : "100% Mensual";
+        return `**${s.name} (${s.price} · ${tag}):**\n` + s.deliverables.map((d) => `✔️ ${d}`).join("\n");
+      })
+      .join("\n\n");
+
+    setServiceName(combinedName);
+    setServiceDeliverables(combinedDeliverables);
+    setDeliveryTime(picked.map((s) => s.deliveryTime).join(" / "));
+    setPaymentAmount(penSum > 0 ? `${penSum.toFixed(2)} PEN` : picked.map((s) => s.price).join(" + "));
+    setPaymentType(isMixed ? ("MIXED" as any) : picked[0].defaultPaymentType);
+    setType(isMixed ? ("MIXED" as any) : picked[0].baseTemplate);
+    setTitle(`Contrato Mixto (${picked.length} servicios) - Miam`);
+  };
+
+  const handleServiceChange = (newId: string) => {
+    const rest = selectedServiceIds.slice(1).filter((id) => id !== newId);
+    syncSelectedServices([newId, ...rest]);
+  };
+
+  const handleAddMixedService = (extraId: string) => {
+    if (!extraId || selectedServiceIds.includes(extraId)) return;
+    syncSelectedServices([...selectedServiceIds, extraId]);
+  };
+
+  const handleRemoveMixedService = (idToRemove: string) => {
+    const next = selectedServiceIds.filter((id) => id !== idToRemove);
+    syncSelectedServices(next.length ? next : [CATALOG[0].id]);
   };
 
   const handleCreate = async (e: React.FormEvent) => {
@@ -791,10 +856,10 @@ export default function MiamSignDashboard({
                     Actualizadas con Arts. 49°–51° Ley N° 29571, Libro de Reclamaciones D.S. 011-2011-PCM, D.L. 822, Ley N° 29733 y reglas 50/50 + 100%.
                   </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                   <TemplateCard
                     title="Branding, Papelería y Diseño"
-                    desc="Acuerdo MSA para identidad corporativa, papelería, banners, posts y brandbooks (50/50, D.L. 822)."
+                    desc="Contrato específico para identidad corporativa, papelería, banners, posts y brandbooks (50/50, D.L. 822)."
                     type="BRANDING"
                     badge="50% Inicio / 50% Entrega"
                     onPreview={() => {
@@ -804,7 +869,7 @@ export default function MiamSignDashboard({
                   />
                   <TemplateCard
                     title="Desarrollo Web & E-Commerce"
-                    desc="Acuerdo MSA para landing pages, sitios corporativos, tiendas y sistemas a medida (UAT, 90 días garantía)."
+                    desc="Contrato específico para landing pages, sitios corporativos, tiendas y sistemas a medida (UAT, 90 días garantía)."
                     type="WEB"
                     badge="50% Inicio / 50% Entrega"
                     onPreview={() => {
@@ -814,12 +879,22 @@ export default function MiamSignDashboard({
                   />
                   <TemplateCard
                     title="Marketing Digital & MiamBot IA"
-                    desc="Contrato para planes mensuales de redes y suscripción MiamBot IA sin penalidades abusivas de cancelación."
+                    desc="Contrato para planes mensuales de redes y suscripción MiamBot IA en Soles sin penalidades de cancelación."
                     type="MIAMBOT"
                     badge="100% Prepago Mensual"
                     onPreview={() => {
                       setTemplatePreviewMode("a4");
                       setPreviewType("MIAMBOT");
+                    }}
+                  />
+                  <TemplateCard
+                    title="Contrato Mixto (50/50 + 100%)"
+                    desc="Combina servicios de entrega única (50/50) y planes mensuales/IA (100%) en un solo documento claro."
+                    type="MIXED"
+                    badge="Modalidad Mixta"
+                    onPreview={() => {
+                      setTemplatePreviewMode("a4");
+                      setPreviewType("MIXED");
                     }}
                   />
                 </div>
@@ -1030,7 +1105,7 @@ export default function MiamSignDashboard({
               <div className="w-full lg:w-[360px] border-b lg:border-b-0 lg:border-r border-gray-200 p-5 overflow-y-auto shrink-0">
                 <form id="create-form" onSubmit={handleCreate} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 mb-1">Servicio a Contratar (37 opciones)</label>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">Servicio Principal ({CATALOG.length} opciones)</label>
                     <select
                       value={selectedServiceId}
                       onChange={(e) => handleServiceChange(e.target.value)}
@@ -1046,6 +1121,50 @@ export default function MiamSignDashboard({
                         </optgroup>
                       ))}
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">+ Agregar otro servicio (Contrato Mixto)</label>
+                    <select
+                      value=""
+                      onChange={(e) => handleAddMixedService(e.target.value)}
+                      className="w-full bg-slate-50 border border-dashed border-slate-300 rounded-lg p-2 text-xs text-slate-700 focus:ring-2 focus:ring-blue-500 outline-none"
+                    >
+                      <option value="">Seleccionar servicio adicional para combinar...</option>
+                      {Array.from(new Set(CATALOG.map((s) => s.category))).map((category) => (
+                        <optgroup key={category} label={category}>
+                          {CATALOG.filter((s) => s.category === category && !selectedServiceIds.includes(s.id)).map((s) => (
+                            <option key={s.id} value={s.id}>
+                              + {s.name} ({s.price})
+                            </option>
+                          ))}
+                        </optgroup>
+                      ))}
+                    </select>
+                    {selectedServiceIds.length > 1 && (
+                      <div className="flex flex-wrap gap-1.5 mt-2">
+                        {selectedServiceIds.map((sid) => {
+                          const svc = CATALOG.find((x) => x.id === sid);
+                          if (!svc) return null;
+                          return (
+                            <span
+                              key={sid}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200"
+                            >
+                              {svc.name}
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveMixedService(sid)}
+                                className="text-emerald-700 hover:text-red-600 font-bold ml-0.5"
+                                aria-label={`Quitar ${svc.name}`}
+                              >
+                                ×
+                              </button>
+                            </span>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -1117,6 +1236,7 @@ export default function MiamSignDashboard({
                         <option value="50_50">50% Adelanto / 50% Final</option>
                         <option value="100_UPFRONT">100% Adelanto</option>
                         <option value="MONTHLY">100% Mensual (Prepago)</option>
+                        <option value="MIXED">Mixto (50/50 + 100% Mensual)</option>
                       </select>
                     </div>
                   </div>

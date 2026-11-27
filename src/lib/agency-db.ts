@@ -285,14 +285,18 @@ export async function createFullAgencyOrder(input: CreateAgencyOrderInput) {
         : `${(input.totalUsdMonthly || 0).toFixed(2)} USD / mes`;
 
   const paymentTypeForTemplate =
-    input.paymentMode === "MONTHLY"
-      ? "MONTHLY"
-      : input.paymentMode === "100_UPFRONT"
-        ? "100_UPFRONT"
-        : "50_50";
+    input.paymentMode === "MIXED"
+      ? "MIXED"
+      : input.paymentMode === "MONTHLY"
+        ? "MONTHLY"
+        : input.paymentMode === "100_UPFRONT"
+          ? "100_UPFRONT"
+          : "50_50";
+
+  const templateFamily = input.paymentMode === "MIXED" ? "MIXED" : input.contractFamily;
 
   const contractContent = generateTemplate(
-    input.contractFamily,
+    templateFamily,
     input.razonSocial?.trim() || input.clientName.trim(),
     input.clientDocument?.trim() || "POR VALIDAR",
     input.clientAddress?.trim() || "Lima, Perú",

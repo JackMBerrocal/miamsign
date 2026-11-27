@@ -99,7 +99,7 @@ export default function AdminAgencyWorkspace({
   const [creatingOrder, setCreatingOrder] = useState(false);
   const [mServiceId, setMServiceId] = useState(CATALOG[0].id);
   const [mServiceName, setMServiceName] = useState(CATALOG[0].name);
-  const [mFamily, setMFamily] = useState<"BRANDING" | "WEB" | "MIAMBOT">(CATALOG[0].baseTemplate);
+  const [mFamily, setMFamily] = useState<"BRANDING" | "WEB" | "MIAMBOT" | "MIXED">(CATALOG[0].baseTemplate);
   const [mClientName, setMClientName] = useState("");
   const [mClientEmail, setMClientEmail] = useState("");
   const [mClientPhone, setMClientPhone] = useState("");
@@ -271,7 +271,7 @@ export default function AdminAgencyWorkspace({
       clientAddress: mAddress,
       razonSocial: mRazon,
       serviceName: mServiceName,
-      contractFamily: mFamily,
+      contractFamily: mFamily === "MIXED" ? "BRANDING" : mFamily,
       totalPen: mTotalPen,
       paidPen: mPaidPen,
       paymentMode: mPayMode,

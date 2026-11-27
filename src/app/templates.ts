@@ -224,6 +224,57 @@ MIAM DIGITAL STUDIO S.A.C. dispone de **Libro de Reclamaciones Virtual** y atenc
 Al aceptar y firmar en la plataforma MiamSign (con trazabilidad verificada de correo electrónico, dirección IP, fecha y hora registradas en servidor, sin requerir certificado digital de firma digital certificada), EL CLIENTE y LA AGENCIA perfeccionan este contrato por vía electrónica con plena validez legal conforme a los Arts. 141 y 141-A del Código Civil Peruano y la Ley N° 27269.
 `;
 
+export const MIXED_CONTRACT = `# CONTRATO ESPECÍFICO DE PRESTACIÓN DE SERVICIOS DIGITALES (MODALIDAD MIXTA: PROYECTO + SUSCRIPCIÓN)
+
+El presente Contrato Específico de Prestación de Servicios Digitales (en adelante, el **"Contrato"**), se celebra y perfecciona electrónicamente en Lima, Perú, con fecha **[SUBSCRIPTION_DATE]**, por y entre:
+
+**MIAM DIGITAL STUDIO S.A.C.**, sociedad peruana con R.U.C. N° **20615782344**, domiciliada en Jr. José de San Martín Mz. 131, Lote A4 - Urb. José Gálvez, Villa María del Triunfo, Lima, Perú, representada por su Gerente General **Jack Michael Berrocal Espinoza** (en adelante, **"LA AGENCIA"**); y,
+
+**[CLIENT_NAME]**, identificado(a) con DNI/RUC N° **[CLIENT_DOCUMENT]**, con domicilio legal/fiscal en **[CLIENT_ADDRESS]** (en adelante, **"EL CLIENTE"**).
+
+---
+
+## TÍTULO I: OBJETO Y ALCANCE SEPARADO POR MODALIDAD
+
+**Cláusula 1.1. Servicios y Entregables Contratados:**
+LA AGENCIA se obliga a ejecutar a favor de EL CLIENTE el paquete de servicios **[SERVICE_NAME]**, diferenciando expresamente las prestaciones de entrega única (50/50) y las de suscripción mensual (100% prepago):
+[SERVICE_DELIVERABLES]
+
+**Cláusula 1.2. Plazos de Ejecución e Insumos:**
+El plazo estimado de ejecución es **[DELIVERY_TIME]**, computado desde el abono inicial y la entrega completa de los insumos por parte de EL CLIENTE. Cada modalidad mantiene su propio cronograma independiente.
+
+## TÍTULO II: CONDICIONES ECONÓMICAS MIXTAS Y SUNAT
+
+**Cláusula 2.1. Desglose de Pago Inicial, Saldo y Renovación:**
+La contraprestación total pactada asciende a **[PAYMENT_AMOUNT]** (IGV incluido cuando corresponda). [PAYMENT_TYPE_TEXT]
+Conforme a la Ley del IGV y Reglamento de Comprobantes de Pago SUNAT, se emite Boleta o Factura Electrónica por el importe efectivamente abonado en cada etapa.
+*   **En servicios de Proyecto Único (50/50):** los archivos maestros editables o pase a producción final se entregan al confirmarse el 50% restante tras la aprobación de EL CLIENTE.
+*   **En planes mensuales / MiamBot IA (100% prepago):** la renovación es mensual sin permanencia forzosa ni penalidades; EL CLIENTE puede cancelar libremente antes de su siguiente fecha de corte escribiendo a **contacto@miam.com.pe** (Art. 51° Ley N° 29571).
+
+<!-- PAGE BREAK -->
+
+## TÍTULO III: CRITERIOS DE ACEPTACIÓN Y PROPIEDAD INTELECTUAL (D.L. N° 822)
+
+**Cláusula 3.1. Aceptación, Revisiones e Inactividad:**
+Los proyectos 50/50 incluyen hasta **dos (2) rondas de revisión** consolidadas. EL CLIENTE dispone de **cinco (5) días hábiles** desde cada entrega para aprobar u observar; ante silencio tras requerimiento escrito adicional, la etapa se tendrá por validada. Ante inactividad superior a 30 días calendario entra en pausa, y tras 60 días se practica Liquidación Proporcional objetiva (Art. 1372 del Código Civil). Si LA AGENCIA incurre en retraso injustificado superior a 10 días hábiles, aplica penalidad del 0.5% por día hábil (tope 15%) o resolución con devolución de lo no ejecutado.
+
+**Cláusula 3.2. Propiedad Intelectual Diferenciada:**
+*   **Entregables de Diseño / Web (50/50):** mientras no se cancele el 100%, la titularidad permanece en LA AGENCIA. Pagado el 100%, LA AGENCIA cede en exclusiva, a nivel mundial y por todo el plazo legal, los derechos patrimoniales sobre el Diseño/Código Final Aprobado (D.L. N° 822). Bocetos descartados y herramientas base/open-source se excluyen.
+*   **Plataforma MiamBot IA:** el motor base pertenece a LA AGENCIA bajo licencia mensual vigente; los flujos, textos e historiales pertenecen a EL CLIENTE y son exportables en JSON/CSV en cualquier momento.
+
+<!-- PAGE BREAK -->
+
+## TÍTULO IV: DATOS PERSONALES (D.S. N° 016-2024-JUS), LEY 32323 Y RECLAMOS
+
+**Cláusula 4.1. Protección de Datos y Libro de Reclamaciones:**
+EL CLIENTE es Titular/Responsable de su Banco de Datos y LA AGENCIA actúa como Encargado del Tratamiento (notificación inmediata de brechas para reporte ANPD en 48h, flujo transfronterizo informado y consentimiento expreso bajo Ley N° 32323). Derechos ARCO en **contacto@miam.com.pe**. Libro de Reclamaciones Virtual en **miam.com.pe/libro-de-reclamaciones.php** (respuesta máx. 15 días hábiles, D.S. N° 011-2011-PCM). En relaciones B2C es competente INDECOPI o el juez del domicilio del consumidor; en B2B, los Jueces de Lima.
+
+---
+
+**ACEPTACIÓN Y FIRMA ELECTRÓNICA SIMPLE (ARTS. 141 Y 141-A CC / ART. 1° LEY N° 27269):**
+Al aceptar y firmar en la plataforma MiamSign (con trazabilidad verificada de correo electrónico, dirección IP, fecha y hora registradas en servidor, sin requerir certificado digital de firma digital certificada), EL CLIENTE y LA AGENCIA perfeccionan este contrato mixto por vía electrónica con plena validez legal.
+`;
+
 export function generateTemplate(
   type: string,
   name: string,
@@ -240,6 +291,7 @@ export function generateTemplate(
   if (type === "BRANDING") template = BRANDING_CONTRACT;
   if (type === "WEB") template = WEB_CONTRACT;
   if (type === "MIAMBOT") template = MIAMBOT_CONTRACT;
+  if (type === "MIXED") template = MIXED_CONTRACT;
 
   let paymentText = "";
   if (paymentType === "50_50") {
@@ -251,6 +303,9 @@ export function generateTemplate(
   } else if (paymentType === "MONTHLY") {
     paymentText =
       "La modalidad de pago será 100% por adelantado bajo esquema mensual prepago al activar o renovar cada ciclo.";
+  } else if (paymentType === "MIXED") {
+    paymentText =
+      "La modalidad de pago es MIXTA: se abona hoy el 50% de anticipo de los servicios de proyecto único + el 100% del primer mes de los planes mensuales/IA; el 50% restante del proyecto único se cancela contra entrega aprobada, mientras los planes mensuales se renuevan mensualmente con cancelación libre.";
   } else {
     paymentText = "[MODALIDAD DE PAGO]";
   }

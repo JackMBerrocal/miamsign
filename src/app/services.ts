@@ -10,7 +10,7 @@ export type ServiceCategory =
   | "PAQUETES DIGITALES COMPLETOS"
   | "MIAMBOT IA (AUTOMATIZACIÓN SAAS)";
 
-export type BaseTemplateType = "BRANDING" | "WEB" | "MIAMBOT";
+export type BaseTemplateType = "BRANDING" | "WEB" | "MIAMBOT" | "MIXED";
 
 export interface MiamService {
   id: string;
@@ -547,7 +547,7 @@ export const CATALOG: MiamService[] = [
       "Motor IA RAG entrenado con PDFs y catálogo del negocio",
       "CRM básico de conversaciones con derivación a asesor humano y 0% comisiones por ventas"
     ],
-    price: "39.00 USD / mes",
+    price: "134.00 PEN / mes",
     deliveryTime: "Mensual (Activación en 24–48 h)",
     baseTemplate: "MIAMBOT",
     defaultPaymentType: "MONTHLY"
@@ -562,7 +562,7 @@ export const CATALOG: MiamService[] = [
       "Motor IA RAG + flujos visuales No-Code y CRM de tickets",
       "Conexión con Stripe, MercadoPago, PayPal, Culqi e Izipay (0% comisiones)"
     ],
-    price: "99.00 USD / mes",
+    price: "341.00 PEN / mes",
     deliveryTime: "Mensual (Activación en 24–72 h)",
     baseTemplate: "MIAMBOT",
     defaultPaymentType: "MONTHLY"
@@ -577,7 +577,7 @@ export const CATALOG: MiamService[] = [
       "Integraciones API / ERP personalizadas y entrenamiento avanzado",
       "Acuerdo de nivel de servicio (SLA) empresarial y 0% comisiones"
     ],
-    price: "A medida (USD / mes)",
+    price: "A medida (PEN / mes)",
     deliveryTime: "Mensual (Implementación a medida)",
     baseTemplate: "MIAMBOT",
     defaultPaymentType: "MONTHLY"
