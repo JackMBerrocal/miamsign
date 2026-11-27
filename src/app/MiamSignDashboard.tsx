@@ -1369,9 +1369,14 @@ export default function MiamSignDashboard({
                         contract={{
                           title,
                           content,
+                          type,
+                          paymentAmount,
+                          paymentType,
                           clientName: clientName || "[NOMBRE DEL CLIENTE]",
                           clientEmail: clientEmail || "[CORREO DEL CLIENTE]",
                           clientDocument: clientDocument || "[DNI/RUC]",
+                          clientAddress: clientAddress || undefined,
+                          clientPhone: clientPhone || undefined,
                         }}
                       />
                     </div>
