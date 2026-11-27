@@ -176,16 +176,23 @@ export default function ContractDocumentPreview({
             >
               <ReactMarkdown
                 components={{
-                  p: ({ ...props }) => <p className="mb-1.5 leading-[1.56] text-[#1E293B]" {...props} />,
-                  h1: ({ ...props }) => <h1 className="mt-0.5 mb-2 font-extrabold text-[14.5px] leading-snug text-[#0B0F19] uppercase tracking-tight" {...props} />,
-                  h2: ({ ...props }) => (
-                    <h2
-                      className="mt-3.5 mb-1.5 font-extrabold text-[11px] tracking-wide uppercase text-[#0B0F19] bg-[#F1F5F9] border-l-[3.5px] border-[#0B0F19] px-2.5 py-1 rounded-r-[5px]"
+                  p: ({ ...props }) => <p className="mb-2 leading-[1.6] text-[#1E293B] text-justify" {...props} />,
+                  h1: ({ ...props }) => (
+                    <h1
+                      className="mt-0.5 mb-2.5 pb-2 border-b border-slate-200 font-extrabold text-[15px] leading-snug text-[#0B0F19] uppercase tracking-tight"
                       {...props}
                     />
                   ),
-                  h3: ({ ...props }) => <h3 className="mt-2.5 mb-1 font-bold text-[11px] text-[#0B0F19]" {...props} />,
-                  li: ({ ...props }) => <li className="mb-1 leading-[1.5] pl-0.5 text-[#1E293B]" {...props} />,
+                  h2: ({ ...props }) => (
+                    <h2
+                      className="mt-4 mb-2 font-extrabold text-[11px] tracking-wide uppercase text-[#0B0F19] bg-[#F1F5F9] border-l-[3.5px] border-[#0B0F19] px-2.5 py-1.5 rounded-r-[5px]"
+                      {...props}
+                    />
+                  ),
+                  h3: ({ ...props }) => <h3 className="mt-3 mb-1 font-bold text-[11.5px] text-[#0B0F19]" {...props} />,
+                  ul: ({ ...props }) => <ul className="list-disc pl-5 my-2 space-y-1 text-[#1E293B]" {...props} />,
+                  ol: ({ ...props }) => <ol className="list-decimal pl-5 my-2 space-y-1 text-[#1E293B]" {...props} />,
+                  li: ({ ...props }) => <li className="leading-[1.55] text-[#1E293B]" {...props} />,
                   strong: ({ ...props }) => <strong className="font-bold text-[#0B0F19]" {...props} />,
                 }}
               >

@@ -68,7 +68,7 @@ const TEMPLATES: Record<string, { title: string; content: string; paymentHint: s
       "531.00 PEN",
       "50_50",
       "Diseño de Logotipo",
-      "✔️ 2 a 3 propuestas conceptuales\n✔️ Diseño vectorial minimalista\n✔️ Archivos editables (AI, EPS, PNG, SVG)",
+      "- 2 a 3 propuestas conceptuales\n- Diseño vectorial minimalista\n- Archivos editables (AI, EPS, PNG, SVG)",
       "5 a 7 días hábiles"
     ),
     paymentHint: "50% Inicio / 50% Entrega",
@@ -83,7 +83,7 @@ const TEMPLATES: Record<string, { title: string; content: string; paymentHint: s
       "2,360.00 PEN",
       "50_50",
       "Sitio Web Corporativo Básico (5 Páginas)",
-      "✔️ 5 Páginas completas responsivas\n✔️ Certificado SSL e indexación Google\n✔️ Garantía técnica 90 días",
+      "- 5 Páginas completas responsivas\n- Certificado SSL e indexación Google\n- Garantía técnica 90 días",
       "15 a 20 días hábiles"
     ),
     paymentHint: "50% Inicio / 50% Entrega",
@@ -98,7 +98,7 @@ const TEMPLATES: Record<string, { title: string; content: string; paymentHint: s
       "341.00 PEN / mes",
       "MONTHLY",
       "MiamBot Plan Negocio",
-      "✔️ WhatsApp Cloud API, TikTok, Instagram y Messenger\n✔️ Motor IA RAG + flujos No-Code\n✔️ 0% comisiones en cobros",
+      "- WhatsApp Cloud API, TikTok, Instagram y Messenger\n- Motor IA RAG + flujos No-Code\n- 0% comisiones en cobros",
       "Mensual (Activación en 24–72 h)"
     ),
     paymentHint: "100% Prepago Mensual",
@@ -113,7 +113,7 @@ const TEMPLATES: Record<string, { title: string; content: string; paymentHint: s
       "872.00 PEN (S/ 531 proyecto + S/ 341/mes IA)",
       "MIXED",
       "Diseño de Logotipo + MiamBot Plan Negocio",
-      "**Diseño de Logotipo (531.00 PEN · 50/50):**\n✔️ 3 propuestas vectoriales, editables AI y paleta\n\n**MiamBot Plan Negocio (341.00 PEN/mes · 100% Mensual):**\n✔️ WhatsApp Cloud API, Instagram, Messenger y TikTok",
+      "**Diseño de Logotipo (531.00 PEN · 50/50):**\n- 3 propuestas vectoriales, editables AI y paleta\n\n**MiamBot Plan Negocio (341.00 PEN/mes · 100% Mensual):**\n- WhatsApp Cloud API, Instagram, Messenger y TikTok",
       "5 a 7 días hábiles / Mensual"
     ),
     paymentHint: "Mixto: 50/50 + 100% Mensual",
@@ -180,7 +180,7 @@ export default function MiamSignDashboard({
   const [selectedServiceId, setSelectedServiceId] = useState(CATALOG[0].id);
   const [serviceName, setServiceName] = useState(CATALOG[0].name);
   const [serviceDeliverables, setServiceDeliverables] = useState(
-    CATALOG[0].deliverables.map((d) => `✔️ ${d}`).join("\n\n")
+    CATALOG[0].deliverables.map((d) => `- ${d}`).join("\n")
   );
   const [deliveryTime, setDeliveryTime] = useState(CATALOG[0].deliveryTime);
   const [paymentAmount, setPaymentAmount] = useState(CATALOG[0].price);
@@ -195,7 +195,7 @@ export default function MiamSignDashboard({
       CATALOG[0].price,
       CATALOG[0].defaultPaymentType,
       CATALOG[0].name,
-      CATALOG[0].deliverables.map((d) => `✔️ ${d}`).join("\n\n"),
+      CATALOG[0].deliverables.map((d) => `- ${d}`).join("\n"),
       CATALOG[0].deliveryTime
     )
   );
@@ -256,7 +256,7 @@ export default function MiamSignDashboard({
     if (picked.length === 1) {
       const service = picked[0];
       setServiceName(service.name);
-      setServiceDeliverables(service.deliverables.map((d) => `✔️ ${d}`).join("\n\n"));
+      setServiceDeliverables(service.deliverables.map((d) => `- ${d}`).join("\n"));
       setDeliveryTime(service.deliveryTime);
       setPaymentAmount(service.price);
       setPaymentType(service.defaultPaymentType);
@@ -278,7 +278,7 @@ export default function MiamSignDashboard({
     const combinedDeliverables = picked
       .map((s) => {
         const tag = s.defaultPaymentType === "50_50" ? "50/50" : "100% Mensual";
-        return `**${s.name} (${s.price} · ${tag}):**\n` + s.deliverables.map((d) => `✔️ ${d}`).join("\n");
+        return `**${s.name} (${s.price} · ${tag}):**\n` + s.deliverables.map((d) => `- ${d}`).join("\n");
       })
       .join("\n\n");
 

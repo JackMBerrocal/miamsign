@@ -15,7 +15,10 @@ export function formatContractText(text: string): string {
     );
   }
 
-  formatted = formatted.replace(/✔️ /g, "\n- ✔️ ");
+  // Eliminar emojis y convertir viñetas en listas Markdown formales
+  formatted = formatted.replace(/(?:\r?\n)?\s*(?:-\s*)?✔️\s*/g, "\n- ");
+  formatted = formatted.replace(/[✅⚡🤝💳🎉⚠️📌]/g, "");
+  formatted = formatted.replace(/\n{3,}/g, "\n\n");
   return formatted;
 }
 
@@ -23,29 +26,30 @@ export function splitContractIntoPages(content: string): string[] {
   if (!content) return [""];
 
   const formattedContent = formatContractText(content);
+  const stripBreakComments = (s: string) => s.replace(/<!--\s*PAGE BREAK\s*-->/gi, "").trim();
 
   const p1Match = formattedContent.split(/## TÍTULO II:/);
   if (p1Match.length === 2) {
-    const page1 = p1Match[0].trim();
+    const page1 = stripBreakComments(p1Match[0]);
     const rest1 = "## TÍTULO II:" + p1Match[1];
 
     const p2Match = rest1.split(/## TÍTULO III:/);
     if (p2Match.length === 2) {
-      const page2 = p2Match[0].trim();
+      const page2 = stripBreakComments(p2Match[0]);
       const rest2 = "## TÍTULO III:" + p2Match[1];
 
       const p3Match = rest2.split(/## TÍTULO V:/);
       if (p3Match.length === 2) {
-        const page3 = p3Match[0].trim();
-        const page4 = ("## TÍTULO V:" + p3Match[1]).trim();
-        return [page1, page2, page3, page4];
+        const page3 = stripBreakComments(p3Match[0]);
+        const page4 = stripBreakComments("## TÍTULO V:" + p3Match[1]);
+        return [page1, page2, page3, page4].filter(Boolean);
       }
     }
   }
 
   if (formattedContent.includes("<!-- PAGE BREAK -->")) {
     const rawPages = formattedContent.split("<!-- PAGE BREAK -->");
-    return rawPages.map((p) => p.trim()).filter(Boolean);
+    return rawPages.map((p) => stripBreakComments(p)).filter(Boolean);
   }
 
   const sections = formattedContent.split(/(?=## TÍTULO)/g);

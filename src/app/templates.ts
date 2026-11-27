@@ -331,7 +331,7 @@ export function generateTemplate(
       .replace(/\[SERVICE_NAME\]/g, serviceName || "[NOMBRE DEL SERVICIO]")
       .replace(
         /\[SERVICE_DELIVERABLES\]/g,
-        serviceDeliverables || "✔️ [ENTREGABLE 1]\n✔️ [ENTREGABLE 2]"
+        serviceDeliverables || "- [ENTREGABLE 1]\n- [ENTREGABLE 2]"
       )
       .replace(/\[DELIVERY_TIME\]/g, deliveryTime || "[TIEMPO DE ENTREGA]")
       .replace(/\[SUBSCRIPTION_DATE\]/g, todayStr) + briefingBlock

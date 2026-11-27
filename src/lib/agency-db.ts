@@ -277,8 +277,8 @@ export async function createFullAgencyOrder(input: CreateAgencyOrderInput) {
 
   const deliverablesText =
     input.deliverables && input.deliverables.length
-      ? input.deliverables.map((d) => `✔️ ${d}`).join("\n\n")
-      : `✔️ Ejecución integral de ${input.serviceName}\n\n✔️ Rondas de revisión y entrega digital en Portal Miam`;
+      ? input.deliverables.map((d) => `- ${d}`).join("\n")
+      : `- Ejecución integral de ${input.serviceName}\n- Rondas de revisión y entrega digital en Portal Miam`;
 
   const paymentAmountLabel =
     input.totalPen > 0 && (input.totalUsdMonthly || 0) > 0
